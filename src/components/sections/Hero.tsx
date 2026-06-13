@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Mic } from "lucide-react";
 import { useRef } from "react";
-import { ShaderAnimation } from "@/components/ui/shader-animation";
+import { InteractiveNebulaShader } from "@/components/ui/liquid-shader";
 
 export function Hero() {
   const reduced = useReducedMotion();
@@ -27,7 +27,7 @@ export function Hero() {
     >
       {/* Shader background */}
       <div className="absolute inset-0 -z-30 overflow-hidden" aria-hidden="true">
-        <ShaderAnimation />
+        <InteractiveNebulaShader />
       </div>
 
       {/* Dark readability overlay — fades edges to ink, keeps centre luminous */}
