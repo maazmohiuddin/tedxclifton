@@ -1,0 +1,288 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   TEDxClifton — global tokens, fonts, base layer
+   Brand: TED red (#EB0028) · off-white (#F7F7F7) · black · Inter
+   ============================================================ */
+
+/* Fonts are loaded via next/font (Inter) in layout.tsx → var(--font-inter) */
+
+/* ── Tokens ─────────────────────────────────────────────── */
+:root {
+  --khi-blue:        #EB0028;   /* TED red — primary accent */
+  --khi-blue-deep:   #B3001E;
+  --khi-blue-bright: #FF1F44;
+  --khi-blue-soft:   #FF8A9D;
+  --khi-ink:         #0A0204;   /* near-black canvas */
+  --khi-ink-soft:    #000000;
+  --gold:            #E9B872;
+  --gold-deep:       #C8912F;
+  --maroon:          #3A0A12;
+  --border-default:  rgba(255,255,255,0.08);
+  --border-strong:   rgba(255,255,255,0.16);
+  --border-blue:     rgba(235,0,40,0.30);
+  --border-blue-lit: rgba(235,0,40,0.55);
+  --fg-1: rgba(255,255,255,1);
+  --fg-2: rgba(255,255,255,0.70);
+  --fg-3: rgba(255,255,255,0.45);
+  --fg-4: rgba(255,255,255,0.30);
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html, body {
+    @apply bg-khi-ink text-white antialiased;
+    font-family: var(--font-inter), "Helvetica Neue", Arial, sans-serif;
+  }
+  body {
+    overflow-x: hidden;
+  }
+  /* smooth scroll for in-page anchors */
+  html { scroll-behavior: smooth; }
+
+  /* Headlines: Inter, tight tracking (brand spec ~ -5%) */
+  h1, h2, h3, h4 {
+    font-family: var(--font-inter), system-ui, sans-serif;
+    letter-spacing: -0.04em;
+    line-height: 1.04;
+  }
+
+  /* Visible, brand-coloured focus rings on every focusable element */
+  :focus-visible {
+    outline: 2px solid var(--khi-blue);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Reduced motion: kill ambient animations */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* The brand's signature accent: italic red word with a soft aura
+     (mirrors the "Next is Now" lockup — white text + red italic word). */
+  .kx-accent {
+    position: relative;
+    display: inline-block;
+    isolation: isolate;
+    color: var(--khi-blue);
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-style: italic;
+    font-weight: 800;
+  }
+  .kx-accent::after {
+    content: '';
+    position: absolute;
+    inset: 18% -10%;
+    background: radial-gradient(ellipse at center,
+      rgba(255,138,157,0.7) 0%,
+      rgba(235,0,40,0.42) 42%,
+      rgba(235,0,40,0.2) 70%,
+      transparent 100%);
+    filter: blur(12px);
+    opacity: 0.62;
+    z-index: -1;
+    animation: kxAura 3.2s ease-in-out infinite;
+  }
+
+  /* Gold (luxe) accent variant — sub-theme treatment */
+  .kx-accent-gold {
+    color: var(--gold);
+    background: linear-gradient(180deg, #F5D08A 0%, #E9B872 45%, #C8912F 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: italic;
+    font-weight: 800;
+  }
+
+  /* Soft glow under big headings (brand: blurred duplicate heading look) */
+  .kx-head-glow { text-shadow: 0 0 64px rgba(235,0,40,0.28); }
+
+  /* Eyebrow / section tag */
+  .kx-eyebrow {
+    @apply inline-flex items-center gap-[10px] text-[12px] font-bold uppercase text-khi-blue;
+    letter-spacing: 0.22em;
+  }
+  .kx-eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: var(--khi-blue);
+  }
+
+  /* Clamp long testimonial bodies so cards stay uniform height */
+  .kx-clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    line-clamp: 6;
+    overflow: hidden;
+  }
+
+  /* Buttons */
+  .kx-btn {
+    @apply inline-flex items-center gap-2 rounded-full font-medium leading-none transition-all duration-200 ease-soft relative overflow-hidden;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-khi-blue-bright focus-visible:ring-offset-2 focus-visible:ring-offset-khi-ink;
+  }
+  .kx-btn-primary {
+    @apply kx-btn bg-khi-blue text-white px-7 py-3.5 text-sm;
+    box-shadow: 0 6px 22px rgba(235,0,40,0.32);
+  }
+  .kx-btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
+    transform: translateX(-120%);
+    transition: transform 0.55s ease;
+    pointer-events: none;
+  }
+  .kx-btn-primary:hover:not(:disabled)::after {
+    transform: translateX(120%);
+  }
+  .kx-btn-primary:hover:not(:disabled) {
+    @apply bg-khi-blue-bright -translate-y-0.5;
+    box-shadow: 0 14px 36px rgba(235,0,40,0.5);
+  }
+  .kx-btn-primary:active:not(:disabled) {
+    transform: scale(0.97);
+    transition-duration: 0.08s;
+    box-shadow: 0 4px 14px rgba(235,0,40,0.22);
+  }
+  .kx-btn-primary:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+  .kx-btn-outline {
+    @apply kx-btn bg-transparent text-white/70 px-6 py-3 text-sm;
+    border: 1px solid var(--border-default);
+  }
+  .kx-btn-outline:hover {
+    border-color: var(--border-blue);
+    @apply text-white;
+  }
+  .kx-btn-outline:active {
+    transform: scale(0.97);
+    transition-duration: 0.08s;
+  }
+
+  /* Card */
+  .kx-card {
+    @apply rounded-2xl p-7 transition-all duration-300 ease-soft;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border-default);
+  }
+  .kx-card:hover {
+    border-color: var(--border-blue);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 48px rgba(0,0,0,0.35), 0 0 0 0.5px rgba(235,0,40,0.22);
+  }
+
+  /* CTA banner */
+  .kx-banner {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s var(--ease-soft), box-shadow 0.4s var(--ease-soft);
+  }
+  .kx-banner:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 28px 64px rgba(235,0,40,0.16);
+  }
+  .kx-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.04) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.9s ease;
+    pointer-events: none;
+  }
+  .kx-banner:hover::before {
+    transform: translateX(100%);
+  }
+
+  /* Form fields */
+  .kx-label {
+    @apply block text-[11px] font-bold uppercase text-white/30 mb-1.5;
+    letter-spacing: 0.16em;
+  }
+  .kx-input {
+    @apply w-full rounded-xl px-4 py-3.5 text-[15px] text-white bg-white/[0.04] outline-none transition-all duration-200 ease-soft;
+    border: 1px solid var(--border-default);
+    font-family: var(--font-inter), "Helvetica Neue", Arial, sans-serif;
+  }
+  .kx-input:focus {
+    border-color: var(--border-blue-lit);
+    background: rgba(235,0,40,0.06);
+    box-shadow: 0 0 0 4px rgba(235,0,40,0.12);
+  }
+  .kx-input::placeholder { @apply text-white/30; }
+
+  /* Section shells */
+  .kx-section {
+    @apply max-w-page mx-auto px-6 md:px-14 py-20 md:py-28;
+  }
+  .kx-section-flush {
+    @apply px-6 md:px-14 py-20 md:py-28;
+  }
+}
+
+/* Smooth-scroll fade-in element */
+.fade-up {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.8s var(--ease-soft), transform 0.8s var(--ease-soft);
+}
+.fade-up.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Sponsor / partner logo grid item — monochrome white, red glow on hover */
+.sponsor-logo {
+  filter: brightness(0) invert(1);
+  opacity: 0.55;
+  transition: opacity 0.25s var(--ease-soft), filter 0.25s var(--ease-soft);
+}
+.sponsor-logo:hover {
+  opacity: 1;
+  filter: brightness(0) invert(1) drop-shadow(0 0 12px rgba(235,0,40,0.6));
+}
+
+/* Custom scrollbar — brand-tinted */
+::-webkit-scrollbar              { width: 6px; height: 6px; }
+::-webkit-scrollbar-track        { background: rgba(10,2,4,0.8); }
+::-webkit-scrollbar-thumb        { background: rgba(235,0,40,0.35); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover  { background: rgba(255,31,68,0.65); }
+* { scrollbar-width: thin; scrollbar-color: rgba(235,0,40,0.35) rgba(10,2,4,0.8); }
+
+/* Skip-to-content link (a11y) */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  z-index: 200;
+  background: var(--khi-blue);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: top 0.2s var(--ease-soft);
+}
+.skip-link:focus {
+  top: 16px;
+  outline: 2px solid white;
+  outline-offset: 2px;
+}

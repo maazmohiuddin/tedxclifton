@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+  ─────────────────────────────────────────────────────────────────────────
+  TEDxClifton — standard email template
+  ─────────────────────────────────────────────────────────────────────────
+  Paste this entire file into Resend → Templates → Create Template → HTML.
+  Resend uses Handlebars-style {{variables}} — fill these when sending:
+
+    {{preheader}}      90-char inbox preview line
+    {{eyebrow}}        small all-caps label above the headline
+    {{headline}}       big H1; italic blue accent supported (see note below)
+    {{greeting}}       e.g. "Hi <strong>Alice</strong>,"   (HTML allowed)
+    {{body_html}}      main body paragraphs (HTML allowed)
+    {{cta_label}}      button text (leave empty to hide CTA)
+    {{cta_url}}        button URL
+    {{footer_note}}    small grey line at the bottom outside the card
+
+  Optional details table — repeat with Resend's {{#each details}} block:
+    details: [ { label: "Registration ID", value: "R-AB12CD34" }, ... ]
+
+  For the italic blue accent inside the headline, wrap the word with:
+    <em data-accent>confirmed.</em>
+
+  Brand assets:
+    Hosted Resend image (recommended): upload logo.png to Resend assets
+    and replace {{logo_url}} below.
+  ─────────────────────────────────────────────────────────────────────────
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta name="color-scheme" content="light dark">
+  <meta name="supported-color-schemes" content="light dark">
+  <title>{{eyebrow}} — TEDxClifton</title>
+  <style>
+    body, table, td, p { margin:0; padding:0; }
+    table, td { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
+    img { display:block; border:0; outline:none; text-decoration:none; }
+    a { text-decoration:none; }
+
+    /* Brand accent helper — works inside any heading or link */
+    a[data-accent], em[data-accent] {
+      color:#8FAFFF !important;
+      font-style:italic !important;
+      font-weight:900 !important;
+    }
+
+    @media only screen and (max-width:620px){
+      .kx-container { width:100% !important; max-width:100% !important; }
+      .kx-px        { padding-left:24px !important; padding-right:24px !important; }
+      .kx-h1        { font-size:30px !important; line-height:1.08 !important; }
+      .kx-btn       { display:block !important; width:100% !important; box-sizing:border-box !important; }
+    }
+    @media (prefers-color-scheme: dark){
+      .kx-light-bg     { background:#0c1226 !important; }
+      .kx-body-text    { color:#cdd4e8 !important; }
+      .kx-headline-dk  { color:#FFFFFF !important; }
+      .kx-divider      { border-color:#1c2540 !important; }
+      .kx-details-bg   { background:#0c1226 !important; border-color:#2a3358 !important; }
+      .kx-details-lbl  { color:#8a93b3 !important; }
+      .kx-details-val  { color:#FFFFFF !important; }
+      .kx-footer-bg    { background:#0c1226 !important; color:#7a83a0 !important; }
+    }
+  </style>
+</head>
+<body style="margin:0;padding:0;background:#02040A;color:#0F1626;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased">
+
+<!-- Hidden inbox preview -->
+<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;font-size:1px;line-height:1px;color:#02040A">{{preheader}}</div>
+
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#02040A">
+<tr><td align="center" style="padding:40px 16px">
+
+  <table role="presentation" class="kx-container" cellpadding="0" cellspacing="0" border="0" width="600"
+         style="width:600px;max-width:600px;background:#FFFFFF;border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45)">
+
+    <!-- ───────── Hero header (dark ink + blue glow) ───────── -->
+    <tr><td class="kx-px" style="background:#040B1C;
+      background-image:
+        radial-gradient(ellipse 60% 80% at 80% 0%,rgba(49,107,255,.5) 0%,rgba(4,11,28,0) 60%),
+        radial-gradient(ellipse 60% 80% at 20% 100%,rgba(49,107,255,.32) 0%,rgba(4,11,28,0) 60%);
+      padding:40px 44px 52px">
+
+      <!-- Brand lockup: blue chip + "Khinext" -->
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="padding-right:12px;vertical-align:middle">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="36" height="36" style="background:#316BFF;border-radius:10px">
+              <tr><td align="center" valign="middle" style="height:36px;width:36px;color:#fff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:900;font-size:18px;line-height:1">K</td></tr>
+            </table>
+          </td>
+          <td style="vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:20px;font-weight:700;color:#FFFFFF;letter-spacing:-0.02em">Khi<em style="color:#8FAFFF;font-style:italic;font-weight:800">next</em></td>
+        </tr>
+      </table>
+
+      <div style="margin-top:28px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#8FAFFF">{{eyebrow}}</div>
+
+      <h1 class="kx-h1" style="margin:12px 0 0;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:38px;line-height:1.04;letter-spacing:-0.03em;font-weight:900;color:#FFFFFF">
+        {{{headline}}}
+      </h1>
+    </td></tr>
+
+    <!-- ───────── Body ───────── -->
+    <tr><td class="kx-px kx-light-bg kx-body-text" style="padding:40px 44px 8px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.7;color:#2A3245;background:#FFFFFF">
+
+      {{#if greeting}}
+        <p style="margin:0 0 18px">{{{greeting}}}</p>
+      {{/if}}
+
+      <div>{{{body_html}}}</div>
+
+      <!-- Optional details box -->
+      {{#if details}}
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" class="kx-details-bg"
+             style="margin:24px 0;background:#F4F7FE;border:1px solid #DEE6FA;border-radius:12px">
+        <tr><td style="padding:18px 22px">
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px">
+            {{#each details}}
+              <tr>
+                <td class="kx-details-lbl" style="padding:6px 0;color:#6C7894;{{#unless @last}}border-bottom:1px dashed #DEE6FA{{/unless}}">{{label}}</td>
+                <td align="right" class="kx-details-val" style="padding:6px 0;color:#040B1C;font-weight:700;{{#unless @last}}border-bottom:1px dashed #DEE6FA{{/unless}}">{{value}}</td>
+              </tr>
+            {{/each}}
+          </table>
+        </td></tr>
+      </table>
+      {{/if}}
+
+      <!-- Optional CTA button -->
+      {{#if cta_label}}
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:28px 0 8px">
+        <tr><td>
+          <a href="{{cta_url}}" class="kx-btn"
+             style="display:inline-block;background:#316BFF;color:#FFFFFF;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;letter-spacing:0.01em;padding:14px 28px;border-radius:999px;text-decoration:none">{{cta_label}} →</a>
+        </td></tr>
+      </table>
+      {{/if}}
+
+      <!-- Signoff -->
+      <div class="kx-divider" style="margin-top:28px;padding-top:18px;border-top:1px solid #E4EAF6;font-size:13px;color:#6C7894">
+        {{#if signoff}}{{signoff}}{{else}}See you in Karachi,{{/if}}<br>
+        <strong class="kx-headline-dk" style="color:#040B1C">{{#if signature}}{{signature}}{{else}}The TEDxClifton Team{{/if}}</strong><br>
+        <span style="font-size:12px">Pakistan's first multi-domain AI Summit · Karachi, 7 June 2026</span>
+      </div>
+    </td></tr>
+
+    <!-- ───────── Footer chip ───────── -->
+    <tr><td class="kx-footer-bg" style="background:#F4F7FE;padding:22px 44px;text-align:center;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12px;color:#6C7894;line-height:1.6">
+      © 2026 Khinext. Pakistan's first multi-domain AI Summit.<br>
+      <span style="color:#9AA4BD">INNOVATE · INSPIRE · IMPACT</span>
+    </td></tr>
+
+  </table>
+
+  <p style="margin:24px 0 0;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:11px;color:rgba(255,255,255,.32);max-width:600px">
+    {{#if footer_note}}{{footer_note}}{{else}}You're receiving this because you interacted with TEDxClifton.{{/if}}
+  </p>
+
+</td></tr>
+</table>
+</body>
+</html>
