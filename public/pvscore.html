@@ -583,6 +583,63 @@ footer{border-top:1px solid var(--line);padding:60px 0 40px;position:relative;z-
 }
 .aw-met-val.animating{animation:metricPop .55s var(--ease) forwards}
 
+/* Live "now" scan-line on charts */
+.chart-live-wrap{position:relative;overflow:hidden}
+.scan-line{
+  position:absolute;top:0;bottom:18px;width:1.5px;
+  background:linear-gradient(to bottom,transparent,rgba(255,198,43,.7) 30%,rgba(255,198,43,.4) 70%,transparent);
+  pointer-events:none;z-index:4;
+  box-shadow:0 0 8px rgba(255,198,43,.5);
+}
+.scan-dot{
+  position:absolute;bottom:20px;width:7px;height:7px;border-radius:50%;
+  background:#ffc62b;box-shadow:0 0 12px rgba(255,198,43,.9);
+  transform:translateX(-3px);pointer-events:none;z-index:5;
+  animation:dotPulse 1.2s ease-in-out infinite;
+}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 6px rgba(255,198,43,.7)}50%{box-shadow:0 0 18px rgba(255,198,43,1),0 0 28px rgba(255,198,43,.4)}}
+
+/* Live metric flash */
+.aw-met-val.live-up  {color:#4CAF50!important;transform:translateY(-2px);transition:color .2s,transform .15s}
+.aw-met-val.live-down{color:#ef5350!important;transform:translateY(2px); transition:color .2s,transform .15s}
+.aw-met-val          {transition:color .4s,transform .3s}
+
+/* AI alert notification */
+.ai-alert-toast{
+  position:absolute;top:8px;right:8px;z-index:20;
+  background:rgba(9,19,42,.97);border:1px solid rgba(255,198,43,.35);border-radius:8px;
+  padding:8px 11px;font-family:'JetBrains Mono',monospace;font-size:9px;
+  color:#eef2fb;box-shadow:0 8px 24px rgba(0,0,0,.5);
+  display:flex;align-items:flex-start;gap:8px;width:190px;
+  opacity:0;transform:translateY(-10px) scale(.94);
+  transition:opacity .35s cubic-bezier(.16,1,.3,1),transform .35s cubic-bezier(.16,1,.3,1);
+  pointer-events:none;
+}
+.ai-alert-toast.show{opacity:1;transform:none}
+.ai-alert-icon{width:7px;height:7px;border-radius:50%;background:#ffc62b;box-shadow:0 0 8px #ffc62b;flex:none;margin-top:2px;animation:dotPulse 1.4s infinite}
+.ai-alert-body .ai-type{color:#ffc62b;letter-spacing:.12em;font-size:8.5px;margin-bottom:3px}
+.ai-alert-body .ai-msg{color:#8fa0c0;line-height:1.45;font-size:8.5px}
+.ai-alert-body .ai-stamp{color:#556080;margin-top:4px;font-size:7.5px}
+
+/* Live status bar at bottom of app windows */
+.aw-live-bar{
+  background:#0a1628;border-top:1px solid rgba(255,255,255,.07);
+  padding:4px 12px;display:flex;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace;font-size:8.5px;color:rgba(255,255,255,.4);
+}
+.aw-live-bar .lb-dot{width:5px;height:5px;border-radius:50%;background:#4CAF50;animation:dotPulse 1.6s infinite;flex:none}
+.aw-live-bar .lb-ticker{color:rgba(255,198,43,.7);letter-spacing:.08em}
+
+/* Screen-card LIVE badge */
+.sc-live-badge{
+  position:absolute;top:10px;right:10px;z-index:10;
+  background:rgba(9,19,42,.9);border:1px solid rgba(76,175,80,.4);border-radius:100px;
+  padding:3px 9px;font-family:'JetBrains Mono',monospace;font-size:8.5px;
+  color:#4CAF50;letter-spacing:.12em;display:flex;align-items:center;gap:5px;
+  backdrop-filter:blur(8px);
+}
+.sc-live-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:#4CAF50;animation:dotPulse 1.5s infinite}
+
 /* Chart canvas shimmer overlay */
 .chart-shimmer{
   position:relative;overflow:hidden;
@@ -817,14 +874,30 @@ footer{border-top:1px solid var(--line);padding:60px 0 40px;position:relative;z-
               <div class="aw-met"><div class="aw-met-label"><i class="aw-met-icon"></i>CO₂</div><div class="aw-met-val">14.03<span class="aw-met-unit">TON</span></div></div>
               <div class="aw-met" style="border-right:none"><div class="aw-met-label"><i class="aw-met-icon"></i>Income</div><div class="aw-met-val">3,132<span class="aw-met-unit">PKR</span></div></div>
             </div>
-            <div class="aw-chart-wrap">
+            <div class="aw-chart-wrap chart-live-wrap" id="prodChartWrap">
               <div class="aw-chart-title">Production Chart</div>
               <canvas id="prodChart" height="108" style="width:100%;display:block"></canvas>
+              <div id="prodScanLine" class="scan-line" style="left:0"></div>
+              <div id="prodScanDot"  class="scan-dot"  style="left:0"></div>
               <div class="aw-legend">
                 <div class="aw-leg-item"><div class="aw-leg-line" style="background:#4CAF50"></div>Energy (kWh)</div>
                 <div class="aw-leg-item"><div class="aw-leg-line" style="background:#FF9800"></div>Irradiance (Wh/m²)</div>
                 <div class="aw-leg-item"><div class="aw-leg-line" style="background:#f44336"></div>Temperature (°C)</div>
               </div>
+            </div>
+            <!-- AI alert toast -->
+            <div class="ai-alert-toast" id="heroAlertToast">
+              <div class="ai-alert-icon"></div>
+              <div class="ai-alert-body">
+                <div class="ai-type">AI ALERT</div>
+                <div class="ai-msg" id="heroAlertMsg">String 14 underperforming — 18% below expected.</div>
+                <div class="ai-stamp" id="heroAlertStamp">Just now · INV03-MPPT2</div>
+              </div>
+            </div>
+            <div class="aw-live-bar">
+              <span class="lb-dot"></span>
+              <span>LIVE</span>
+              <span class="lb-ticker" id="liveTicker">Data feed active · 1s refresh</span>
             </div>
           </div>
         </div>
@@ -911,6 +984,7 @@ footer{border-top:1px solid var(--line);padding:60px 0 40px;position:relative;z-
     <div class="screen-grid stagger">
       <!-- String Currents -->
       <div class="screen-card">
+        <div class="sc-live-badge">LIVE</div>
         <div class="app-win">
           <div class="aw-nav">
             <div class="aw-nav-logo"><svg width="18" height="10" viewBox="0 0 44 22" style="flex:none"><circle cx="11" cy="11" r="7.5" fill="none" stroke="#ffc62b" stroke-width="4.2" stroke-linecap="round" stroke-dasharray="5.5 42.4" transform="rotate(150,11,11)"/><circle cx="11" cy="11" r="7.5" fill="none" stroke="#ffc62b" stroke-width="4.2" stroke-linecap="round" stroke-dasharray="5.5 42.4" transform="rotate(249,11,11)"/><circle cx="11" cy="11" r="7.5" fill="none" stroke="#ffc62b" stroke-width="4.2" stroke-linecap="round" stroke-dasharray="5.5 42.4" transform="rotate(348,11,11)"/></svg>PVSCORE</div>
@@ -926,8 +1000,10 @@ footer{border-top:1px solid var(--line);padding:60px 0 40px;position:relative;z-
           </div>
           <div class="aw-datebar"><span>04-01-2026</span><span>← →</span></div>
           <div class="aw-devsel">Device Selection (7 selected)</div>
-          <div class="aw-str-wrap">
+          <div class="aw-str-wrap chart-live-wrap" id="strWrap">
             <div class="aw-str-title">String Currents</div>
+            <div id="strScanLine" class="scan-line" style="left:0"></div>
+            <div id="strScanDot"  class="scan-dot"  style="left:0"></div>
             <canvas id="strCurrCanvas" height="150" style="width:100%;display:block"></canvas>
             <div class="aw-legend" style="margin-top:6px;flex-wrap:wrap;max-height:30px;overflow:hidden">
               <div class="aw-leg-item"><div class="aw-leg-line" style="background:#e53935"></div>INV01-MPPT1</div>
@@ -941,6 +1017,7 @@ footer{border-top:1px solid var(--line);padding:60px 0 40px;position:relative;z-
 
       <!-- Inverter 2x2 charts (main center card) -->
       <div class="screen-card screen-card--main">
+        <div class="sc-live-badge">LIVE</div>
         <div class="app-win">
           <div class="aw-nav">
             <div class="aw-nav-logo"><svg width="18" height="10" viewBox="0 0 44 22" style="flex:none"><circle cx="11" cy="11" r="7.5" fill="none" stroke="#ffc62b" stroke-width="4.2" stroke-linecap="round" stroke-dasharray="5.5 42.4" transform="rotate(150,11,11)"/><circle cx="11" cy="11" r="7.5" fill="none" stroke="#ffc62b" stroke-width="4.2" stroke-linecap="round" stroke-dasharray="5.5 42.4" transform="rotate(249,11,11)"/><circle cx="11" cy="11" r="7.5" fill="none" stroke="#ffc62b" stroke-width="4.2" stroke-linecap="round" stroke-dasharray="5.5 42.4" transform="rotate(348,11,11)"/></svg>PVSCORE</div>
@@ -968,6 +1045,7 @@ footer{border-top:1px solid var(--line);padding:60px 0 40px;position:relative;z-
 
       <!-- String Production Heatmap -->
       <div class="screen-card">
+        <div class="sc-live-badge">LIVE</div>
         <div class="app-win">
           <div class="aw-nav">
             <div class="aw-nav-logo"><svg width="18" height="10" viewBox="0 0 44 22" style="flex:none"><circle cx="11" cy="11" r="7.5" fill="none" stroke="#ffc62b" stroke-width="4.2" stroke-linecap="round" stroke-dasharray="5.5 42.4" transform="rotate(150,11,11)"/><circle cx="11" cy="11" r="7.5" fill="none" stroke="#ffc62b" stroke-width="4.2" stroke-linecap="round" stroke-dasharray="5.5 42.4" transform="rotate(249,11,11)"/><circle cx="11" cy="11" r="7.5" fill="none" stroke="#ffc62b" stroke-width="4.2" stroke-linecap="round" stroke-dasharray="5.5 42.4" transform="rotate(348,11,11)"/></svg>PVSCORE</div>
@@ -1322,6 +1400,195 @@ footer{border-top:1px solid var(--line);padding:60px 0 40px;position:relative;z-
       if(base>99.1)dir=-1; if(base<98.4)dir=1;
       uptimeEl.textContent=base.toFixed(1);
     },1800);
+  }
+
+  /* ── Scan-line animator ── */
+  function startScanLine(lineId, dotId, wrapId, padLeft, chartRightRatio, cycleDur) {
+    if(reduce) return;
+    const line = document.getElementById(lineId);
+    const dot  = document.getElementById(dotId);
+    const wrap = document.getElementById(wrapId);
+    if(!line || !dot || !wrap) return;
+    let startT = null;
+    (function tick(t) {
+      if(!startT) startT = t;
+      const elapsed = (t - startT) % cycleDur;
+      const prog = elapsed / cycleDur;
+      const W = wrap.offsetWidth;
+      const left = padLeft + prog * (W * chartRightRatio - padLeft);
+      line.style.left = left + 'px';
+      dot.style.left  = left + 'px';
+      requestAnimationFrame(tick);
+    })(performance.now());
+  }
+
+  /* ── Live hero metric ticker ── */
+  if(!reduce) {
+    const metDefs = [
+      {id:'heroMetPR',  base:77.7, range:.8, dec:1, suffix:'%'},
+      {id:'heroMetKwh', base:23555, range:80, dec:0, suffix:'kWh'},
+      {id:'heroMetAvl', base:100,  range:0,  dec:0, suffix:'%'},
+      {id:'heroMetCo2', base:14.03, range:.05, dec:2, suffix:'TON'},
+    ];
+    const metEls = [];
+    // Map to actual DOM spans inside aw-met-val
+    const allMets = document.querySelectorAll('#prodChartWrap').length
+      ? document.querySelector('.hero-frame .aw-metrics')
+      : null;
+    if(allMets) {
+      const vals = allMets.querySelectorAll('.aw-met-val');
+      const bases = [77.7, 23555, 31924, 100, 14.03, 3132];
+      const ranges = [0.5,  60,    120,   0,   0.03,  8];
+      const decs =   [1,    0,     0,     0,   2,     0];
+      let metVals = bases.slice();
+      setInterval(() => {
+        vals.forEach((el, i) => {
+          if(ranges[i] === 0) return;
+          const prev = metVals[i];
+          metVals[i] = Math.max(bases[i] - ranges[i], Math.min(bases[i] + ranges[i],
+            metVals[i] + (Math.random() - .48) * ranges[i] * .4));
+          const up = metVals[i] >= prev;
+          // Flash the numeric part only
+          const numSpan = el.querySelector('span') || el;
+          const numPart = decs[i] > 0 ? metVals[i].toFixed(decs[i])
+                        : i === 1 ? Math.round(metVals[i]).toLocaleString()
+                        : Math.round(metVals[i]).toString();
+          // Update text node (keep unit span if present)
+          const unit = el.querySelector('.aw-met-unit');
+          if(unit) {
+            el.childNodes[0].nodeValue = numPart;
+          } else {
+            el.textContent = numPart;
+          }
+          el.classList.remove('live-up','live-down');
+          void el.offsetWidth;
+          el.classList.add(up ? 'live-up' : 'live-down');
+          setTimeout(() => el.classList.remove('live-up','live-down'), 600);
+        });
+      }, 2200);
+    }
+  }
+
+  /* ── Live ticker text ── */
+  if(!reduce) {
+    const ticker = document.getElementById('liveTicker');
+    const msgs = [
+      'Data feed active · 1s refresh',
+      'Syncing INV03 · 7 devices online',
+      'AI analysis running · 0 faults',
+      'PR computed · corrected 79.1%',
+      'String scan complete · nominal',
+    ];
+    let ti = 0;
+    if(ticker) setInterval(() => {
+      ti = (ti + 1) % msgs.length;
+      ticker.textContent = msgs[ti];
+    }, 3500);
+  }
+
+  /* ── AI Alert toast cycle ── */
+  if(!reduce) {
+    const toast = document.getElementById('heroAlertToast');
+    const msg   = document.getElementById('heroAlertMsg');
+    const stamp = document.getElementById('heroAlertStamp');
+    const alerts = [
+      {m:'String 14 underperforming — 18% below expected.', s:'Just now · INV03-MPPT2'},
+      {m:'Soiling detected on INV05 strings — PR −3.2%.', s:'2 min ago · INV05-MPPT1'},
+      {m:'Inverter efficiency recovered after fault clear.', s:'Just now · INV01'},
+      {m:'Temperature spike on INV02 — 68 °C threshold.', s:'1 min ago · INV02-MPPT3'},
+      {m:'Auto-ticket #1847 created for string anomaly.', s:'Just now · System'},
+    ];
+    let ai = 0;
+    function showAlert() {
+      if(!toast) return;
+      msg.textContent   = alerts[ai].m;
+      stamp.textContent = alerts[ai].s;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4200);
+      ai = (ai + 1) % alerts.length;
+    }
+    setTimeout(showAlert, 2800);
+    setInterval(showAlert, 7000);
+  }
+
+  /* ── Live production chart: rolling window ── */
+  // The prodChart animates on load then enters live-scroll mode
+  // We store points and push new ones every 800ms
+  const livePhaseState = {phase: 0, pts: []};
+  function startLiveProdScroll() {
+    if(reduce) return;
+    const cv = document.getElementById('prodChart'); if(!cv) return;
+    const N = 120; // visible data points
+    // Seed with static bell values (current "day" = 12:00 peak context)
+    for(let i = 0; i < N; i++) {
+      const h = 6 + i * (12 / N);
+      livePhaseState.pts.push(pvBell(h, 620) / 900);
+    }
+    function redrawLive() {
+      cv.width = cv.parentElement.offsetWidth || cv.offsetWidth || 480;
+      const W = cv.width, H = cv.height, ctx = cv.getContext('2d');
+      const pad = {t:6,r:6,b:18,l:36}, pts = livePhaseState.pts;
+      const cW = W-pad.l-pad.r, cH = H-pad.t-pad.b;
+      ctx.clearRect(0,0,W,H);
+      // Grid
+      ctx.strokeStyle='#efefef';ctx.lineWidth=1;
+      [{v:.25,label:'200k'},{v:.5,label:'400k'},{v:.75,label:'600k'},{v:1,label:'800k'}].forEach(({v,label})=>{
+        const py=pad.t+cH*(1-v);
+        ctx.beginPath();ctx.moveTo(pad.l,py);ctx.lineTo(pad.l+cW,py);ctx.stroke();
+        ctx.fillStyle='#bbb';ctx.font='8px sans-serif';ctx.textAlign='right';ctx.fillText(label,pad.l-2,py+3);
+      });
+      // Energy line with glow
+      const drawLiveLine = (color, fn, glow) => {
+        const grad = ctx.createLinearGradient(0, 0, 0, H);
+        grad.addColorStop(0, color.replace(')',',0.18)').replace('rgb','rgba'));
+        grad.addColorStop(1, color.replace(')',',0)').replace('rgb','rgba'));
+        // Fill
+        ctx.beginPath();
+        ctx.moveTo(pad.l, pad.t+cH);
+        for(let i=0;i<N;i++) {
+          const x=pad.l+(i/(N-1))*cW, y=pad.t+cH-fn(i)*cH;
+          i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+        }
+        ctx.lineTo(pad.l+cW,pad.t+cH);ctx.closePath();
+        ctx.fillStyle=grad;ctx.fill();
+        // Stroke
+        ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=1.6;
+        if(glow){ctx.shadowColor=color;ctx.shadowBlur=6;}
+        for(let i=0;i<N;i++){
+          const x=pad.l+(i/(N-1))*cW,y=pad.t+cH-fn(i)*cH;
+          i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+        }
+        ctx.stroke();ctx.shadowBlur=0;
+        // Live dot at right edge
+        if(glow){
+          const lx=pad.l+cW, ly=pad.t+cH-fn(N-1)*cH;
+          ctx.beginPath();ctx.arc(lx,ly,3.5,0,Math.PI*2);
+          ctx.fillStyle=color;ctx.shadowColor=color;ctx.shadowBlur=10;ctx.fill();ctx.shadowBlur=0;
+        }
+      };
+      drawLiveLine('#4CAF50', i => pts[i], true);
+      // Irradiance — slightly offset version
+      drawLiveLine('#FF9800', i => Math.min(pts[i]*1.18,1), false);
+      // Temperature flat-ish line
+      const tempBase = 0.17;
+      drawLiveLine('#f44336', i => tempBase + Math.sin(i*0.12)*0.03, false);
+      // Time labels
+      ctx.fillStyle='#bbb';ctx.font='8.5px sans-serif';ctx.textAlign='center';
+      ['06:00','09:00','12:00'].forEach((l,i)=>{
+        const x=pad.l+(i/2)*cW;ctx.fillText(l,x,H-3);
+      });
+    }
+    redrawLive();
+    // Push new point every 800ms → creates scrolling effect
+    setInterval(() => {
+      livePhaseState.phase += 0.05;
+      const last = livePhaseState.pts[livePhaseState.pts.length-1];
+      const noise = (Math.random()-.48)*0.015;
+      const newVal = Math.max(0, Math.min(1, last + noise + Math.sin(livePhaseState.phase*.3)*.006));
+      livePhaseState.pts.shift();
+      livePhaseState.pts.push(newVal);
+      redrawLive();
+    }, 800);
   }
 
   /* ====== APP WINDOW CHART RENDERERS ====== */
@@ -1680,14 +1947,26 @@ footer{border-top:1px solid var(--line);padding:60px 0 40px;position:relative;z-
   }
 
   // Init all charts (on DOM load + resize)
+  let liveStarted = false;
   function initAllAppCharts(animated){
     if(animated){
-      initProdChartAnimated();
+      // Draw initial static charts first, then start live scroll for prod
+      initProdChart();
       drawInvBellAnimated('invPowerCanvas',[95000,88000,92000,78000,85000,91000,72000],200000,50000);
       drawInvBellAnimated('invPowerCanvas2',[95000,88000,92000,78000,85000,91000,72000],200000,50000);
       setTimeout(()=>drawHeatmapAnimated('hmCanvas'),300);
       setTimeout(()=>drawHeatmapAnimated('hmFullCanvas'),500);
       animateAppMetrics();
+      // Start live effects once initial draw is done
+      if(!liveStarted) {
+        liveStarted = true;
+        setTimeout(()=>{
+          startLiveProdScroll();
+          // Scan lines
+          startScanLine('prodScanLine','prodScanDot','prodChartWrap',36,0.92,14000);
+          startScanLine('strScanLine','strScanDot','strWrap',28,0.94,11000);
+        }, 1400);
+      }
     } else {
       initProdChart();
       drawInvBell('invPowerCanvas',[95000,88000,92000,78000,85000,91000,72000],200000,50000);
