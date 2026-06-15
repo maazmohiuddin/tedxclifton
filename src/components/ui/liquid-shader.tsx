@@ -85,8 +85,8 @@ export function InteractiveNebulaShader({
       }
 
       void mainImage(out vec4 O, in vec2 fragCoord) {
-        vec2 uv = fragCoord / min(iResolution.x, iResolution.y) - vec2(.9, .5);
-        uv.x += .4;
+        // centre the nebula on screen
+        vec2 uv = (fragCoord - 0.5 * iResolution) / min(iResolution.x, iResolution.y);
         // subtle parallax toward the cursor
         uv += (iMouse / iResolution - 0.5) * 0.12;
         vec3 col = vec3(0.0);
@@ -105,9 +105,9 @@ export function InteractiveNebulaShader({
             : hasUpcomingReminders
             // gold
             ? vec3(0.12, 0.06, 0.02) + vec3(6.0, 4.2, 1.3) * f
-            // default: red core ember → gold as intensity rises
-            : vec3(0.10, 0.012, 0.025)
-              + mix(vec3(6.0, 1.0, 0.7), vec3(6.5, 4.2, 1.4), clamp(f, 0.0, 1.0)) * f;
+            // default: red core ember → strong gold accent as intensity rises
+            : vec3(0.11, 0.012, 0.022)
+              + mix(vec3(6.0, 0.9, 0.45), vec3(7.0, 4.8, 1.5), clamp(f * 1.45, 0.0, 1.0)) * f;
 
           col = col * base + smoothstep(2.5, 0.0, rz) * 0.7 * base;
           d += min(rz, 1.0);
