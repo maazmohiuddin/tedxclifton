@@ -324,40 +324,44 @@ function PhotoCollageSection() {
 // ─── Speakers (circular photo cards, Figma style) ────────────────────────────
 
 const V1_SPEAKERS = [
-  { slug: "erica-robin", name: "Erica Robin" },
-  { slug: "sara-gill", name: "Sara Gill" },
-  { slug: "saad-allahwala", name: "Saad Allahwala" },
-  { slug: "dr-ahson", name: "Dr. Ahson" },
-  { slug: "umair-masoom", name: "Umair Masoom" },
-  { slug: "syed-zafar-abbas", name: "Syed Zafar Abbas" },
-  { slug: "dr-affan-qaiser", name: "Dr. Affan Qaiser" },
-  { slug: "huma-rehan-mirza", name: "Huma Rehan Mirza" },
-  { slug: "noman-siddiq", name: "Noman Siddiq" },
-  { slug: "muhammad-shariq-waqqar", name: "Muhammad Shariq Waqqar" },
-  { slug: "wasif-khan", name: "Wasif Khan" },
-  { slug: "rabeel-warraich", name: "Rabeel Warraich" },
+  { file: "Dr. Affan Qaisar.png", name: "Dr. Affan Qaisar" },
+  { file: "Dr. Ahson.png", name: "Dr. Ahson" },
+  { file: "Erica Robin.png", name: "Erica Robin" },
+  { file: "Habib Elahi.png", name: "Habib Elahi" },
+  { file: "Huma Rehan Mirza.png", name: "Huma Rehan Mirza" },
+  { file: "Karim Teli.png", name: "Karim Teli" },
+  { file: "Mehwish Ali.png", name: "Mehwish Ali" },
+  { file: "Muhammad Shari Waqar.png", name: "Muhammad Shari Waqar" },
+  { file: "Noman Siddique.png", name: "Noman Siddique" },
+  { file: "Rabeel Warraich.png", name: "Rabeel Warraich" },
+  { file: "Saad Allahwala.png", name: "Saad Allahwala" },
+  { file: "Saif Ali.png", name: "Saif Ali" },
+  { file: "Sara Gill.png", name: "Sara Gill" },
+  { file: "Syed Zafar Abbas.png", name: "Syed Zafar Abbas" },
+  { file: "Umair Masoom.png", name: "Umair Masoom" },
+  { file: "Wasif Khan.png", name: "Wasif Khan" },
 ];
 
 const V2_SPEAKERS = [
-  { slug: "nusair-teli", name: "Nusair Teli" },
-  { slug: "brig-tarique-lakhiar", name: "Brig. Tarique Lakhiar" },
-  { slug: "zonash-warriach", name: "Zonash Warriach" },
-  { slug: "sara-ali", name: "Sara Ali" },
-  { slug: "hamza-ibrahim", name: "Hamza Ibrahim" },
-  { slug: "iqbal-shaikh", name: "Iqbal Shaikh" },
-  { slug: "muddabbir-ali", name: "Muddabbir Ali" },
-  { slug: "ali-khan", name: "Ali Khan" },
-  { slug: "mehboob-shar", name: "Mehboob Shar" },
-  { slug: "maryam-ali", name: "Maryam Ali" },
-  { slug: "humna-altamash", name: "Humna Altamash" },
-  { slug: "muhammad-waqas", name: "Muhammad Waqas" },
-  { slug: "oliver-bennett", name: "Oliver Bennett" },
-  { slug: "khushnood-aftab", name: "Khushnood Aftab" },
+  { file: "Ali Khjan.png", name: "Ali Khan" },
+  { file: "Brig. Tarique Lakhiar.png", name: "Brig. Tarique Lakhiar" },
+  { file: "Hamza Ibrahim.png", name: "Hamza Ibrahim" },
+  { file: "Humna Altamash.png", name: "Humna Altamash" },
+  { file: "Iqbal Sheikh.png", name: "Iqbal Sheikh" },
+  { file: "Khushnood Aftab.png", name: "Khushnood Aftab" },
+  { file: "Maryam Ali.png", name: "Maryam Ali" },
+  { file: "Mehboob Shae.png", name: "Mehboob Shar" },
+  { file: "Muddabir Ali.png", name: "Muddabir Ali" },
+  { file: "Muhammad Waqas.png", name: "Muhammad Waqas" },
+  { file: "Nusair Teli.png", name: "Nusair Teli" },
+  { file: "Oliver Benette.png", name: "Oliver Bennett" },
+  { file: "Sara Ali.png", name: "Sara Ali" },
+  { file: "Zonash Warraich.png", name: "Zonash Warraich" },
 ];
 
 function SpeakerBadge({
-  slug, name, dir, index,
-}: { slug: string; name: string; dir: string; index: number }) {
+  file, name, folder, index,
+}: { file: string; name: string; folder: string; index: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20, scale: 0.9 }}
@@ -371,7 +375,7 @@ function SpeakerBadge({
       <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-2 ring-[#e62b1e]/60 shadow-lg shadow-black/50">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={`/speakers/${dir}/${slug}.png`}
+          src={`/Speaker/${encodeURIComponent(folder)}/${encodeURIComponent(file)}`}
           alt={name}
           className="h-full w-full object-cover object-top select-none"
           draggable={false}
@@ -387,8 +391,8 @@ function SpeakerBadge({
 }
 
 function SpeakersSection({
-  version, speakers, dir, bg,
-}: { version: string; speakers: typeof V1_SPEAKERS; dir: string; bg: string }) {
+  version, speakers, folder, bg,
+}: { version: string; speakers: typeof V1_SPEAKERS; folder: string; bg: string }) {
   return (
     <section className={`${bg} py-24 px-6`}>
       <div className="mx-auto max-w-4xl">
@@ -410,7 +414,7 @@ function SpeakersSection({
           </div>
           <div className="relative z-10 flex flex-wrap justify-center gap-6">
             {speakers.map((s, i) => (
-              <SpeakerBadge key={s.slug} {...s} dir={dir} index={i} />
+              <SpeakerBadge key={s.file} {...s} folder={folder} index={i} />
             ))}
           </div>
         </div>
@@ -1157,8 +1161,8 @@ export function ProposalViewer() {
         <AboutSection />
         <LastEventSection />
         <PhotoCollageSection />
-        <SpeakersSection version="1.0" speakers={V1_SPEAKERS} dir="v1" bg="bg-[#070103]" />
-        <SpeakersSection version="2.0" speakers={V2_SPEAKERS} dir="v2" bg="bg-[#0a0102]" />
+        <SpeakersSection version="1.0" speakers={V1_SPEAKERS} folder="Speaker 1.0" bg="bg-[#070103]" />
+        <SpeakersSection version="2.0" speakers={V2_SPEAKERS} folder="Speaker 2.0" bg="bg-[#0a0102]" />
         <BecomeASponsorSection />
         <FormerPartnersSection />
         <ThemeSection />
