@@ -761,40 +761,13 @@ function BecomeASponsorSection() {
   );
 }
 
-// ─── Former Partners — dual marquee ───────────────────────────────────────────
+// ─── Former Partners — single marquee ────────────────────────────────────────
 
 const PARTNER_COUNT = 20;
 
-function PartnersMarquee({ reverse = false }: { reverse?: boolean }) {
-  return (
-    <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-      <motion.div
-        className="flex gap-4 w-max"
-        animate={{ x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
-        transition={{ repeat: Infinity, duration: 38, ease: "linear" }}
-      >
-        {Array.from({ length: PARTNER_COUNT * 2 }, (_, i) => {
-          const n = String((i % PARTNER_COUNT) + 1).padStart(2, "0");
-          return (
-            <motion.div
-              key={i}
-              whileHover={{ scale: 1.12, backgroundColor: "rgba(255,255,255,0.08)" }}
-              className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-white/[0.04] p-2.5 ring-1 ring-white/8 transition-colors duration-300 cursor-default"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`/partners-logos/partner-${n}.png`} alt={`Partner ${(i % PARTNER_COUNT) + 1}`}
-                className="h-full w-full object-contain select-none" draggable={false} />
-            </motion.div>
-          );
-        })}
-      </motion.div>
-    </div>
-  );
-}
-
 function FormerPartnersSection() {
   return (
-    <section className="bg-[#070103] py-28 px-0 overflow-hidden">
+    <section className="bg-[#070103] py-28 overflow-hidden">
       <div className="mx-auto max-w-5xl px-6 mb-12">
         <h2 className="font-display text-4xl font-black mb-3 md:text-5xl">
           <AnimatedWords text="Former Partners" />
@@ -803,9 +776,33 @@ function FormerPartnersSection() {
           <p className="text-sm text-white/40">Brands that believed in us before the world was watching.</p>
         </Reveal>
       </div>
-      <div className="space-y-4">
-        <PartnersMarquee />
-        <PartnersMarquee reverse />
+
+      {/* single infinite marquee row */}
+      <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
+        <motion.div
+          className="flex gap-6 w-max"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
+        >
+          {Array.from({ length: PARTNER_COUNT * 2 }, (_, i) => {
+            const n = String((i % PARTNER_COUNT) + 1).padStart(2, "0");
+            return (
+              <motion.div
+                key={i}
+                whileHover={{ scale: 1.08, backgroundColor: "rgba(255,255,255,0.07)" }}
+                className="flex h-20 w-36 shrink-0 items-center justify-center rounded-2xl bg-white/[0.04] px-5 py-3 ring-1 ring-white/8 transition-colors duration-300 cursor-default"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`/partners-logos/partner-${n}.png`}
+                  alt={`Partner ${(i % PARTNER_COUNT) + 1}`}
+                  className="max-h-full max-w-full object-contain select-none"
+                  draggable={false}
+                />
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );
