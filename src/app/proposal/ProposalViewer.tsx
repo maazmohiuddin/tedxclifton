@@ -69,16 +69,18 @@ function AnimatedWords({
   return (
     <span ref={ref} className={className}>
       {words.map((word, i) => (
-        <span key={i} className="inline-block overflow-hidden leading-[1.15]">
-          <motion.span
-            className="inline-block"
-            initial={reduced ? false : { y: "110%", opacity: 0 }}
-            animate={inView ? { y: "0%", opacity: 1 } : {}}
-            transition={{ duration: 0.72, delay: delay + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {word}
-          </motion.span>
-          {i < words.length - 1 && " "}
+        <span key={i} className="inline-block">
+          <span className="inline-block overflow-hidden leading-[1.15]">
+            <motion.span
+              className="inline-block"
+              initial={reduced ? false : { y: "110%", opacity: 0 }}
+              animate={inView ? { y: "0%", opacity: 1 } : {}}
+              transition={{ duration: 0.72, delay: delay + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {word}
+            </motion.span>
+          </span>
+          {i < words.length - 1 && <span> </span>}
         </span>
       ))}
     </span>
@@ -369,10 +371,10 @@ function HeroSection() {
           </motion.div>
         </motion.div>
 
-        <h1 className="font-display font-black leading-[0.92] tracking-tight" style={{ fontSize: "clamp(3.5rem,13vw,9rem)" }}>
+        <h1 className="font-display font-light leading-[0.92] tracking-tight" style={{ fontSize: "clamp(3.5rem,13vw,9rem)" }}>
           <AnimatedWords text="Next is" className="text-white" delay={0.4} />
           {" "}
-          <AnimatedWords text="Now" className="text-[#e62b1e] italic" delay={0.7} />
+          <AnimatedWords text="Now" className="font-black text-[#e62b1e] italic" delay={0.7} />
         </h1>
 
         <motion.div
@@ -500,7 +502,7 @@ function AboutSection() {
         >
           The Movement
         </motion.div>
-        <h2 className="font-display text-4xl font-black md:text-5xl">
+        <h2 className="font-display text-4xl font-light md:text-5xl">
           <AnimatedWords text="About TEDx" />
         </h2>
         <Reveal delay={0.12} className="mt-7 space-y-4 text-sm leading-relaxed text-white/65">
@@ -544,7 +546,7 @@ function LastEventSection() {
           transition={{ duration: 0.5 }} className="mb-3 text-[11px] font-bold uppercase tracking-[0.35em] text-[#e62b1e]">
           Breaking Boundaries
         </motion.div>
-        <h2 className="font-display text-4xl font-black md:text-5xl">
+        <h2 className="font-display text-4xl font-light md:text-5xl">
           <AnimatedWords text="Our Last Event" />
         </h2>
         <Reveal delay={0.06} className="mt-2 text-sm font-medium text-white/40 tracking-wide">
@@ -681,7 +683,7 @@ function SpeakersSection({ version, speakers, folder, bg }: { version: string; s
           transition={{ duration: 0.5 }} className="mb-2 text-[11px] font-bold uppercase tracking-[0.35em] text-[#e62b1e]">
           Breaking Boundaries
         </motion.div>
-        <h2 className="font-display text-4xl font-black mb-14 md:text-5xl">
+        <h2 className="font-display text-4xl font-light mb-14 md:text-5xl">
           <AnimatedWords text={`TEDxClifton ${version} Speakers`} />
         </h2>
         <div className="relative">
@@ -717,10 +719,10 @@ function BecomeASponsorSection() {
           transition={{ duration: 0.5 }} className="mb-3 text-[11px] font-bold uppercase tracking-[0.35em] text-[#e62b1e]">
           Partnership
         </motion.div>
-        <h2 className="font-display text-4xl font-black leading-tight md:text-5xl">
+        <h2 className="font-display text-4xl font-light leading-tight md:text-5xl">
           <AnimatedWords text="Become a Sponsor" />
           <br />
-          <AnimatedWords text="for TEDxClifton 3.0" delay={0.22} className="text-[#e62b1e]" />
+          <AnimatedWords text="for TEDxClifton 3.0" delay={0.22} className="font-black text-[#e62b1e]" />
         </h2>
 
         <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
@@ -768,7 +770,7 @@ function FormerPartnersSection() {
   return (
     <section className="bg-[#070103] py-28 overflow-hidden">
       <div className="mx-auto max-w-5xl px-6 mb-12">
-        <h2 className="font-display text-4xl font-black mb-3 md:text-5xl">
+        <h2 className="font-display text-4xl font-light mb-3 md:text-5xl">
           <AnimatedWords text="Former Partners" />
         </h2>
         <Reveal delay={0.1}>
@@ -817,12 +819,12 @@ function ThemeSection() {
           transition={{ duration: 0.5 }} className="mb-3 text-[11px] font-bold uppercase tracking-[0.35em] text-[#e62b1e]">
           TEDxClifton 3.0
         </motion.div>
-        <h2 className="font-display text-4xl font-black leading-tight md:text-5xl">
+        <h2 className="font-display text-4xl font-light leading-tight md:text-5xl">
           <AnimatedWords text="Next Is Now —" />
           <br />
           <AnimatedWords text="Ideas Shaping the World" delay={0.28} />
           <br />
-          <AnimatedWords text="Before It Arrives" delay={0.54} className="text-[#e62b1e]" />
+          <AnimatedWords text="Before It Arrives" delay={0.54} className="font-black text-[#e62b1e]" />
         </h2>
 
         <Reveal delay={0.12} className="mt-9 space-y-4 text-sm leading-relaxed text-white/65">
@@ -832,7 +834,7 @@ function ThemeSection() {
         </Reveal>
 
         <Reveal delay={0.2} className="mt-14">
-          <h3 className="font-display text-2xl font-black mb-6">What <span className="text-[#e62b1e]">"Next Is Now"</span> Means</h3>
+          <h3 className="font-display text-2xl font-light mb-6">What <span className="font-black text-[#e62b1e]">"Next Is Now"</span> Means</h3>
           <StaggerList items={[
             "AI is rewriting intelligence.",
             "Climate innovation is redefining survival.",
@@ -862,7 +864,7 @@ function WhyMattersSection() {
     <section className="bg-[#070103] py-28 px-6">
       <div className="mx-auto max-w-3xl space-y-20">
         <div>
-          <h2 className="font-display text-4xl font-black md:text-5xl">
+          <h2 className="font-display text-4xl font-light md:text-5xl">
             <AnimatedWords text="Why This Matters Now" />
           </h2>
           <Reveal delay={0.12} className="mt-6 space-y-3 text-sm leading-relaxed text-white/65">
@@ -896,7 +898,7 @@ function WhyMattersSection() {
 
         <Reveal direction="scale">
           <GlowCard className="rounded-2xl border border-[#e62b1e]/25 bg-[#e62b1e]/5 p-8">
-            <h3 className="font-display text-2xl font-black mb-3">The <span className="text-[#e62b1e]">Legacy</span> Continues</h3>
+            <h3 className="font-display text-2xl font-light mb-3">The <span className="font-black text-[#e62b1e]">Legacy</span> Continues</h3>
             <p className="text-sm text-white/60 leading-relaxed">After previous editions positioned TEDxClifton among the most impactful TEDx experiences globally, 3.0 is not an upgrade — it's an acceleration. This is where future narratives are not announced; they are experienced.</p>
           </GlowCard>
         </Reveal>
@@ -923,7 +925,7 @@ function WhyPartnerSection() {
   return (
     <section className="bg-[#0a0102] py-28 px-6">
       <div className="mx-auto max-w-3xl">
-        <h2 className="font-display text-3xl font-black leading-tight md:text-4xl">
+        <h2 className="font-display text-3xl font-light leading-tight md:text-4xl">
           <AnimatedWords text="Why Partner with TEDxClifton 3.0?" />
         </h2>
         <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -1014,9 +1016,9 @@ function AudienceSection() {
   return (
     <section className="bg-[#070103] py-28 px-6">
       <div className="mx-auto max-w-3xl">
-        <h2 className="font-display text-4xl font-black mb-14 md:text-5xl">
+        <h2 className="font-display text-4xl font-light mb-14 md:text-5xl">
           <AnimatedWords text="Our Targeted" />{" "}
-          <AnimatedWords text="Audience" className="text-[#e62b1e]" delay={0.28} />
+          <AnimatedWords text="Audience" className="font-black text-[#e62b1e]" delay={0.28} />
         </h2>
         <DonutChart />
       </div>
@@ -1034,9 +1036,9 @@ function TeamSection() {
   return (
     <section ref={ref} className="bg-[#0a0102] py-24 px-6 overflow-hidden">
       <div className="mx-auto max-w-3xl">
-        <h2 className="font-display text-4xl font-black mb-10 md:text-5xl">
+        <h2 className="font-display text-4xl font-light mb-10 md:text-5xl">
           <AnimatedWords text="Team Behind" />{" "}
-          <AnimatedWords text="TEDxClifton" className="text-[#e62b1e]" delay={0.22} />
+          <AnimatedWords text="TEDxClifton" className="font-black text-[#e62b1e]" delay={0.22} />
         </h2>
         <Reveal delay={0.1}>
           <motion.div
@@ -1137,7 +1139,7 @@ function TierCard({ tier, index }: { tier: (typeof TIERS)[number]; index: number
           />
           <div className="relative z-10">
             <div className="flex flex-wrap items-start justify-between gap-4">
-              <h3 className="font-display text-3xl font-black" style={{ color: tier.color }}>
+              <h3 className="font-display text-3xl font-light" style={{ color: tier.color }}>
                 {tier.name} <span className="text-white">{tier.accent}</span>
               </h3>
               <motion.span whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}
@@ -1180,8 +1182,8 @@ function TiersSection() {
           transition={{ duration: 0.5 }} className="mb-3 text-[11px] font-bold uppercase tracking-[0.35em] text-[#e62b1e]">
           Investment
         </motion.div>
-        <h2 className="font-display text-4xl font-black mb-2 md:text-5xl">
-          Sponsorship <span className="text-[#e62b1e]">Packages</span>
+        <h2 className="font-display text-4xl font-light mb-2 md:text-5xl">
+          Sponsorship <span className="font-black text-[#e62b1e]">Packages</span>
         </h2>
         <Reveal delay={0.05}>
           <p className="text-white/40 text-sm mb-14">Choose the partnership level that best aligns with your brand goals.</p>
@@ -1191,7 +1193,7 @@ function TiersSection() {
         </div>
         <Reveal delay={0.1} className="mt-10">
           <GlowCard className="rounded-2xl border border-white/10 bg-white/[0.02] p-8">
-            <h3 className="font-display text-2xl font-black mb-1">In-Kind <span className="text-[#e62b1e]">Sponsor</span></h3>
+            <h3 className="font-display text-2xl font-light mb-1">In-Kind <span className="font-black text-[#e62b1e]">Sponsor</span></h3>
             <h4 className="font-display text-lg font-black text-white/60 mb-4">Venue Rent Sponsor</h4>
             <p className="text-sm text-white/50 mb-6 leading-relaxed">Support TEDxClifton through in-kind contributions. Benefits packages can be customized based on the relative value of your gift.</p>
             <div className="flex flex-wrap gap-2">
@@ -1226,8 +1228,8 @@ function AgreementSection() {
   return (
     <section className="bg-[#0a0102] py-28 px-6">
       <div className="mx-auto max-w-3xl">
-        <h2 className="font-display text-4xl font-black md:text-5xl">
-          Sponsorship <span className="text-[#e62b1e]">Agreement</span>
+        <h2 className="font-display text-4xl font-light md:text-5xl">
+          Sponsorship <span className="font-black text-[#e62b1e]">Agreement</span>
         </h2>
         <Reveal delay={0.1} className="mt-4 space-y-3 text-sm text-white/55 leading-relaxed">
           <p>Payment is required in full before activation. TEDx retains full discretion in selecting the main theme, speakers, topics, structure, and participants. All partnership funds go back into the production of the event — TEDx events are non-profit.</p>
@@ -1282,8 +1284,8 @@ function ContactSection() {
   return (
     <section className="bg-[#070103] py-28 px-6">
       <div className="mx-auto max-w-3xl">
-        <h2 className="font-display text-4xl font-black mb-12 md:text-5xl">
-          Contact <span className="text-[#e62b1e]">Details</span>
+        <h2 className="font-display text-4xl font-light mb-12 md:text-5xl">
+          Contact <span className="font-black text-[#e62b1e]">Details</span>
         </h2>
         <Reveal delay={0.1}>
           <TiltCard intensity={4}>
@@ -1421,7 +1423,7 @@ export function ProposalViewer() {
         <footer className="border-t border-white/10 bg-[#070103] py-12 px-6 text-center">
           <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             className="font-display text-xl font-bold">
-            Next is <span className="text-[#e62b1e]">Now</span>
+            Next is <span className="font-black text-[#e62b1e]">Now</span>
           </motion.div>
           <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
             transition={{ delay: 0.2 }}
