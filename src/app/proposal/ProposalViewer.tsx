@@ -371,7 +371,7 @@ function SpeakerCard({ slug, name, dir, index }: { slug: string; name: string; d
         <img
           src={`/speakers/${dir}/${slug}.png`}
           alt={name}
-          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105 select-none"
+          className="h-full w-full object-cover object-bottom transition-transform duration-500 group-hover:scale-105 select-none"
           draggable={false}
         />
       </div>
