@@ -369,7 +369,7 @@ function SpeakerBadge({
       viewport={{ once: true, margin: "-5% 0px" }}
       transition={{ delay: index * 0.05, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -4, scale: 1.06 }}
-      className="flex flex-col items-center gap-2 cursor-default"
+      className="flex flex-col items-center justify-end gap-2 cursor-default"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -407,7 +407,7 @@ function SpeakersSection({
           >
             X
           </div>
-          <div className="relative z-10 flex flex-wrap justify-center gap-6">
+          <div className="relative z-10 flex flex-wrap justify-center gap-6 items-end">
             {speakers.map((s, i) => (
               <SpeakerBadge key={s.file} {...s} folder={folder} index={i} />
             ))}
