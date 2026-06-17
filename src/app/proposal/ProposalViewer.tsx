@@ -321,27 +321,91 @@ function PhotoCollageSection() {
   );
 }
 
-// ─── Speakers (image panels) ──────────────────────────────────────────────────
+// ─── Speakers (photo grids) ───────────────────────────────────────────────────
 
-function SpeakersSection({ version, imgSrc }: { version: string; imgSrc: string }) {
+const V1_SPEAKERS = [
+  { slug: "erica-robin", name: "Erica Robin" },
+  { slug: "sara-gill", name: "Sara Gill" },
+  { slug: "saad-allahwala", name: "Saad Allahwala" },
+  { slug: "dr-ahson", name: "Dr. Ahson" },
+  { slug: "umair-masoom", name: "Umair Masoom" },
+  { slug: "syed-zafar-abbas", name: "Syed Zafar Abbas" },
+  { slug: "dr-affan-qaiser", name: "Dr. Affan Qaiser" },
+  { slug: "huma-rehan-mirza", name: "Huma Rehan Mirza" },
+  { slug: "noman-siddiq", name: "Noman Siddiq" },
+  { slug: "muhammad-shariq-waqqar", name: "Muhammad Shariq Waqqar" },
+  { slug: "wasif-khan", name: "Wasif Khan" },
+  { slug: "rabeel-warraich", name: "Rabeel Warraich" },
+];
+
+const V2_SPEAKERS = [
+  { slug: "nusair-teli", name: "Nusair Teli" },
+  { slug: "brig-tarique-lakhiar", name: "Brig. Tarique Lakhiar" },
+  { slug: "zonash-warriach", name: "Zonash Warriach" },
+  { slug: "sara-ali", name: "Sara Ali" },
+  { slug: "hamza-ibrahim", name: "Hamza Ibrahim" },
+  { slug: "iqbal-shaikh", name: "Iqbal Shaikh" },
+  { slug: "muddabbir-ali", name: "Muddabbir Ali" },
+  { slug: "ali-khan", name: "Ali Khan" },
+  { slug: "mehboob-shar", name: "Mehboob Shar" },
+  { slug: "maryam-ali", name: "Maryam Ali" },
+  { slug: "humna-altamash", name: "Humna Altamash" },
+  { slug: "muhammad-waqas", name: "Muhammad Waqas" },
+  { slug: "oliver-bennett", name: "Oliver Bennett" },
+  { slug: "khushnood-aftab", name: "Khushnood Aftab" },
+];
+
+function SpeakerCard({ slug, name, dir, index }: { slug: string; name: string; dir: string; index: number }) {
   return (
-    <section className="bg-[#070103] py-20 px-6">
-      <div className="mx-auto max-w-3xl">
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-5% 0px" }}
+      transition={{ delay: index * 0.06, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -6, scale: 1.03 }}
+      className="group relative overflow-hidden rounded-2xl bg-white/[0.04] ring-1 ring-white/10 cursor-default"
+    >
+      {/* photo */}
+      <div className="aspect-[3/4] overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`/speakers/${dir}/${slug}.png`}
+          alt={name}
+          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105 select-none"
+          draggable={false}
+        />
+      </div>
+      {/* name bar */}
+      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent px-3 pb-3 pt-8">
+        <p className="text-[11px] font-bold text-white leading-tight">{name}</p>
+        <div className="mt-0.5 h-0.5 w-4 rounded-full bg-[#e62b1e] transition-all duration-300 group-hover:w-8" />
+      </div>
+      {/* red corner glow on hover */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileHover={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-[#e62b1e]/40"
+      />
+    </motion.div>
+  );
+}
+
+function SpeakersSection({ version, speakers, dir, bg }: { version: string; speakers: typeof V1_SPEAKERS; dir: string; bg: string }) {
+  return (
+    <section className={`${bg} py-24 px-6`}>
+      <div className="mx-auto max-w-5xl">
         <Reveal>
-          <h2 className="font-display text-4xl font-black mb-8">
-            Previous <span className="text-[#e62b1e]">{version}</span> Speakers
+          <div className="mb-2 text-[11px] font-bold uppercase tracking-[0.35em] text-[#e62b1e]">Breaking Boundaries</div>
+          <h2 className="font-display text-4xl font-black">
+            TEDxClifton <span className="text-[#e62b1e]">{version}</span> Speakers
           </h2>
         </Reveal>
-        <Reveal delay={0.1}>
-          <motion.div
-            whileHover={{ scale: 1.005 }}
-            transition={{ duration: 0.4 }}
-            className="overflow-hidden rounded-2xl ring-1 ring-white/10 shadow-[0_32px_80px_-20px_rgba(0,0,0,0.8)]"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={imgSrc} alt={`TEDxClifton ${version} Speakers`} className="block h-auto w-full select-none" draggable={false} />
-          </motion.div>
-        </Reveal>
+        <div className="mt-10 grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6">
+          {speakers.map((s, i) => (
+            <SpeakerCard key={s.slug} {...s} dir={dir} index={i} />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -403,25 +467,42 @@ function BecomeASponsorSection() {
 
 // ─── Former Partners ──────────────────────────────────────────────────────────
 
+const PARTNER_COUNT = 20;
+
 function FormerPartnersSection() {
   return (
-    <section className="bg-[#070103] py-20 px-6">
-      <div className="mx-auto max-w-3xl">
+    <section className="bg-[#070103] py-24 px-6">
+      <div className="mx-auto max-w-5xl">
         <Reveal>
-          <h2 className="font-display text-4xl font-black mb-8">
-            Former Partners of <span className="text-[#e62b1e]">TEDx</span>Clifton
+          <h2 className="font-display text-4xl font-black mb-3">
+            Former Partners of <span className="text-[#e62b1e]">TED</span>xClifton
           </h2>
+          <p className="text-sm text-white/40 mb-10">Brands that believed in us before the world was watching.</p>
         </Reveal>
-        <Reveal delay={0.1}>
-          <motion.div
-            whileHover={{ scale: 1.005 }}
-            transition={{ duration: 0.4 }}
-            className="overflow-hidden rounded-2xl ring-1 ring-white/10 shadow-[0_32px_80px_-20px_rgba(0,0,0,0.8)]"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/proposal/page-08.jpg" alt="Former partners of TEDxClifton" className="block h-auto w-full select-none" draggable={false} />
-          </motion.div>
-        </Reveal>
+        <div className="grid grid-cols-4 gap-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7">
+          {Array.from({ length: PARTNER_COUNT }, (_, i) => {
+            const n = String(i + 1).padStart(2, "0");
+            return (
+              <motion.div
+                key={n}
+                initial={{ opacity: 0, scale: 0.85 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-5% 0px" }}
+                transition={{ delay: i * 0.04, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ scale: 1.08, backgroundColor: "rgba(255,255,255,0.07)" }}
+                className="flex items-center justify-center rounded-xl bg-white/[0.04] p-3 ring-1 ring-white/8 transition-colors duration-300 aspect-square"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`/partners-logos/partner-${n}.png`}
+                  alt={`Partner ${i + 1}`}
+                  className="h-full w-full object-contain select-none"
+                  draggable={false}
+                />
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
@@ -1068,8 +1149,8 @@ export function ProposalViewer() {
         <AboutSection />
         <LastEventSection />
         <PhotoCollageSection />
-        <SpeakersSection version="1.0" imgSrc="/proposal/page-05.jpg" />
-        <SpeakersSection version="2.0" imgSrc="/proposal/page-06.jpg" />
+        <SpeakersSection version="1.0" speakers={V1_SPEAKERS} dir="v1" bg="bg-[#070103]" />
+        <SpeakersSection version="2.0" speakers={V2_SPEAKERS} dir="v2" bg="bg-[#0a0102]" />
         <BecomeASponsorSection />
         <FormerPartnersSection />
         <ThemeSection />
