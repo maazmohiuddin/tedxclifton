@@ -62,22 +62,23 @@ function AnimatedWords({
   className?: string;
   delay?: number;
 }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-5% 0px" });
   const reduced = useReducedMotion();
   const words = text.split(" ");
   return (
-    <span className={className}>
+    <span ref={ref} className={className}>
       {words.map((word, i) => (
-        <span key={i} className="inline-block overflow-hidden leading-[1.1]">
+        <span key={i} className="inline-block overflow-hidden leading-[1.15]">
           <motion.span
             className="inline-block"
             initial={reduced ? false : { y: "110%", opacity: 0 }}
-            whileInView={{ y: "0%", opacity: 1 }}
-            viewport={{ once: true }}
+            animate={inView ? { y: "0%", opacity: 1 } : {}}
             transition={{ duration: 0.72, delay: delay + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
           >
             {word}
           </motion.span>
-          {i < words.length - 1 && " "}
+          {i < words.length - 1 && " "}
         </span>
       ))}
     </span>
@@ -355,10 +356,8 @@ function HeroSection() {
           transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           className="mb-10"
         >
-          <div className="font-display text-3xl font-black tracking-tight">
-            <span className="text-[#e62b1e]">TED</span>
-            <span className="text-[#e62b1e] text-lg align-super">x</span>
-            <span className="text-white"> Clifton</span>
+          <div className="font-display text-3xl tracking-tight">
+            <span className="text-[#e62b1e] font-black">TED</span><span className="text-[#e62b1e] font-black text-lg align-super">x</span><span className="text-white font-light"> Clifton</span>
           </div>
           <motion.div
             initial={{ opacity: 0 }}
@@ -1371,10 +1370,8 @@ export function ProposalViewer() {
       >
         <div className="mx-auto flex max-w-[900px] items-center justify-between gap-4 px-4 py-3 md:px-6">
           <div className="min-w-0">
-            <div className="font-display text-base font-bold leading-none tracking-tight">
-              <span className="text-[#e62b1e]">TED</span>
-              <span className="text-[#e62b1e] text-xs align-super">x</span>
-              <span className="text-white"> Clifton</span>
+            <div className="font-display text-base leading-none tracking-tight">
+              <span className="text-[#e62b1e] font-black">TED</span><span className="text-[#e62b1e] font-black text-xs align-super">x</span><span className="text-white font-light"> Clifton</span>
             </div>
             <div className="mt-1 text-[10px] uppercase tracking-[0.28em] text-white/40">Sponsorship Proposal</div>
           </div>
