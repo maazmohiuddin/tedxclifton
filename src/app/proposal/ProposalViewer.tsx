@@ -371,19 +371,14 @@ function SpeakerBadge({
       whileHover={{ y: -4, scale: 1.06 }}
       className="flex flex-col items-center gap-2 cursor-default"
     >
-      {/* circular photo */}
-      <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-2 ring-[#e62b1e]/60 shadow-lg shadow-black/50">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={`/Speaker/${encodeURIComponent(folder)}/${encodeURIComponent(file)}`}
-          alt={name}
-          className="h-full w-full object-cover object-top select-none"
-          draggable={false}
-        />
-        <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10" />
-      </div>
-      {/* name */}
-      <p className="text-center text-[10px] font-bold leading-tight text-white/80 max-w-[72px]">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={`/Speaker/${encodeURIComponent(folder)}/${encodeURIComponent(file)}`}
+        alt={name}
+        className="w-24 h-auto select-none drop-shadow-xl"
+        draggable={false}
+      />
+      <p className="text-center text-[10px] font-bold leading-tight text-white/80 max-w-[96px]">
         {name}
       </p>
     </motion.div>
