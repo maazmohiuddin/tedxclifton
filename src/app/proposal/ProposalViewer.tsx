@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   motion,
@@ -9,7 +9,6 @@ import {
   useSpring,
   useTransform,
   useInView,
-  animate,
 } from "framer-motion";
 import { Download, Lock, Loader2, Mail } from "lucide-react";
 import { PROPOSAL_PDF_NAME, PROPOSAL_PAGES } from "./pages";
