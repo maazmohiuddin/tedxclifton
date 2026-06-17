@@ -5,6 +5,7 @@ import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { Preloader } from "@/components/layout/Preloader";
+import { SiteChrome } from "@/components/layout/SiteChrome";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,10 +39,13 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <body>
         <a href="#main-content" className="skip-link">Skip to main content</a>
-        <Preloader />
-        <Nav />
-        <PageTransition>{children}</PageTransition>
-        <Footer />
+        <SiteChrome
+          preloader={<Preloader />}
+          nav={<Nav />}
+          footer={<Footer />}
+        >
+          <PageTransition>{children}</PageTransition>
+        </SiteChrome>
       </body>
     </html>
   );
