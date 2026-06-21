@@ -282,18 +282,6 @@ function ShimmerButton({ href, children }: { href: string; children: React.React
   );
 }
 
-// ─── Section background image ─────────────────────────────────────────────────
-
-function SectionBg({ src, opacity = 0.07 }: { src: string; opacity?: number }) {
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-0 bg-cover bg-center select-none"
-      style={{ backgroundImage: `url(${src})`, opacity }}
-    />
-  );
-}
-
 // ─── Section divider ──────────────────────────────────────────────────────────
 
 function SectionDivider() {
@@ -503,13 +491,8 @@ function BarChart() {
 
 function AboutSection() {
   return (
-    <section className="relative bg-[#0a0102] py-28 px-6 overflow-hidden">
-      <SectionBg src="/proposal/page-02.jpg" opacity={0.07} />
-      <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-end pr-4 select-none overflow-hidden"
-        style={{ fontSize: "clamp(280px,60vw,500px)", WebkitTextStroke: "2px rgba(230,43,30,0.06)", color: "transparent", fontWeight: 900, lineHeight: 1 }}>
-        X
-      </div>
-      <div className="relative z-10 mx-auto max-w-3xl">
+    <section className="bg-[#0a0102] py-28 px-6">
+      <div className="mx-auto max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -546,144 +529,63 @@ function AboutSection() {
   );
 }
 
-// ─── Past Events ──────────────────────────────────────────────────────────────
+// ─── Last Event ───────────────────────────────────────────────────────────────
 
-function PastEventsSection() {
-  const events = [
-    {
-      edition: "1.0",
-      theme: "Breaking Boundaries",
-      date: "February 25th",
-      bg: "/proposal/page-04.jpg",
-      stats: [
-        { to: 1000, suffix: "+", label: "Attendees" },
-        { to: 200, suffix: "+", label: "CEOs & Leaders" },
-        { to: 16, suffix: "", label: "Speakers" },
-        { to: 1, prefix: "#", suffix: "", label: "In Pakistan" },
-      ],
-      quote: "A globally competitive TEDx experience that sets a new benchmark for Pakistan.",
-      color: "#e62b1e",
-    },
-    {
-      edition: "2.0",
-      theme: "The Other Side",
-      date: "2024",
-      bg: "/proposal/page-05.jpg",
-      stats: [
-        { to: 1200, suffix: "+", label: "Attendees" },
-        { to: 250, suffix: "+", label: "Professionals" },
-        { to: 14, suffix: "", label: "Speakers" },
-        { to: 2, prefix: "Top ", suffix: "", label: "In Pakistan" },
-      ],
-      quote: "A transformative experience that pushed perspectives and redefined what a local TEDx could be.",
-      color: "#ff5f5f",
-    },
+function LastEventSection() {
+  const stats = [
+    { to: 1000, suffix: "+", label: "Attendees" },
+    { to: 200, suffix: "+", label: "CEOs & Leaders" },
+    { to: 10, suffix: "+", label: "Speakers" },
+    { to: 1, prefix: "#", suffix: "", label: "In Pakistan" },
   ];
 
-  const [active, setActive] = useState(0);
-
   return (
-    <section className="relative bg-[#070103] py-28 px-6 overflow-hidden">
-      <SectionBg src={events[active].bg} opacity={0.09} />
-      <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-start pl-4 select-none overflow-hidden"
-        style={{ fontSize: "clamp(280px,60vw,500px)", WebkitTextStroke: "2px rgba(230,43,30,0.055)", color: "transparent", fontWeight: 900, lineHeight: 1 }}>
-        X
-      </div>
-      <div className="relative z-10 mx-auto max-w-3xl">
+    <section className="bg-[#070103] py-28 px-6">
+      <div className="mx-auto max-w-3xl">
         <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           transition={{ duration: 0.5 }} className="mb-3 text-[11px] font-bold uppercase tracking-[0.35em] text-[#e62b1e]">
-          Our Journey
+          Breaking Boundaries
         </motion.div>
         <h2 className="font-display text-4xl font-light md:text-5xl">
-          <AnimatedWords text="Past Events" />
+          <AnimatedWords text="Our Last Event" />
         </h2>
-
-        {/* Tab switcher */}
-        <Reveal delay={0.1} className="mt-8 flex gap-3">
-          {events.map((ev, i) => (
-            <motion.button
-              key={ev.edition}
-              onClick={() => setActive(i)}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
-              className={`rounded-full px-5 py-2 text-sm font-bold border transition-all duration-300 ${
-                active === i
-                  ? "bg-[#e62b1e] border-[#e62b1e] text-white shadow-[0_0_24px_rgba(230,43,30,0.4)]"
-                  : "border-white/15 text-white/50 hover:border-white/35 hover:text-white"
-              }`}
-            >
-              TEDxClifton {ev.edition}
-            </motion.button>
-          ))}
+        <Reveal delay={0.06} className="mt-2 text-sm font-medium text-white/40 tracking-wide">
+          TEDxClifton Karachi: Breaking Boundaries — A Landmark Event in Pakistan's TEDx History
         </Reveal>
 
-        <motion.div
-          key={active}
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <div className="mt-3 mb-2 text-[11px] font-bold uppercase tracking-[0.3em] text-[#e62b1e]/70">
-            Theme
-          </div>
-          <h3 className="font-display text-2xl font-black text-white mb-8">
-            &ldquo;{events[active].theme}&rdquo;
-          </h3>
+        <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
+          {stats.map((s, i) => (
+            <Reveal key={s.label} delay={i * 0.09} direction="scale">
+              <TiltCard>
+                <GlowCard className="rounded-xl border border-white/10 bg-white/[0.03] p-6 text-center cursor-default h-full">
+                  <div className="font-display text-3xl font-black text-[#e62b1e]">
+                    <CountUp to={s.to} prefix={s.prefix ?? ""} suffix={s.suffix} />
+                  </div>
+                  <div className="mt-1 text-[11px] text-white/45">{s.label}</div>
+                </GlowCard>
+              </TiltCard>
+            </Reveal>
+          ))}
+        </div>
 
-          {/* Stats infographic */}
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4 mb-10">
-            {events[active].stats.map((s, i) => (
-              <Reveal key={s.label} delay={i * 0.08} direction="scale">
-                <TiltCard>
-                  <GlowCard className="rounded-xl border border-white/10 bg-white/[0.04] p-6 text-center cursor-default h-full backdrop-blur-sm">
-                    <div className="font-display text-3xl font-black text-[#e62b1e]">
-                      <CountUp to={s.to} prefix={s.prefix ?? ""} suffix={s.suffix} />
-                    </div>
-                    <div className="mt-1 text-[11px] text-white/45">{s.label}</div>
-                  </GlowCard>
-                </TiltCard>
-              </Reveal>
-            ))}
-          </div>
+        <Reveal delay={0.15} className="mt-9 space-y-4 text-sm leading-relaxed text-white/65">
+          <p>On February 25th, TEDxClifton Karachi hosted one of the most successful and impactful TEDx events ever held in Pakistan, centered around the powerful theme: <em className="text-white/80 not-italic font-semibold">"Breaking Boundaries"</em>.</p>
+          <p>One of our international speakers — a former official TED speaker — publicly compared TEDxClifton Karachi to some of the most prestigious TED events in the United States, calling it <em className="text-white/80 not-italic">"a globally competitive TEDx experience that sets a new benchmark for Pakistan."</em></p>
+        </Reveal>
 
+        <Reveal delay={0.22} className="mt-8">
           <motion.blockquote
             whileHover={{ x: 5, borderLeftColor: "rgba(230,43,30,0.8)" }}
             transition={{ duration: 0.3 }}
-            className="border-l-2 border-[#e62b1e]/40 pl-6 italic text-white/55 leading-relaxed text-sm transition-colors duration-300"
+            className="border-l-2 border-[#e62b1e]/40 pl-6 italic text-white/50 leading-relaxed text-sm transition-colors duration-300"
           >
-            &ldquo;{events[active].quote}&rdquo;
+            "Guests and speakers applauded the meticulous organization, the diversity and depth of the talks, the electrifying energy of the crowd, and the vision of the team behind it all."
           </motion.blockquote>
-
-          {/* Combined timeline */}
-          <div className="mt-14">
-            <Reveal><h3 className="font-display text-xl font-light text-white/60 mb-6 uppercase tracking-[0.2em] text-sm">Our Evolution</h3></Reveal>
-            <div className="relative pl-6 space-y-0">
-              <div className="absolute left-0 top-2 bottom-2 w-px bg-gradient-to-b from-[#e62b1e] via-[#e62b1e]/40 to-transparent" />
-              {[
-                { year: "2023", title: "TEDxClifton 1.0", theme: "Breaking Boundaries", note: "#1 TEDx in Pakistan" },
-                { year: "2024", title: "TEDxClifton 2.0", theme: "The Other Side", note: "1200+ attendees" },
-                { year: "2025", title: "TEDxClifton 3.0", theme: "Next Is Now", note: "Coming soon", upcoming: true },
-              ].map((ev, i) => (
-                <Reveal key={ev.year} delay={i * 0.12}>
-                  <div className={`relative flex gap-5 pb-8 ${ev.upcoming ? "opacity-60" : ""}`}>
-                    <div className="absolute -left-[22px] mt-1.5 h-3.5 w-3.5 rounded-full border-2 border-[#e62b1e] bg-[#070103]" />
-                    <div>
-                      <div className="text-[10px] uppercase tracking-[0.3em] text-[#e62b1e]/70 mb-0.5">{ev.year}</div>
-                      <div className="font-display text-lg font-black text-white">{ev.title}</div>
-                      <div className="text-sm text-white/50 italic">&ldquo;{ev.theme}&rdquo;</div>
-                      <div className="text-xs text-white/30 mt-1">{ev.note}</div>
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );
 }
-
 
 // ─── Photo Collage ────────────────────────────────────────────────────────────
 
@@ -910,18 +812,9 @@ function FormerPartnersSection() {
 // ─── Theme ────────────────────────────────────────────────────────────────────
 
 function ThemeSection() {
-  const stageRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: stageRef, offset: ["start end", "end start"] });
-  const stageY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
-
   return (
-    <section className="relative bg-[#0a0102] py-28 px-6 overflow-hidden">
-      <SectionBg src="/proposal/page-08.jpg" opacity={0.07} />
-      <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-center select-none overflow-hidden"
-        style={{ fontSize: "clamp(320px,70vw,600px)", WebkitTextStroke: "3px rgba(230,43,30,0.07)", color: "transparent", fontWeight: 900, lineHeight: 1 }}>
-        X
-      </div>
-      <div className="relative z-10 mx-auto max-w-3xl">
+    <section className="bg-[#0a0102] py-28 px-6">
+      <div className="mx-auto max-w-3xl">
         <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           transition={{ duration: 0.5 }} className="mb-3 text-[11px] font-bold uppercase tracking-[0.35em] text-[#e62b1e]">
           TEDxClifton 3.0
@@ -941,7 +834,7 @@ function ThemeSection() {
         </Reveal>
 
         <Reveal delay={0.2} className="mt-14">
-          <h3 className="font-display text-2xl font-light mb-6">What <span className="font-black text-[#e62b1e]">&ldquo;Next Is Now&rdquo;</span> Means</h3>
+          <h3 className="font-display text-2xl font-light mb-6">What <span className="font-black text-[#e62b1e]">"Next Is Now"</span> Means</h3>
           <StaggerList items={[
             "AI is rewriting intelligence.",
             "Climate innovation is redefining survival.",
@@ -956,46 +849,8 @@ function ThemeSection() {
             transition={{ duration: 0.3 }}
             className="relative border-l-2 border-[#e62b1e] pl-8 italic text-white/55 leading-relaxed text-[0.95rem]"
           >
-            &ldquo;Next Is Now&rdquo; is about ideas that are no longer predictions — they are active forces shaping how we live, work, heal, connect, and lead today. The future belongs to those acting now.
+            "Next Is Now" is about ideas that are no longer predictions — they are active forces shaping how we live, work, heal, connect, and lead today. The future belongs to those acting now.
           </motion.blockquote>
-        </Reveal>
-
-        {/* Stage image with CTA */}
-        <Reveal delay={0.15} className="mt-20">
-          <div ref={stageRef} className="relative overflow-hidden rounded-2xl ring-1 ring-white/10 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.95)]">
-            <motion.div style={{ y: stageY }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/proposal/page-11.jpg"
-                alt="TED-style stage with speaker"
-                className="block h-auto w-full select-none scale-[1.12]"
-                draggable={false}
-              />
-            </motion.div>
-            {/* gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            {/* CTA text */}
-            <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <div className="font-display text-2xl font-light text-white/80 mb-2 md:text-3xl">
-                  Want to speak on
-                </div>
-                <div className="font-display text-3xl font-black text-[#e62b1e] md:text-4xl mb-6">
-                  this stage?
-                </div>
-                <ShimmerButton href="mailto:tedxcliftonkarachi@gmail.com">
-                  <Mail size={15} />
-                  Apply to Speak
-                  <ArrowRight size={14} className="opacity-70" />
-                </ShimmerButton>
-              </motion.div>
-            </div>
-          </div>
         </Reveal>
       </div>
     </section>
@@ -1006,9 +861,8 @@ function ThemeSection() {
 
 function WhyMattersSection() {
   return (
-    <section className="relative bg-[#070103] py-28 px-6 overflow-hidden">
-      <SectionBg src="/proposal/page-07.jpg" opacity={0.06} />
-      <div className="relative z-10 mx-auto max-w-3xl space-y-20">
+    <section className="bg-[#070103] py-28 px-6">
+      <div className="mx-auto max-w-3xl space-y-20">
         <div>
           <h2 className="font-display text-4xl font-light md:text-5xl">
             <AnimatedWords text="Why This Matters Now" />
@@ -1045,7 +899,7 @@ function WhyMattersSection() {
         <Reveal direction="scale">
           <GlowCard className="rounded-2xl border border-[#e62b1e]/25 bg-[#e62b1e]/5 p-8">
             <h3 className="font-display text-2xl font-light mb-3">The <span className="font-black text-[#e62b1e]">Legacy</span> Continues</h3>
-            <p className="text-sm text-white/60 leading-relaxed">After previous editions positioned TEDxClifton among the most impactful TEDx experiences globally, 3.0 is not an upgrade — it&apos;s an acceleration. This is where future narratives are not announced; they are experienced.</p>
+            <p className="text-sm text-white/60 leading-relaxed">After previous editions positioned TEDxClifton among the most impactful TEDx experiences globally, 3.0 is not an upgrade — it's an acceleration. This is where future narratives are not announced; they are experienced.</p>
           </GlowCard>
         </Reveal>
       </div>
@@ -1069,9 +923,8 @@ function WhyPartnerSection() {
   ];
 
   return (
-    <section className="relative bg-[#0a0102] py-28 px-6 overflow-hidden">
-      <SectionBg src="/proposal/page-10.jpg" opacity={0.06} />
-      <div className="relative z-10 mx-auto max-w-3xl">
+    <section className="bg-[#0a0102] py-28 px-6">
+      <div className="mx-auto max-w-3xl">
         <h2 className="font-display text-3xl font-light leading-tight md:text-4xl">
           <AnimatedWords text="Why Partner with TEDxClifton 3.0?" />
         </h2>
@@ -1173,58 +1026,33 @@ function AudienceSection() {
   );
 }
 
-// ─── OOH Marketing ────────────────────────────────────────────────────────────
+// ─── Team ─────────────────────────────────────────────────────────────────────
 
-function OohMarketingSection() {
-  const oohImages = [
-    "/proposal/page-14.jpg",
-    "/proposal/page-15.jpg",
-    "/proposal/page-16.jpg",
-    "/proposal/page-17.jpg",
-    "/proposal/page-18.jpg",
-    "/proposal/page-19.jpg",
-  ];
+function TeamSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
 
   return (
-    <section className="relative bg-[#070103] py-28 px-6 overflow-hidden">
-      <SectionBg src="/proposal/page-14.jpg" opacity={0.06} />
-      <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-end pr-8 select-none overflow-hidden"
-        style={{ fontSize: "clamp(280px,60vw,500px)", WebkitTextStroke: "2px rgba(230,43,30,0.055)", color: "transparent", fontWeight: 900, lineHeight: 1 }}>
-        X
-      </div>
-      <div className="relative z-10 mx-auto max-w-5xl">
-        <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          transition={{ duration: 0.5 }} className="mb-3 text-[11px] font-bold uppercase tracking-[0.35em] text-[#e62b1e]">
-          Out Of Home
-        </motion.div>
-        <h2 className="font-display text-4xl font-light mb-4 md:text-5xl">
-          <AnimatedWords text="Marketing &" />{" "}
-          <AnimatedWords text="OOH Campaign" className="font-black text-[#e62b1e]" delay={0.22} />
+    <section ref={ref} className="bg-[#0a0102] py-24 px-6 overflow-hidden">
+      <div className="mx-auto max-w-3xl">
+        <h2 className="font-display text-4xl font-light mb-10 md:text-5xl">
+          <AnimatedWords text="Team Behind" />{" "}
+          <AnimatedWords text="TEDxClifton" className="font-black text-[#e62b1e]" delay={0.22} />
         </h2>
         <Reveal delay={0.1}>
-          <p className="text-sm text-white/45 mb-14 max-w-xl">Our LED street marketing campaigns ran across Karachi — placing TEDxClifton in the city&apos;s most high-traffic locations.</p>
+          <motion.div
+            whileHover={{ scale: 1.008 }}
+            transition={{ duration: 0.5 }}
+            className="overflow-hidden rounded-2xl ring-1 ring-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.9)]"
+          >
+            <motion.div style={{ y }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/proposal/page-13.jpg" alt="Team behind TEDxClifton"
+                className="block h-auto w-full select-none scale-[1.1]" draggable={false} />
+            </motion.div>
+          </motion.div>
         </Reveal>
-
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-          {oohImages.map((src, i) => (
-            <Reveal key={src} delay={i * 0.07} direction={i % 2 === 0 ? "up" : "scale"}>
-              <motion.div
-                whileHover={{ scale: 1.03, zIndex: 10 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="relative overflow-hidden rounded-xl ring-1 ring-white/10 cursor-default shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)]"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={src}
-                  alt={`TEDxClifton OOH Marketing ${i + 1}`}
-                  className="block h-auto w-full select-none transition-transform duration-500 hover:scale-105"
-                  draggable={false}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-              </motion.div>
-            </Reveal>
-          ))}
-        </div>
       </div>
     </section>
   );
@@ -1573,7 +1401,7 @@ export function ProposalViewer() {
         <SectionDivider />
         <AboutSection />
         <SectionDivider />
-        <PastEventsSection />
+        <LastEventSection />
         <PhotoCollageSection />
         <SpeakersSection version="1.0" speakers={V1_SPEAKERS} folder="Speaker 1.0" bg="bg-[#070103]" />
         <SpeakersSection version="2.0" speakers={V2_SPEAKERS} folder="Speaker 2.0" bg="bg-[#0a0102]" />
@@ -1582,12 +1410,11 @@ export function ProposalViewer() {
         <FormerPartnersSection />
         <SectionDivider />
         <ThemeSection />
-        <OohMarketingSection />
-        <SectionDivider />
         <WhyMattersSection />
         <WhyPartnerSection />
         <SectionDivider />
         <AudienceSection />
+        <TeamSection />
         <SectionDivider />
         <TiersSection />
         <AgreementSection />
