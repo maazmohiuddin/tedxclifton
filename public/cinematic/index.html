@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TEDxClifton — Ideas Worth Spreading</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Italiana&family=Outfit:wght@300;400;600&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,500&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+      cursor: none !important;
+    }
+
+    html, body {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #000000;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    body {
+      min-height: 900vh;
+      font-family: 'Inter', 'Outfit', sans-serif;
+      color: #ffffff;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    ::-webkit-scrollbar { display: none; width: 0; }
+
+    #webgl {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 1;
+      outline: none;
+    }
+
+    /* ─── Custom Cursor ─── */
+    .cursor-inner {
+      position: fixed; top: 0; left: 0;
+      width: 6px; height: 6px;
+      border: 2px solid rgba(230, 30, 30, 1);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s ease;
+    }
+    .cursor-outer {
+      position: fixed; top: 0; left: 0;
+      width: 40px; height: 40px;
+      border: 1.5px solid rgba(230, 30, 30, 0.6);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9998;
+      transition: width 0.3s, height 0.3s, background 0.3s;
+    }
+
+    /* ─── Cinematic Container ─── */
+    .cinematic-container {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 10;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0 60px 40px 60px;
+      box-sizing: border-box;
+    }
+
+    /* ─── Header ─── */
+    .main-header {
+      display: flex; justify-content: space-between; align-items: center;
+      width: 100%; z-index: 20;
+      pointer-events: auto;
+      padding: 20px 0;
+    }
+    .brand {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px; font-weight: 600;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: #ffffff;
+    }
+    .brand-accent { color: #E62B1E; }
+    .header-nav { display: flex; align-items: center; gap: 24px; }
+    .nav-link {
+      color: #ffffff; text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
+      font-weight: 500; transition: color 0.3s;
+    }
+    .nav-link:hover { color: #E62B1E; }
+    .nav-dot { width: 3px; height: 3px; background: rgba(230, 43, 30, 0.4); border-radius: 50%; }
+    .contact-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 24px;
+      background: #E62B1E; color: #ffffff;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;
+      border-radius: 20px;
+      transition: transform 0.3s, background 0.3s;
+      pointer-events: auto;
+    }
+    .btn-circle {
+      display: inline-block; width: 6px; height: 6px;
+      border: 1px solid #ffffff; border-radius: 50%; background: transparent;
+    }
+    .contact-btn:hover { transform: scale(1.05); background: #c0241a; }
+
+    /* ─── Slides ─── */
+    .slide { position: absolute; bottom: 12%; pointer-events: none; opacity: 0; }
+    .slide.active { pointer-events: auto; }
+
+    #slide-1 { left: 0; width: 100%; }
+    #slide-1 .slide-title { margin-left: 60px; }
+    #slide-1 .desc-row { position: relative; display: flex; width: 100%; }
+    #slide-1 .col-1 {
+      margin-left: 60px;
+      width: calc(25vw - 60px);
+      max-width: calc(25vw - 60px);
+    }
+    #slide-1 .col-2 {
+      position: absolute;
+      left: calc(25vw + 40px);
+      width: calc(25vw - 60px);
+      max-width: calc(25vw - 60px);
+    }
+
+    #slide-2 { left: 0; width: 100%; }
+    #slide-2-img {
+      position: fixed;
+      top: 90px;
+      left: 60px;
+      width: calc(25vw - 60px);
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      z-index: 2;
+      pointer-events: none;
+      clip-path: inset(0 0 100% 0);
+      transition: clip-path 1.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
+      opacity: 0;
+    }
+    #slide-2-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transform: scale(1.15);
+      transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #slide-2-img.active { clip-path: inset(0 0 0 0); opacity: 1; }
+    #slide-2-img.active img { transform: scale(1); }
+    #slide-2 .slide-title { margin-left: calc(25vw + 40px); }
+    #slide-2 .slide-desc {
+      margin-left: calc(50vw + 20px);
+      width: calc(25vw - 60px);
+      max-width: calc(25vw - 60px);
+    }
+
+    #slide-3 {
+      left: calc(50vw + 20px);
+      width: calc(25vw - 60px);
+      max-width: calc(25vw - 60px);
+    }
+    #slide-3 .slide-title { white-space: nowrap; }
+
+    #slide-4 { left: calc(25% + 40px); max-width: 600px; }
+
+    .slide-title {
+      font-family: 'Italiana', serif;
+      font-size: 116px;
+      line-height: 1.0;
+      font-weight: 400;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      color: #fff0f0;
+    }
+    .slide-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px; line-height: 1.75; font-weight: 300;
+      color: #d1d5db; letter-spacing: 0.4px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                  transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+      transition-delay: 0.4s;
+    }
+    .slide.active .slide-desc { opacity: 1; transform: translateY(0); }
+
+    .slide-title .char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(50px);
+      filter: blur(12px);
+      transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                  transform 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                  filter 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .slide.active .slide-title .char {
+      opacity: 1; transform: translateY(0); filter: blur(0);
+    }
+
+    /* ─── Grid Overlay ─── */
+    .grid-horizontal-line {
+      position: fixed; top: 70px; left: 0; right: 0;
+      width: 100%; height: 1px;
+      background: rgba(230, 43, 30, 0.18);
+      z-index: 5; pointer-events: none;
+    }
+    .grid-lines {
+      position: fixed; top: 0; left: 40px; right: 40px;
+      width: calc(100% - 80px); height: 100vh;
+      display: flex; justify-content: space-between;
+      z-index: 5; pointer-events: none;
+    }
+    .grid-line {
+      position: relative; width: 1px; height: 100%;
+      background: rgba(230, 43, 30, 0.12);
+    }
+    .grid-line:nth-child(3) { margin-top: 70px; height: calc(100vh - 70px); }
+    .grid-dot {
+      position: absolute; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(230, 43, 30, 0.5);
+      box-shadow: 0 0 6px rgba(230, 43, 30, 0.3);
+    }
+    .grid-dot.top { top: 0; }
+    .grid-dot.bottom { top: 100%; }
+
+    /* ─── Story Progress Bar ─── */
+    .story-progress-container { overflow: hidden; }
+    .story-dashes {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .story-dash { width: 2px; height: 40px; background: rgba(230, 43, 30, 0.2); border-radius: 2px; overflow: hidden; }
+    .story-dash-fill { width: 100%; height: 0%; background: #E62B1E; border-radius: 2px; transition: height 0.05s linear; }
+
+    /* ─── Scroll indicator ─── */
+    .scroll-hint {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 15;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+    .scroll-hint.hidden { opacity: 0; }
+    .scroll-hint span {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.35);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(230, 43, 30, 0.6), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.3); }
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      .cinematic-container { padding: 0 24px 32px 24px; }
+      .slide-title { font-size: 56px; }
+      .header-nav { display: none; }
+      #slide-1 .col-2, #slide-2 .slide-desc { display: none; }
+      #slide-1 .slide-title { margin-left: 24px; }
+      #slide-1 .col-1 { margin-left: 24px; width: calc(100% - 48px); max-width: unset; }
+      #slide-2 .slide-title { margin-left: 0; }
+      #slide-3 { left: 0; width: 100%; max-width: unset; }
+      #slide-4 { left: 0; max-width: unset; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cursor -->
+  <div class="cursor-inner" id="cursorInner"></div>
+  <div class="cursor-outer" id="cursorOuter"></div>
+
+  <!-- Scroll Hint -->
+  <div class="scroll-hint" id="scrollHint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+
+  <!-- Overlay -->
+  <div class="cinematic-container">
+    <!-- Header -->
+    <div class="main-header">
+      <div class="brand">TEDx<span class="brand-accent">Clifton</span></div>
+      <nav class="header-nav">
+        <a href="#" class="nav-link" data-slide="0">Ideas</a>
+        <span class="nav-dot"></span>
+        <a href="#" class="nav-link" data-slide="1">Speakers</a>
+        <span class="nav-dot"></span>
+        <a href="#" class="nav-link" data-slide="2">Impact</a>
+        <span class="nav-dot"></span>
+        <a href="#" class="nav-link" data-slide="3">Legacy</a>
+      </nav>
+      <div class="header-actions">
+        <a href="#" class="contact-btn">Register <span class="btn-circle"></span></a>
+      </div>
+    </div>
+
+    <!-- Slides -->
+    <div class="slide" id="slide-1">
+      <h2 class="slide-title">Ideas <br>Worth <br>Spreading</h2>
+      <div class="desc-row">
+        <p class="slide-desc col-1">A platform where the most daring minds in Karachi converge. One stage, one city, one unstoppable current of human thought and radical possibility.</p>
+        <p class="slide-desc col-2">Born from the global TED tradition, rooted in the pulse of Clifton. Every talk a spark, every speaker a catalyst, every idea a flame that refuses to die out.</p>
+      </div>
+    </div>
+
+    <div class="slide" id="slide-2">
+      <h2 class="slide-title">The <br>Stage</h2>
+      <p class="slide-desc">Where voices break silence and convention. Each speaker steps into the light carrying an idea so urgent, so alive, it demands to be heard by the world.</p>
+    </div>
+
+    <div class="slide" id="slide-3">
+      <h2 class="slide-title">Radical Impact</h2>
+      <p class="slide-desc">Ideas that shift industries, reroute futures, and rewrite what Karachi believes is possible. The ripple begins here, on this stage, in this city.</p>
+    </div>
+
+    <div class="slide" id="slide-4">
+      <h2 class="slide-title">Eternal <br>Flame</h2>
+      <p class="slide-desc">A TEDx talk doesn't end when the mic goes down. It travels, mutates, ignites strangers across time zones and generations. The idea lives on long after the applause.</p>
+    </div>
+  </div>
+
+  <!-- Image mask for slide 2 -->
+  <div class="slide-image-mask" id="slide-2-img">
+    <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/laocoon-59f84455c6/1.png" alt="TEDxClifton Speaker" />
+  </div>
+
+  <!-- Grid -->
+  <div class="grid-horizontal-line"></div>
+  <div class="grid-lines">
+    <div class="grid-line"><div class="grid-dot top"></div><div class="grid-dot bottom"></div></div>
+    <div class="grid-line"><div class="grid-dot top"></div><div class="grid-dot bottom"></div></div>
+    <div class="grid-line"><div class="grid-dot top"></div><div class="grid-dot bottom"></div></div>
+    <div class="grid-line"><div class="grid-dot top"></div><div class="grid-dot bottom"></div></div>
+    <div class="grid-line story-progress-container">
+      <div class="grid-dot top"></div>
+      <div class="grid-dot bottom"></div>
+      <div class="story-dashes">
+        <div class="story-dash"><div class="story-dash-fill" id="dash-fill-1"></div></div>
+        <div class="story-dash"><div class="story-dash-fill" id="dash-fill-2"></div></div>
+        <div class="story-dash"><div class="story-dash-fill" id="dash-fill-3"></div></div>
+        <div class="story-dash"><div class="story-dash-fill" id="dash-fill-4"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WebGL Canvas -->
+  <canvas id="webgl"></canvas>
+
+  <!-- ─── Import Map + Module Script ─── -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/examples/jsm/loaders/GLTFLoader.js": "https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js"
+    }
+  }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+
+    /* ══════════════════════════════════════════════
+       GLOBALS
+    ══════════════════════════════════════════════ */
+    const ASSET_BASE_URL = "https://api.getlayers.ai/storage/v1/object/public/public/assets/laocoon-59f84455c6";
+
+    const canvas = document.querySelector('#webgl');
+    let scene, camera, renderer;
+    let gltfModel;
+    let modelPivot;
+    let mixer;
+    const clock = new THREE.Clock();
+    let currentScroll = 0;
+    let smoothScroll = 0;
+
+    let mouseX = 0, mouseY = 0;
+    let targetMouseX = 0, targetMouseY = 0;
+
+    let cursorX = window.innerWidth / 2,   cursorY = window.innerHeight / 2;
+    let outerCursorX = window.innerWidth / 2, outerCursorY = window.innerHeight / 2;
+
+    let bgMaterial;
+    const shaderUniforms = {
+      uTime:       { value: 0 },
+      uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+      uMouse:      { value: new THREE.Vector2(0, 0) },
+      uScroll:     { value: 0 }
+    };
+
+    let sparkParticles;
+    const sparkCount = 450;
+    const sparkData  = [];
+
+    const sizes = { width: window.innerWidth, height: window.innerHeight };
+
+    /* ══════════════════════════════════════════════
+       BACKGROUND SHADER
+    ══════════════════════════════════════════════ */
+    function createBackgroundShader() {
+      const vertexShader = `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `;
+
+      const fragmentShader = `
+        varying vec2 vUv;
+        uniform float uTime;
+        uniform vec2  uResolution;
+        uniform vec2  uMouse;
+        uniform float uScroll;
+
+        float hash(float n) { return fract(sin(n) * 43758.5453123); }
+        float noise(in vec3 x) {
+          vec3 p = floor(x); vec3 f = fract(x);
+          f = f*f*(3.0-2.0*f);
+          float n = p.x + p.y*57.0 + 113.0*p.z;
+          return mix(
+            mix(mix(hash(n+0.0),hash(n+1.0),f.x),mix(hash(n+57.0),hash(n+58.0),f.x),f.y),
+            mix(mix(hash(n+113.0),hash(n+114.0),f.x),mix(hash(n+170.0),hash(n+171.0),f.x),f.y),f.z);
+        }
+
+        void main() {
+          vec2 uv = (gl_FragCoord.xy - 0.5 * uResolution.xy) / uResolution.y;
+          float aspect = uResolution.x / uResolution.y;
+          float time   = uTime * 0.08;
+          float scroll = uScroll;
+
+          float angle1 = 0.6;  float angle2 = -0.7; float angle3 = 1.2;
+          float freq1  = 2.4;  float freq2  = 3.2;  float freq3  = 4.0;
+
+          vec2 warpedUv = uv;
+          float scrollDeform = scroll * 5.0;
+          warpedUv.x += sin(uv.y * 2.5 + time * 0.2 + scrollDeform) * 0.35;
+          warpedUv.y += cos(uv.x * 2.5 - time * 0.15 - scrollDeform * 0.8) * 0.35;
+          warpedUv.x += sin(uv.y * 1.2 - time * 0.1  - scrollDeform * 1.5) * 0.25;
+          warpedUv.y += cos(uv.x * 1.2 + time * 0.18 + scrollDeform * 1.2) * 0.25;
+          warpedUv += vec2(scroll * 0.04, -scroll * 0.02);
+          warpedUv += vec2(uMouse.x * aspect * 0.05, uMouse.y * 0.05);
+
+          vec2 dir1 = vec2(cos(angle1), sin(angle1));
+          vec2 dir2 = vec2(cos(angle2), sin(angle2));
+          vec2 dir3 = vec2(cos(angle3), sin(angle3));
+
+          float w1 = sin(dot(warpedUv, dir1) * freq1 + time * 1.0);
+          float w2 = cos(dot(warpedUv, dir2) * freq2 - time * 1.4 + w1 * 0.4);
+          float w3 = sin(dot(warpedUv, dir3) * freq3 + time * 1.8 + w2 * 0.5);
+          float waveField = w1 * 0.50 + w2 * 0.35 + w3 * 0.15;
+
+          float wideSheen   = pow(max(0.0, 1.0 - abs(waveField - 0.1)), 2.5);
+          float crispSpec    = pow(max(0.0, 1.0 - abs(waveField - 0.15)), 8.0);
+          float crest        = wideSheen * 0.5 + crispSpec * 0.9;
+
+          vec3 c0_shadow = vec3(0.0012, 0.0003, 0.0003);
+          vec3 c0_wave1  = vec3(0.12,   0.018,  0.012);
+          vec3 c0_wave2  = vec3(0.07,   0.010,  0.008);
+          vec3 c0_crest  = vec3(0.85,   0.18,   0.12);
+
+          vec3 c1_shadow = vec3(0.0005, 0.0003, 0.0003);
+          vec3 c1_wave1  = vec3(0.025,  0.008,  0.006);
+          vec3 c1_wave2  = vec3(0.012,  0.004,  0.003);
+          vec3 c1_crest  = vec3(0.22,   0.06,   0.04);
+
+          float t = smoothstep(0.0, 1.0, scroll);
+          vec3 colShadow = mix(c0_shadow, c1_shadow, t);
+          vec3 colWave1  = mix(c0_wave1,  c1_wave1,  t);
+          vec3 colWave2  = mix(c0_wave2,  c1_wave2,  t);
+          vec3 colCrest  = mix(c0_crest,  c1_crest,  t);
+
+          vec3 color = colShadow;
+          color = mix(color, colWave2, smoothstep(-0.6, 0.2, waveField));
+          color = mix(color, colWave1, smoothstep(0.0,  0.8, waveField));
+          color += colCrest * crest * 1.4;
+
+          float vignette = 1.0 - dot(uv, uv) * 0.12;
+          color *= vignette;
+
+          gl_FragColor = vec4(color, 1.0);
+        }
+      `;
+
+      bgMaterial = new THREE.ShaderMaterial({
+        vertexShader, fragmentShader,
+        uniforms: shaderUniforms,
+        depthWrite: false,
+        depthTest: false
+      });
+
+      const bgMesh = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), bgMaterial);
+      bgMesh.position.set(0, 0, -8);
+      bgMesh.renderOrder = -10;
+      camera.add(bgMesh);
+    }
+
+    /* ══════════════════════════════════════════════
+       SPARK TEXTURE
+    ══════════════════════════════════════════════ */
+    function createSparkTexture() {
+      const c = document.createElement('canvas');
+      c.width = 16; c.height = 16;
+      const ctx = c.getContext('2d');
+      const g = ctx.createRadialGradient(8,8,0,8,8,8);
+      g.addColorStop(0,    'rgba(255,255,255,1)');
+      g.addColorStop(0.25, 'rgba(255,80,60,0.9)');
+      g.addColorStop(0.6,  'rgba(230,43,30,0.3)');
+      g.addColorStop(1,    'rgba(0,0,0,0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0,0,16,16);
+      return new THREE.CanvasTexture(c);
+    }
+
+    /* ══════════════════════════════════════════════
+       SPARKS
+    ══════════════════════════════════════════════ */
+    function createSparks() {
+      const geo = new THREE.BufferGeometry();
+      const positions = new Float32Array(sparkCount * 3);
+      const colors    = new Float32Array(sparkCount * 3);
+
+      for (let i = 0; i < sparkCount; i++) {
+        positions[i*3]   = (Math.random() - 0.5) * 6.5;
+        positions[i*3+1] = (Math.random() - 0.5) * 5.0 - 0.5;
+        positions[i*3+2] = (Math.random() - 0.5) * 6.5;
+
+        if (Math.random() < 0.65) {
+          colors[i*3]   = 0.9 + Math.random() * 0.1;
+          colors[i*3+1] = 0.08 + Math.random() * 0.12;
+          colors[i*3+2] = 0.04 + Math.random() * 0.06;
+        } else {
+          colors[i*3]   = 1.0;
+          colors[i*3+1] = 0.55 + Math.random() * 0.2;
+          colors[i*3+2] = 0.10 + Math.random() * 0.15;
+        }
+
+        sparkData.push({
+          speedX:     (Math.random() - 0.5) * 0.4,
+          speedY:     0.15 + Math.random() * 0.3,
+          speedZ:     (Math.random() - 0.5) * 0.4,
+          swaySpeed:  0.5 + Math.random() * 1.5,
+          swayRadius: 0.05 + Math.random() * 0.15,
+          phase:      Math.random() * Math.PI * 2
+        });
+      }
+
+      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      geo.setAttribute('color',    new THREE.BufferAttribute(colors, 3));
+
+      const mat = new THREE.PointsMaterial({
+        size: 0.025,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.85,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        map: createSparkTexture()
+      });
+
+      sparkParticles = new THREE.Points(geo, mat);
+      scene.add(sparkParticles);
+    }
+
+    /* ══════════════════════════════════════════════
+       SCENE INIT
+    ══════════════════════════════════════════════ */
+    function initScene() {
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color('#000000');
+      scene.fog = new THREE.FogExp2('#000000', 0.01);
+
+      camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height, 0.1, 100);
+      camera.position.set(0, 0.2, 3.0);
+      scene.add(camera);
+
+      createBackgroundShader();
+
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance' });
+      renderer.setSize(sizes.width, sizes.height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 2.2;
+    }
+
+    /* ══════════════════════════════════════════════
+       LIGHTING
+    ══════════════════════════════════════════════ */
+    function setupLights() {
+      scene.add(new THREE.AmbientLight('#1a0000', 0.15));
+
+      const key = new THREE.SpotLight('#fff5f5', 18.0);
+      key.position.set(4, 6, 3);
+      key.angle = Math.PI / 4;
+      key.penumbra = 0.9;
+      key.castShadow = true;
+      key.shadow.mapSize.width  = 2048;
+      key.shadow.mapSize.height = 2048;
+      key.shadow.camera.near = 1.0;
+      key.shadow.camera.far  = 15;
+      key.shadow.bias = -0.001;
+      scene.add(key);
+
+      const rim = new THREE.DirectionalLight('#E62B1E', 12.0);
+      rim.position.set(-5, 3, -4);
+      scene.add(rim);
+
+      const fill = new THREE.DirectionalLight('#3a0000', 1.2);
+      fill.position.set(-2, -4, 2);
+      scene.add(fill);
+    }
+
+    /* ══════════════════════════════════════════════
+       LOAD MODEL
+    ══════════════════════════════════════════════ */
+    function loadModel() {
+      const loader = new GLTFLoader();
+      loader.load(
+        `${ASSET_BASE_URL}/scene.glb`,
+        (gltf) => {
+          gltfModel = gltf.scene;
+
+          // Material overrides
+          gltfModel.traverse((child) => {
+            if (child.isMesh) {
+              child.castShadow = true;
+              child.receiveShadow = true;
+              if (child.material) {
+                child.material.roughness   = 0.42;
+                child.material.metalness   = 0.92;
+                child.material.flatShading = false;
+                if (child.material.map) child.material.map.anisotropy = 16;
+                child.material.needsUpdate = true;
+              }
+            }
+          });
+
+          // Auto-scale
+          const box = new THREE.Box3().setFromObject(gltfModel);
+          const size = box.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const scale = 3.5 / maxDim;
+          gltfModel.scale.setScalar(scale);
+
+          // Recenter
+          const center = box.getCenter(new THREE.Vector3()).multiplyScalar(scale);
+          gltfModel.position.sub(center);
+
+          // Pivot
+          modelPivot = new THREE.Group();
+          modelPivot.position.y = -0.4;
+          modelPivot.add(gltfModel);
+          scene.add(modelPivot);
+
+          // Animations
+          if (gltf.animations && gltf.animations.length > 0) {
+            mixer = new THREE.AnimationMixer(gltfModel);
+            const action = mixer.clipAction(gltf.animations[0]);
+            action.play();
+          }
+        },
+        undefined,
+        (err) => {
+          console.warn('GLB load failed, creating fallback geometry:', err);
+          createFallbackModel();
+        }
+      );
+    }
+
+    function createFallbackModel() {
+      // Stylised 'x' letterform as fallback
+      const mat = new THREE.MeshStandardMaterial({
+        color: new THREE.Color('#E62B1E'),
+        roughness: 0.42, metalness: 0.92, flatShading: false
+      });
+
+      const makeBar = (rx, ry, rz) => {
+        const geo = new THREE.BoxGeometry(0.25, 1.8, 0.25);
+        const mesh = new THREE.Mesh(geo, mat);
+        mesh.rotation.set(rx, ry, rz);
+        mesh.castShadow = true;
+        return mesh;
+      };
+
+      modelPivot = new THREE.Group();
+      modelPivot.position.y = -0.4;
+      modelPivot.add(makeBar(0, 0,  Math.PI * 0.25));
+      modelPivot.add(makeBar(0, 0, -Math.PI * 0.25));
+      scene.add(modelPivot);
+    }
+
+    /* ══════════════════════════════════════════════
+       SLIDE SYSTEM
+    ══════════════════════════════════════════════ */
+    const slides = [
+      { el: document.getElementById('slide-1'), start: 0,    end: 0.20 },
+      { el: document.getElementById('slide-2'), start: 0.20, end: 0.45 },
+      { el: document.getElementById('slide-3'), start: 0.45, end: 0.70 },
+      { el: document.getElementById('slide-4'), start: 0.70, end: 1.00 }
+    ];
+    const slide2img = document.getElementById('slide-2-img');
+
+    function splitTitlesIntoChars() {
+      document.querySelectorAll('.slide-title').forEach((title) => {
+        const html = title.innerHTML;
+        // Preserve <br> tags
+        const parts = html.split(/(<br\s*\/?>)/gi);
+        title.innerHTML = parts.map((part) => {
+          if (/^<br/i.test(part)) return part;
+          return part.split('').map((ch) =>
+            ch === ' ' ? '<span class="char" style="width:0.3em;display:inline-block">&nbsp;</span>' :
+                         `<span class="char">${ch}</span>`
+          ).join('');
+        }).join('');
+      });
+    }
+
+    function updateSlides(scrollNorm) {
+      slides.forEach((s, idx) => {
+        const inRange = scrollNorm >= s.start && scrollNorm < s.end;
+        if (inRange) {
+          s.el.style.opacity = '1';
+          s.el.classList.add('active');
+          // Stagger chars
+          s.el.querySelectorAll('.char').forEach((ch, i) => {
+            ch.style.transitionDelay = `${i * 0.025}s`;
+          });
+        } else {
+          s.el.classList.remove('active');
+          s.el.style.opacity = '0';
+        }
+      });
+
+      // Slide-2 image mask
+      if (scrollNorm >= 0.20 && scrollNorm < 0.45) {
+        slide2img.classList.add('active');
+      } else {
+        slide2img.classList.remove('active');
+      }
+    }
+
+    /* ══════════════════════════════════════════════
+       STORY PROGRESS
+    ══════════════════════════════════════════════ */
+    const dashFills = [
+      document.getElementById('dash-fill-1'),
+      document.getElementById('dash-fill-2'),
+      document.getElementById('dash-fill-3'),
+      document.getElementById('dash-fill-4')
+    ];
+
+    function updateStoryProgress(scrollNorm) {
+      const segSize = 0.25;
+      dashFills.forEach((fill, i) => {
+        const segStart = i * segSize;
+        const segEnd   = segStart + segSize;
+        const pct = Math.max(0, Math.min(1, (scrollNorm - segStart) / segSize));
+        fill.style.height = `${pct * 100}%`;
+      });
+    }
+
+    /* ══════════════════════════════════════════════
+       GRID DOTS DRIFT
+    ══════════════════════════════════════════════ */
+    const gridDots = document.querySelectorAll('.grid-dot');
+    function updateGridDots(t) {
+      gridDots.forEach((dot, i) => {
+        const offset = Math.sin(t * 0.5 + i * 0.7) * 8;
+        dot.style.transform = `translate(-50%, calc(-50% + ${offset}px))`;
+      });
+    }
+
+    /* ══════════════════════════════════════════════
+       SPARKS ANIMATION
+    ══════════════════════════════════════════════ */
+    function updateSparks(dt, scrollNorm) {
+      if (!sparkParticles) return;
+      const pos = sparkParticles.geometry.attributes.position.array;
+      const turbulence = 1.0 + scrollNorm * 2.5;
+      const t = clock.getElapsedTime();
+
+      for (let i = 0; i < sparkCount; i++) {
+        const d = sparkData[i];
+        pos[i*3]   += d.speedX * dt * turbulence + Math.sin(t * d.swaySpeed + d.phase) * d.swayRadius * dt;
+        pos[i*3+1] += d.speedY * dt * turbulence;
+        pos[i*3+2] += d.speedZ * dt * turbulence;
+
+        // Reset when out of bounds
+        if (pos[i*3+1] > 3.5) {
+          pos[i*3]   = (Math.random() - 0.5) * 6.5;
+          pos[i*3+1] = -2.5 - Math.random() * 1.5;
+          pos[i*3+2] = (Math.random() - 0.5) * 6.5;
+        }
+        if (Math.abs(pos[i*3]) > 4 || Math.abs(pos[i*3+2]) > 4) {
+          pos[i*3]   = (Math.random() - 0.5) * 2.0;
+          pos[i*3+2] = (Math.random() - 0.5) * 2.0;
+        }
+      }
+      sparkParticles.geometry.attributes.position.needsUpdate = true;
+    }
+
+    /* ══════════════════════════════════════════════
+       CAMERA ORBIT
+    ══════════════════════════════════════════════ */
+    function updateCamera(scrollNorm, dt) {
+      // Full 360° orbit
+      const angle  = scrollNorm * Math.PI * 2;
+      const radius = 3.0 + Math.sin(scrollNorm * Math.PI) * 0.5;
+      const height = 0.2 + Math.sin(scrollNorm * Math.PI * 2) * 0.6;
+
+      const targetX = Math.sin(angle) * radius;
+      const targetZ = Math.cos(angle) * radius;
+      const targetY = height;
+
+      // Lerp camera
+      camera.position.x += (targetX - camera.position.x) * 0.05;
+      camera.position.z += (targetZ - camera.position.z) * 0.05;
+      camera.position.y += (targetY - camera.position.y) * 0.05;
+
+      // Mouse parallax tilt
+      targetMouseX += (mouseX - targetMouseX) * 0.05;
+      targetMouseY += (mouseY - targetMouseY) * 0.05;
+
+      if (modelPivot) {
+        camera.lookAt(
+          modelPivot.position.x + targetMouseX * 0.1,
+          modelPivot.position.y + 0.3 - targetMouseY * 0.05,
+          modelPivot.position.z
+        );
+        // Subtle auto-rotate when idle
+        modelPivot.rotation.y += 0.001;
+      } else {
+        camera.lookAt(targetMouseX * 0.1, 0.3 - targetMouseY * 0.05, 0);
+      }
+    }
+
+    /* ══════════════════════════════════════════════
+       CUSTOM CURSOR
+    ══════════════════════════════════════════════ */
+    const cursorInner = document.getElementById('cursorInner');
+    const cursorOuter = document.getElementById('cursorOuter');
+
+    window.addEventListener('mousemove', (e) => {
+      cursorX = e.clientX;
+      cursorY = e.clientY;
+      mouseX  = (e.clientX / sizes.width  - 0.5) * 2;
+      mouseY  = (e.clientY / sizes.height - 0.5) * 2;
+    });
+
+    document.querySelectorAll('a, button').forEach((el) => {
+      el.addEventListener('mouseenter', () => {
+        cursorOuter.style.width  = '60px';
+        cursorOuter.style.height = '60px';
+        cursorOuter.style.background = 'rgba(230,43,30,0.08)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursorOuter.style.width  = '40px';
+        cursorOuter.style.height = '40px';
+        cursorOuter.style.background = 'transparent';
+      });
+    });
+
+    function updateCursor() {
+      cursorInner.style.left = `${cursorX}px`;
+      cursorInner.style.top  = `${cursorY}px`;
+
+      outerCursorX += (cursorX - outerCursorX) * 0.12;
+      outerCursorY += (cursorY - outerCursorY) * 0.12;
+      cursorOuter.style.left = `${outerCursorX}px`;
+      cursorOuter.style.top  = `${outerCursorY}px`;
+    }
+
+    /* ══════════════════════════════════════════════
+       NAV SCROLL
+    ══════════════════════════════════════════════ */
+    function setupNavigation() {
+      document.querySelectorAll('.nav-link[data-slide]').forEach((link) => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const idx = parseInt(link.dataset.slide);
+          const target = slides[idx].start;
+          const maxScroll = document.body.scrollHeight - window.innerHeight;
+          window.scrollTo({ top: target * maxScroll, behavior: 'smooth' });
+        });
+      });
+    }
+
+    /* ══════════════════════════════════════════════
+       SCROLL HINT
+    ══════════════════════════════════════════════ */
+    const scrollHint = document.getElementById('scrollHint');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) scrollHint.classList.add('hidden');
+      else scrollHint.classList.remove('hidden');
+    }, { passive: true });
+
+    /* ══════════════════════════════════════════════
+       RESIZE
+    ══════════════════════════════════════════════ */
+    window.addEventListener('resize', () => {
+      sizes.width  = window.innerWidth;
+      sizes.height = window.innerHeight;
+      camera.aspect = sizes.width / sizes.height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(sizes.width, sizes.height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      shaderUniforms.uResolution.value.set(sizes.width, sizes.height);
+    });
+
+    /* ══════════════════════════════════════════════
+       ANIMATE LOOP
+    ══════════════════════════════════════════════ */
+    function animate() {
+      requestAnimationFrame(animate);
+      const dt = Math.min(clock.getDelta(), 0.05);
+      const elapsed = clock.getElapsedTime();
+
+      // Smooth scroll
+      currentScroll = window.scrollY;
+      const maxScroll = document.body.scrollHeight - window.innerHeight;
+      const rawNorm = maxScroll > 0 ? currentScroll / maxScroll : 0;
+      smoothScroll += (rawNorm - smoothScroll) * 0.06;
+
+      // Shader
+      shaderUniforms.uTime.value   = elapsed;
+      shaderUniforms.uScroll.value = smoothScroll;
+      shaderUniforms.uMouse.value.set(mouseX, -mouseY);
+
+      // Systems
+      updateCamera(smoothScroll, dt);
+      updateSparks(dt, smoothScroll);
+      updateSlides(smoothScroll);
+      updateStoryProgress(smoothScroll);
+      updateGridDots(elapsed);
+      updateCursor();
+
+      if (mixer) mixer.update(dt);
+
+      renderer.render(scene, camera);
+    }
+
+    /* ══════════════════════════════════════════════
+       BOOTSTRAP
+    ══════════════════════════════════════════════ */
+    initScene();
+    setupLights();
+    createSparks();
+    loadModel();
+    splitTitlesIntoChars();
+    setupNavigation();
+    animate();
+
+    // Show slide 1 immediately
+    setTimeout(() => {
+      document.getElementById('slide-1').style.opacity = '1';
+      document.getElementById('slide-1').classList.add('active');
+    }, 100);
+  </script>
+</body>
+</html>
