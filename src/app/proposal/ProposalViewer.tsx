@@ -829,22 +829,37 @@ function HeroSection() {
 
   return (
     <section ref={ref} className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#070103]">
-      {/* ambient glows */}
+      {/* ── stage hero image — parallax layer ── */}
+      <motion.div
+        style={{ y }}
+        className="pointer-events-none absolute inset-0 will-change-transform"
+        aria-hidden
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/brand/hero-stage.jpg"
+          alt=""
+          className="h-full w-full object-cover object-center"
+          style={{ opacity: 0.55 }}
+        />
+        {/* dark vignette — heavier at top/bottom so text stays legible */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, #070103 0%, rgba(7,1,3,0.45) 28%, rgba(7,1,3,0.35) 55%, rgba(7,1,3,0.72) 82%, #070103 100%)",
+          }}
+        />
+        {/* subtle red tint overlay */}
+        <div className="absolute inset-0" style={{ background: "rgba(230,43,30,0.06)" }} />
+      </motion.div>
+
+      {/* ambient glows (kept, but toned down) */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
-          animate={{ scale: [1, 1.14, 1], opacity: [0.06, 0.12, 0.06] }}
+          animate={{ scale: [1, 1.14, 1], opacity: [0.04, 0.09, 0.04] }}
           transition={{ repeat: Infinity, duration: 9, ease: "easeInOut" }}
           className="absolute left-1/2 top-1/2 h-[820px] w-[820px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#e62b1e] blur-[150px]"
-        />
-        <motion.div
-          animate={{ x: [0, 40, 0], y: [0, -25, 0] }}
-          transition={{ repeat: Infinity, duration: 14, ease: "easeInOut" }}
-          className="absolute right-1/4 top-1/4 h-[260px] w-[260px] rounded-full bg-[#e62b1e]/5 blur-[90px]"
-        />
-        <motion.div
-          animate={{ x: [0, -25, 0], y: [0, 30, 0] }}
-          transition={{ repeat: Infinity, duration: 11, ease: "easeInOut", delay: 2 }}
-          className="absolute left-1/4 bottom-1/4 h-[200px] w-[200px] rounded-full bg-rose-900/15 blur-[80px]"
         />
       </div>
 
