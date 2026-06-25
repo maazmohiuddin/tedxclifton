@@ -1056,7 +1056,7 @@ function LastEventSection() {
         { to: 10,   suffix: "+", label: "Speakers" },
         { to: 1, prefix: "#", suffix: "", label: "In Pakistan" },
       ],
-      image: "/brand/v1-key-visual.png",
+      wordmark: "/brand/v1-wordmark.svg",
       accent: "#e62b1e",
     },
     {
@@ -1072,7 +1072,7 @@ function LastEventSection() {
         { to: 14,   suffix: "+", label: "Speakers" },
         { to: 2, prefix: "", suffix: " Stages", label: "Main + Firechat" },
       ],
-      image: "/brand/v2-key-visual.png",
+      wordmark: "/brand/v2-wordmark.svg",
       accent: "#c0001a",
     },
   ];
@@ -1109,37 +1109,38 @@ function LastEventSection() {
                   border: "1px solid hsla(0,0%,100%,0.07)",
                 }}
               >
-                {/* key visual — full-width top image */}
-                <div className="relative h-56 w-full overflow-hidden sm:h-72">
-                  {/* fallback gradient shown when image absent */}
+                {/* key visual header — wordmark on dark gradient */}
+                <div className="relative flex h-52 w-full items-center justify-center overflow-hidden sm:h-64">
+                  {/* background gradient */}
                   <div
                     className="absolute inset-0"
                     style={{
-                      background: `radial-gradient(ellipse 80% 120% at 30% 50%, ${ed.accent}33 0%, #0a0102 65%)`,
+                      background: `radial-gradient(ellipse 90% 140% at 20% 60%, ${ed.accent}28 0%, #060002 60%)`,
                     }}
                   />
-                  {/* large faded edition number */}
-                  <span
+                  {/* subtle noise texture overlay */}
+                  <div
                     aria-hidden
-                    className="absolute right-6 top-4 select-none font-display font-black leading-none text-white/[0.06]"
-                    style={{ fontSize: "clamp(5rem,18vw,9rem)", letterSpacing: "-0.05em" }}
-                  >
-                    {ed.edition}
-                  </span>
-                  {/* actual key visual — drop images at /public/brand/v1-key-visual.png etc. */}
+                    className="absolute inset-0 opacity-[0.03]"
+                    style={{
+                      backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+                      backgroundSize: "180px",
+                    }}
+                  />
+                  {/* SVG wordmark */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={ed.image}
-                    alt={`TEDxClifton ${ed.edition} key visual`}
-                    className="absolute inset-0 h-full w-full object-cover object-center mix-blend-luminosity opacity-60 transition-opacity duration-500 group-hover:opacity-80"
-                    onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                    src={ed.wordmark}
+                    alt={`TEDxClifton ${ed.edition} — ${ed.theme}`}
+                    className="relative z-10 w-[72%] max-w-[480px] opacity-90 transition-all duration-500 group-hover:opacity-100 group-hover:scale-[1.02]"
+                    style={{ filter: "drop-shadow(0 4px 32px rgba(235,0,40,0.18))" }}
                   />
-                  {/* bottom fade to card body */}
+                  {/* bottom fade */}
                   <div
-                    className="absolute bottom-0 left-0 right-0 h-24"
+                    className="absolute bottom-0 left-0 right-0 h-20"
                     style={{ background: "linear-gradient(to bottom, transparent, hsla(0,0%,100%,0.03))" }}
                   />
-                  {/* theme badge — top-left */}
+                  {/* edition + date badges — top-left */}
                   <div className="absolute left-5 top-5 flex items-center gap-2">
                     <span
                       className="rounded-full px-3 py-1 text-[10px] font-black uppercase"
@@ -1150,11 +1151,11 @@ function LastEventSection() {
                         boxShadow: `0 4px 18px ${ed.accent}55`,
                       }}
                     >
-                      TEDxClifton {ed.edition}
+                      {ed.edition}
                     </span>
                     <span
-                      className="rounded-full border px-3 py-1 text-[10px] font-semibold text-white/60"
-                      style={{ borderColor: "hsla(0,0%,100%,0.12)", letterSpacing: "0.12em" }}
+                      className="rounded-full border px-3 py-1 text-[10px] font-semibold text-white/55"
+                      style={{ borderColor: "hsla(0,0%,100%,0.10)", letterSpacing: "0.1em" }}
                     >
                       {ed.date}
                     </span>
