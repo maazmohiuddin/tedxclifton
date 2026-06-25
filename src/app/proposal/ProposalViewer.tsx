@@ -1042,56 +1042,187 @@ function AboutSection() {
 // ─── Last Event ───────────────────────────────────────────────────────────────
 
 function LastEventSection() {
-  const stats = [
-    { to: 1000, suffix: "+", label: "Attendees" },
-    { to: 200, suffix: "+", label: "CEOs & Leaders" },
-    { to: 10, suffix: "+", label: "Speakers" },
-    { to: 1, prefix: "#", suffix: "", label: "In Pakistan" },
+  const editions = [
+    {
+      edition: "1.0",
+      theme: "Breaking Boundaries",
+      date: "February 25th",
+      tagline: "A bold call to push past limitations, challenge societal norms, and redefine what's possible.",
+      body: "TEDxClifton 1.0 became one of the most celebrated TEDx events ever held in Pakistan. One of our international speakers — a former official TED speaker — publicly compared it to some of the most prestigious TED events in the United States, calling it “a globally competitive TEDx experience that sets a new benchmark for Pakistan.”",
+      quote: "The meticulous organization, the diversity and depth of the talks, the electrifying energy of the crowd — it was unlike anything I've seen at a TEDx in South Asia.",
+      stats: [
+        { to: 1000, suffix: "+", label: "Attendees" },
+        { to: 200,  suffix: "+", label: "CEOs & Leaders" },
+        { to: 10,   suffix: "+", label: "Speakers" },
+        { to: 1, prefix: "#", suffix: "", label: "In Pakistan" },
+      ],
+      image: "/brand/v1-key-visual.png",
+      accent: "#e62b1e",
+    },
+    {
+      edition: "2.0",
+      theme: "The Other Side",
+      date: "2025",
+      tagline: "An invitation to look beyond what we see — into complexity, contradiction, and the unexplored.",
+      body: "TEDxClifton 2.0 deepened the promise of its predecessor. Where 1.0 broke through walls, 2.0 asked what exists on the other side — the ideas, people, and perspectives that don't make the front page. The result was a room full of earned wisdom, quiet revolutions, and stories that changed minds.",
+      quote: "TEDxClifton keeps proving that Karachi is not just ready for global ideas — it's already producing them.",
+      stats: [
+        { to: 1200, suffix: "+", label: "Attendees" },
+        { to: 250,  suffix: "+", label: "CEOs & Leaders" },
+        { to: 14,   suffix: "+", label: "Speakers" },
+        { to: 2, prefix: "", suffix: " Stages", label: "Main + Firechat" },
+      ],
+      image: "/brand/v2-key-visual.png",
+      accent: "#c0001a",
+    },
   ];
 
   return (
     <section className="bg-[#070103] py-28 px-6">
       <div className="mx-auto max-w-3xl">
-        <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          transition={{ duration: 0.5 }} className="mb-3 text-[11px] font-bold uppercase tracking-[0.35em] text-[#e62b1e]">
-          Breaking Boundaries
-        </motion.div>
-        <h2 className="font-display text-4xl font-light md:text-5xl">
-          <AnimatedWords text="Our Last Event" />
-        </h2>
-        <Reveal delay={0.06} className="mt-2 text-sm font-medium text-white/40 tracking-wide">
-          TEDxClifton Karachi: Breaking Boundaries — A Landmark Event in Pakistan's TEDx History
+
+        {/* eyebrow */}
+        <Reveal>
+          <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.35em] text-[#e62b1e]">
+            Our Track Record
+          </p>
+        </Reveal>
+        <Reveal delay={0.04}>
+          <h2 className="font-display text-4xl font-light md:text-5xl">
+            <AnimatedWords text="Two Editions. One Standard." />
+          </h2>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="mt-3 mb-14 text-sm leading-relaxed text-white/45">
+            Every TEDxClifton edition has set a new ceiling for what a TEDx event can be in Pakistan —
+            from production quality to speaker calibre to the conversations that outlast the room.
+          </p>
         </Reveal>
 
-        <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
-          {stats.map((s, i) => (
-            <Reveal key={s.label} delay={i * 0.09} direction="scale">
-              <TiltCard>
-                <GlowCard className="rounded-xl border border-white/10 bg-white/[0.03] p-6 text-center cursor-default h-full">
-                  <div className="font-display text-3xl font-black text-[#e62b1e]">
-                    <CountUp to={s.to} prefix={s.prefix ?? ""} suffix={s.suffix} />
+        <div className="space-y-10">
+          {editions.map((ed, ei) => (
+            <Reveal key={ed.edition} delay={ei * 0.08} direction="up">
+              <article
+                className="group relative overflow-hidden rounded-3xl"
+                style={{
+                  background: "hsla(0,0%,100%,0.03)",
+                  border: "1px solid hsla(0,0%,100%,0.07)",
+                }}
+              >
+                {/* key visual — full-width top image */}
+                <div className="relative h-56 w-full overflow-hidden sm:h-72">
+                  {/* fallback gradient shown when image absent */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: `radial-gradient(ellipse 80% 120% at 30% 50%, ${ed.accent}33 0%, #0a0102 65%)`,
+                    }}
+                  />
+                  {/* large faded edition number */}
+                  <span
+                    aria-hidden
+                    className="absolute right-6 top-4 select-none font-display font-black leading-none text-white/[0.06]"
+                    style={{ fontSize: "clamp(5rem,18vw,9rem)", letterSpacing: "-0.05em" }}
+                  >
+                    {ed.edition}
+                  </span>
+                  {/* actual key visual — drop images at /public/brand/v1-key-visual.png etc. */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={ed.image}
+                    alt={`TEDxClifton ${ed.edition} key visual`}
+                    className="absolute inset-0 h-full w-full object-cover object-center mix-blend-luminosity opacity-60 transition-opacity duration-500 group-hover:opacity-80"
+                    onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                  />
+                  {/* bottom fade to card body */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-24"
+                    style={{ background: "linear-gradient(to bottom, transparent, hsla(0,0%,100%,0.03))" }}
+                  />
+                  {/* theme badge — top-left */}
+                  <div className="absolute left-5 top-5 flex items-center gap-2">
+                    <span
+                      className="rounded-full px-3 py-1 text-[10px] font-black uppercase"
+                      style={{
+                        background: ed.accent,
+                        color: "#fff",
+                        letterSpacing: "0.2em",
+                        boxShadow: `0 4px 18px ${ed.accent}55`,
+                      }}
+                    >
+                      TEDxClifton {ed.edition}
+                    </span>
+                    <span
+                      className="rounded-full border px-3 py-1 text-[10px] font-semibold text-white/60"
+                      style={{ borderColor: "hsla(0,0%,100%,0.12)", letterSpacing: "0.12em" }}
+                    >
+                      {ed.date}
+                    </span>
                   </div>
-                  <div className="mt-1 text-[11px] text-white/45">{s.label}</div>
-                </GlowCard>
-              </TiltCard>
+                </div>
+
+                {/* card body */}
+                <div className="p-7 pt-5">
+                  {/* theme name */}
+                  <p
+                    className="mb-1 text-[11px] font-bold uppercase"
+                    style={{ color: ed.accent, letterSpacing: "0.25em" }}
+                  >
+                    Theme
+                  </p>
+                  <h3
+                    className="mb-4 font-display text-2xl font-extrabold text-white sm:text-3xl"
+                    style={{ letterSpacing: "-0.03em" }}
+                  >
+                    &ldquo;{ed.theme}&rdquo;
+                  </h3>
+                  <p className="mb-6 text-sm leading-relaxed text-white/55">{ed.tagline}</p>
+
+                  {/* stats grid */}
+                  <div
+                    className="mb-7 grid grid-cols-4 overflow-hidden rounded-xl"
+                    style={{ border: "1px solid hsla(0,0%,100%,0.07)", background: "hsla(0,0%,100%,0.02)" }}
+                  >
+                    {ed.stats.map((s, si) => (
+                      <div
+                        key={s.label}
+                        className="flex flex-col items-center justify-center gap-1 py-5 text-center"
+                        style={{ borderRight: si < ed.stats.length - 1 ? "1px solid hsla(0,0%,100%,0.07)" : undefined }}
+                      >
+                        <div
+                          className="font-display text-xl font-black tabular-nums sm:text-2xl"
+                          style={{ color: ed.accent, letterSpacing: "-0.03em" }}
+                        >
+                          <CountUp to={s.to} prefix={s.prefix ?? ""} suffix={s.suffix} duration={1.6} />
+                        </div>
+                        <div className="text-[10px] text-white/35 leading-tight px-1">{s.label}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* body copy */}
+                  <p className="mb-6 text-sm leading-relaxed text-white/55">{ed.body}</p>
+
+                  {/* quote */}
+                  <motion.blockquote
+                    whileHover={{ x: 4, borderLeftColor: ed.accent }}
+                    transition={{ duration: 0.25 }}
+                    className="border-l-2 pl-5 text-[13px] italic leading-relaxed text-white/40 transition-colors duration-300"
+                    style={{ borderColor: `${ed.accent}55` }}
+                  >
+                    &ldquo;{ed.quote}&rdquo;
+                  </motion.blockquote>
+                </div>
+
+                {/* bottom accent line on hover */}
+                <div
+                  className="absolute bottom-0 left-0 right-0 h-[2px] origin-left scale-x-0 transition-transform duration-700 group-hover:scale-x-100"
+                  style={{ background: `linear-gradient(90deg, ${ed.accent}, transparent)` }}
+                />
+              </article>
             </Reveal>
           ))}
         </div>
-
-        <Reveal delay={0.15} className="mt-9 space-y-4 text-sm leading-relaxed text-white/65">
-          <p>On February 25th, TEDxClifton Karachi hosted one of the most successful and impactful TEDx events ever held in Pakistan, centered around the powerful theme: <em className="text-white/80 not-italic font-semibold">"Breaking Boundaries"</em>.</p>
-          <p>One of our international speakers — a former official TED speaker — publicly compared TEDxClifton Karachi to some of the most prestigious TED events in the United States, calling it <em className="text-white/80 not-italic">"a globally competitive TEDx experience that sets a new benchmark for Pakistan."</em></p>
-        </Reveal>
-
-        <Reveal delay={0.22} className="mt-8">
-          <motion.blockquote
-            whileHover={{ x: 5, borderLeftColor: "rgba(230,43,30,0.8)" }}
-            transition={{ duration: 0.3 }}
-            className="border-l-2 border-[#e62b1e]/40 pl-6 italic text-white/50 leading-relaxed text-sm transition-colors duration-300"
-          >
-            "Guests and speakers applauded the meticulous organization, the diversity and depth of the talks, the electrifying energy of the crowd, and the vision of the team behind it all."
-          </motion.blockquote>
-        </Reveal>
       </div>
     </section>
   );
