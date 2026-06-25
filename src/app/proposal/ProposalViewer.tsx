@@ -364,14 +364,13 @@ const KX_DOMAINS = [
 
 // Billboard promo videos recorded live at KhiNext'26
 const KX_BILLBOARD_VIDEOS = [
-  { id: "1F9cEnncDpTCvHrMXWwnIDeOOcw3nydKW", label: "Billboard Promo · Take 1" },
-  { id: "15wzyh_eLPJV8yZqriThRxLx-t1lTSgor", label: "Billboard Promo · Take 2" },
-  { id: "1Yurz7fyyBcc_zgtDdQIPWo9v-_m936Rn", label: "Billboard Promo · Take 3" },
-  { id: "1m_EQGrp-x7nnGJDBdwJmBuXYUUnGuEpS", label: "Billboard Promo · Take 4" },
+  { src: "/brand/Khinext Video 1.mp4", label: "Billboard Promo · Take 1" },
+  { src: "/brand/Khinext Video 2.mp4", label: "Billboard Promo · Take 2" },
+  { src: "/brand/Khinext Video 3.mp4", label: "Billboard Promo · Take 3" },
+  { src: "/brand/Khinext Video 4.mp4", label: "Billboard Promo · Take 4" },
 ];
 
 function KhiNextSection() {
-  const [activeVideo, setActiveVideo] = useState<number | null>(null);
 
   return (
     <section
@@ -490,17 +489,14 @@ function KhiNextSection() {
 
         <div className="mb-16 grid grid-cols-2 gap-4">
           {KX_BILLBOARD_VIDEOS.map((v, i) => (
-            <Reveal key={v.id} delay={0.07 + i * 0.06} direction="scale">
+            <Reveal key={v.src} delay={0.07 + i * 0.06} direction="scale">
               <div
                 className="group relative aspect-video overflow-hidden rounded-2xl transition-all duration-300"
-                style={{
-                  background: "#040e22",
-                  border: "1px solid hsla(0,0%,100%,0.08)",
-                }}
+                style={{ background: "#040e22", border: "1px solid hsla(0,0%,100%,0.08)" }}
                 onMouseEnter={e => {
                   (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(49,107,255,0.3)";
                   (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)";
-                  (e.currentTarget as HTMLDivElement).style.boxShadow = "0 20px 48px rgba(0,0,0,0.35), 0 0 0 0.5px rgba(49,107,255,0.12)";
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = "0 20px 48px rgba(0,0,0,0.35)";
                 }}
                 onMouseLeave={e => {
                   (e.currentTarget as HTMLDivElement).style.borderColor = "hsla(0,0%,100%,0.08)";
@@ -508,85 +504,19 @@ function KhiNextSection() {
                   (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
                 }}
               >
-                {activeVideo === i ? (
-                  <iframe
-                    src={`https://drive.google.com/file/d/${v.id}/preview`}
-                    className="absolute inset-0 h-full w-full"
-                    allow="autoplay"
-                    allowFullScreen
-                    title={v.label}
-                  />
-                ) : (
-                  <button
-                    onClick={() => setActiveVideo(i)}
-                    className="absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-3"
-                    aria-label={`Play ${v.label}`}
-                  >
-                    {/* drifting grid poster bg */}
-                    <div
-                      aria-hidden
-                      className="absolute inset-0 opacity-[0.07]"
-                      style={{
-                        backgroundImage: "linear-gradient(rgba(49,107,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(49,107,255,1) 1px,transparent 1px)",
-                        backgroundSize: "28px 28px",
-                      }}
-                    />
-                    {/* corner blue radial glow on hover */}
-                    <div
-                      aria-hidden
-                      className="pointer-events-none absolute -top-10 -right-10 h-36 w-36 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                      style={{ background: "radial-gradient(circle, rgba(49,107,255,0.22) 0%, transparent 70%)", filter: "blur(18px)" }}
-                    />
-
-                    {/* play button — kx-btn-primary pill style with btnGlow */}
-                    <motion.div
-                      whileHover={{ scale: 1.08 }}
-                      transition={{ type: "spring", stiffness: 380, damping: 22 }}
-                      className="relative z-10 grid h-12 w-12 place-items-center rounded-full"
-                      style={{
-                        background: "#316BFF",
-                        boxShadow: "0 0 0 0 rgba(49,107,255,0.4), 0 6px 22px rgba(49,107,255,0.32)",
-                        animation: "kxBtnGlow 3.5s ease-in-out infinite",
-                      }}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 20 20" fill="white">
-                        <path d="M5 3.5L17 10L5 16.5V3.5Z" />
-                      </svg>
-                    </motion.div>
-
-                    <span
-                      className="relative z-10 text-[10px] font-bold uppercase text-white/40"
-                      style={{ letterSpacing: "0.22em" }}
-                    >
-                      {v.label}
-                    </span>
-
-                    {/* bottom reveal line — matches kx-card hover bottom border */}
-                    <div
-                      aria-hidden
-                      className="absolute bottom-0 left-4 right-4 h-px origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
-                      style={{ background: "linear-gradient(90deg, #316BFF, transparent)" }}
-                    />
-                  </button>
-                )}
-
-                {activeVideo === i && (
-                  <button
-                    onClick={() => setActiveVideo(null)}
-                    className="absolute right-2 top-2 z-20 grid h-7 w-7 place-items-center rounded-full backdrop-blur-sm"
-                    style={{ background: "rgba(0,0,0,0.65)", color: "rgba(255,255,255,0.7)", border: "1px solid hsla(0,0%,100%,0.12)" }}
-                    aria-label="Close video"
-                  >
-                    <svg width="11" height="11" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-                      <path d="M1 1L11 11M11 1L1 11" />
-                    </svg>
-                  </button>
-                )}
+                {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+                <video
+                  src={v.src}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
               </div>
             </Reveal>
           ))}
         </div>
-        <style>{`@keyframes kxBtnGlow{0%,100%{box-shadow:0 0 0 0 rgba(49,107,255,.4),0 6px 22px rgba(49,107,255,.32)}50%{box-shadow:0 0 24px 6px rgba(49,107,255,.18),0 6px 22px rgba(49,107,255,.32)}}`}</style>
 
         {/* ── event photo gallery — Google Drive folder embed ── */}
         <Reveal delay={0.06}>
