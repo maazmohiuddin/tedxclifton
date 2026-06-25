@@ -376,7 +376,8 @@ function KhiNextSection() {
         </Reveal>
 
         {/* ── lead copy ── */}
-        <Reveal delay={0.08} className="mb-14 space-y-4 text-[15px] leading-relaxed" style={{ color: "hsla(0,0%,100%,0.55)" }}>
+        <Reveal delay={0.08}>
+        <div className="mb-14 space-y-4 text-[15px] leading-relaxed" style={{ color: "hsla(0,0%,100%,0.55)" }}>
           <p>
             The same team that built KhiNext&apos;26 — Pakistan&apos;s biggest multi-domain AI summit,{" "}
             <span className="text-white font-semibold">10,000+ attendees, 100+ speakers, 7 domains</span> —
@@ -387,6 +388,7 @@ function KhiNextSection() {
             harder question: what ideas, told beautifully, will actually change the way this city thinks?
             Both events share one conviction — the future is already here, and it belongs to those who show up.
           </p>
+        </div>
         </Reveal>
 
         {/* ── stats — matches khinext stat row: extrabold, clamp, -0.04em ── */}
