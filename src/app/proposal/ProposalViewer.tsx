@@ -1263,6 +1263,27 @@ function LastEventSection() {
                   >
                     &ldquo;{ed.quote}&rdquo;
                   </motion.blockquote>
+
+                  {/* Drive gallery — only for The Other Side (2.0) */}
+                  {ed.edition === "2.0" && (
+                    <div className="mt-8">
+                      <p className="mb-3 text-[11px] font-bold uppercase text-white/30" style={{ letterSpacing: "0.22em" }}>
+                        Event Gallery
+                      </p>
+                      <div
+                        className="overflow-hidden rounded-2xl"
+                        style={{ border: "1px solid hsla(0,0%,100%,0.07)" }}
+                      >
+                        <iframe
+                          src="https://drive.google.com/embeddedfolderview?id=1HNFQl9v68P1An4GJYUzSHl9LLbi0FYwi#grid"
+                          className="w-full"
+                          style={{ height: 420, border: "none", background: "#0a0a0a" }}
+                          title="TEDxClifton 2.0 — The Other Side gallery"
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* bottom accent line on hover */}
