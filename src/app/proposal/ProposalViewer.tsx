@@ -1479,6 +1479,142 @@ function BecomeASponsorSection() {
 
 const PARTNER_COUNT = 20;
 
+// ─── Instagram Live Card ──────────────────────────────────────────────────────
+
+interface IGProfile {
+  username: string;
+  biography: string;
+  followers_count: number;
+  media_count: number;
+  profile_picture_url: string;
+  media: { id: string; media_url: string; thumbnail_url?: string; permalink: string; media_type: string }[];
+}
+
+function InstagramLiveCard() {
+  const [data, setData] = useState<IGProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/instagram")
+      .then((r) => r.json())
+      .then((d) => { setData(d); setLoading(false); })
+      .catch(() => setLoading(false));
+  }, []);
+
+  const igGradient = "linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)";
+
+  return (
+    <div
+      className="mb-16 overflow-hidden rounded-2xl"
+      style={{ border: "1px solid hsla(0,0%,100%,0.07)", background: "hsla(0,0%,100%,0.025)" }}
+    >
+      {/* profile header */}
+      <div
+        className="flex items-center justify-between gap-4 border-b px-6 py-5"
+        style={{ borderColor: "hsla(0,0%,100%,0.06)" }}
+      >
+        <div className="flex items-center gap-4">
+          {/* avatar */}
+          <div className="relative h-12 w-12 shrink-0">
+            <div className="absolute inset-0 rounded-full p-[2px]" style={{ background: igGradient }}>
+              <div className="h-full w-full rounded-full overflow-hidden bg-[#070103]">
+                {data?.profile_picture_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={data.profile_picture_url} alt="@tedxclifton" className="h-full w-full object-cover" />
+                ) : (
+                  <div className="h-full w-full" style={{ background: igGradient }} />
+                )}
+              </div>
+            </div>
+          </div>
+          {/* name + bio */}
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-bold text-white">@{data?.username ?? "tedxclifton"}</span>
+              {/* verified badge */}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="12" fill="#0095F6"/>
+                <path d="M7 12.5l3.5 3.5 6.5-7" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+            <p className="mt-0.5 max-w-xs text-[11px] leading-snug text-white/40 line-clamp-2">
+              {loading ? "Loading…" : (data?.biography ?? "Independent TEDx event in Clifton, Karachi")}
+            </p>
+          </div>
+        </div>
+        {/* follower + post count */}
+        <div className="hidden shrink-0 flex-col items-end gap-0.5 sm:flex">
+          <div className="font-display text-lg font-black text-white" style={{ letterSpacing: "-0.04em" }}>
+            {loading ? "—" : (data?.followers_count?.toLocaleString() ?? "3,314")}
+          </div>
+          <div className="text-[10px] text-white/30" style={{ letterSpacing: "0.1em" }}>FOLLOWERS</div>
+          <div className="mt-1.5 text-[11px] text-white/25">
+            {loading ? "" : `${(data?.media_count ?? 174).toLocaleString()} posts`}
+          </div>
+        </div>
+      </div>
+
+      {/* post grid — 3×3, only shown when API returns media */}
+      {!loading && data && data.media.length > 0 && (
+        <div className="grid grid-cols-3 gap-[2px] bg-white/[0.04]">
+          {data.media.slice(0, 9).map((post) => {
+            const thumb = post.media_type === "VIDEO" ? post.thumbnail_url : post.media_url;
+            return (
+              <a
+                key={post.id}
+                href={post.permalink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative aspect-square overflow-hidden bg-white/[0.03]"
+              >
+                {thumb ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={thumb}
+                    alt=""
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="h-full w-full" style={{ background: igGradient, opacity: 0.15 }} />
+                )}
+                {post.media_type === "VIDEO" && (
+                  <div className="absolute top-2 right-2">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="white" opacity={0.8}><path d="M5 3l14 9-14 9V3z"/></svg>
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />
+              </a>
+            );
+          })}
+        </div>
+      )}
+
+      {/* metrics row */}
+      <div className="grid grid-cols-2 divide-x divide-white/[0.06] sm:grid-cols-4">
+        {[
+          { val: "1,426,250", label: "Views" },
+          { val: "201,705",   label: "Accounts Reached" },
+          { val: loading ? "—" : (data?.followers_count?.toLocaleString() ?? "3,314"), label: "Followers" },
+          { val: loading ? "—" : (data?.media_count?.toLocaleString() ?? "174"), label: "Posts" },
+        ].map(m => (
+          <div key={m.label} className="flex flex-col items-center justify-center gap-1 py-8">
+            <div className="font-display text-xl font-black text-white sm:text-2xl" style={{ letterSpacing: "-0.04em" }}>{m.val}</div>
+            <div className="text-[11px] text-white/35">{m.label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* footer */}
+      <div
+        className="border-t px-6 py-3 text-[11px] text-white/25"
+        style={{ borderColor: "hsla(0,0%,100%,0.05)" }}
+      >
+        79.6% of views came from non-followers — strong organic discovery reach
+      </div>
+    </div>
+  );
+}
+
 // ─── Marketing Reach Section ──────────────────────────────────────────────────
 
 const MKT_STATS = [
@@ -1649,53 +1785,14 @@ function MarketingReachSection() {
           ))}
         </div>
 
-        {/* Instagram analytics card */}
+        {/* Instagram live card */}
         <Reveal delay={0.06}>
           <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.28em] text-[#e62b1e]">
             Social Media Analytics
           </p>
         </Reveal>
         <Reveal delay={0.08}>
-          <div
-            className="mb-16 overflow-hidden rounded-2xl"
-            style={{ border: "1px solid hsla(0,0%,100%,0.07)", background: "hsla(0,0%,100%,0.025)" }}
-          >
-            {/* header */}
-            <div
-              className="flex items-center justify-between border-b px-6 py-4"
-              style={{ borderColor: "hsla(0,0%,100%,0.06)" }}
-            >
-              <div className="flex items-center gap-2.5">
-                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-[#f09433] via-[#e6683c] via-[#dc2743] via-[#cc2366] to-[#bc1888]" />
-                <div>
-                  <div className="text-sm font-bold text-white">@tedxclifton</div>
-                  <div className="text-[11px] text-white/35">Instagram · Official Account</div>
-                </div>
-              </div>
-              <div className="text-[11px] text-white/30" style={{ letterSpacing: "0.08em" }}>18 Aug – 16 Sep</div>
-            </div>
-            {/* metrics */}
-            <div className="grid grid-cols-2 divide-x divide-white/[0.06] sm:grid-cols-4">
-              {[
-                { val: "1,426,250", label: "Views" },
-                { val: "201,705",   label: "Accounts Reached" },
-                { val: "3,314",     label: "Followers" },
-                { val: "174",       label: "Posts" },
-              ].map(m => (
-                <div key={m.label} className="flex flex-col items-center justify-center gap-1 py-8">
-                  <div className="font-display text-xl font-black text-white sm:text-2xl" style={{ letterSpacing: "-0.04em" }}>{m.val}</div>
-                  <div className="text-[11px] text-white/35">{m.label}</div>
-                </div>
-              ))}
-            </div>
-            {/* footer note */}
-            <div
-              className="border-t px-6 py-3 text-[11px] text-white/25"
-              style={{ borderColor: "hsla(0,0%,100%,0.05)" }}
-            >
-              79.6% of views came from non-followers — strong organic discovery reach
-            </div>
-          </div>
+          <InstagramLiveCard />
         </Reveal>
 
         {/* Startup Pakistan collaboration */}
