@@ -1408,6 +1408,323 @@ function BecomeASponsorSection() {
 
 const PARTNER_COUNT = 20;
 
+// ─── Marketing Reach Section ──────────────────────────────────────────────────
+
+const MKT_STATS = [
+  { value: "1.4M+",  label: "Video Views",          sub: "across social platforms" },
+  { value: "201K+",  label: "Accounts Reached",      sub: "in 30 days" },
+  { value: "50+",    label: "Influencers",            sub: "covered event day live" },
+  { value: "6–8",    label: "TV News Channels",       sub: "mainstream media coverage" },
+  { value: "15+",    label: "Universities",           sub: "on-campus marketing" },
+  { value: "360°",   label: "Campaign Approach",      sub: "digital · outdoor · media" },
+];
+
+const MKT_CHANNELS = [
+  {
+    title: "High-Impact Outdoor & On-Ground",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/>
+      </svg>
+    ),
+    body: "Large-scale digital LED placements at Shahrah-e-Faisal, Clifton, and Tariq Road — generating massive urban visibility and recall for every sponsor and partner.",
+  },
+  {
+    title: "Strategic Ecosystem Partnerships",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+    ),
+    body: "Collaborated with Startup Pakistan — partners received prominent visibility across 3–4 dedicated digital pages. Also promoted through Startup Karachi, Business Bytes, and their official LinkedIn, Instagram, and Facebook channels.",
+  },
+  {
+    title: "15+ University Campuses",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    ),
+    body: "Targeted on-campus marketing across 15+ leading universities, directly engaging thousands of students and young professionals — driving strong organic reach within academic communities.",
+  },
+  {
+    title: "Mainstream Media Coverage",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/>
+      </svg>
+    ),
+    body: "Extensive coverage across major newspapers and featured on 6–8 national TV news channels, significantly amplifying credibility, reach, and brand trust for all associated partners.",
+  },
+  {
+    title: "Digital & Social Media",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.56 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+    ),
+    body: "Millions of impressions and reach through official social platforms — driven by strategic content distribution, speaker-led promotions, and community amplification.",
+  },
+  {
+    title: "50+ Influencers on Event Day",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+      </svg>
+    ),
+    body: "On event day, 50+ Instagram influencers and bloggers actively covered and promoted TEDxClifton, creating real-time buzz, authentic storytelling, and strong post-event visibility.",
+  },
+];
+
+function MarketingReachSection() {
+  return (
+    <section className="bg-[#070103] py-28 px-6">
+      <div className="mx-auto max-w-3xl">
+
+        {/* eyebrow */}
+        <Reveal>
+          <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.35em] text-[#e62b1e]">
+            TEDxClifton 1.0 &amp; TEDxClifton 2.0
+          </p>
+        </Reveal>
+
+        {/* headline */}
+        <Reveal delay={0.04}>
+          <h2
+            className="font-display font-extrabold leading-[1.0] text-white"
+            style={{ fontSize: "clamp(2.6rem,7vw,4.5rem)", letterSpacing: "-0.04em" }}
+          >
+            Proven Marketing{" "}
+            <span className="text-[#e62b1e]">Reach</span>
+            {" "}&amp;{" "}
+            <br className="hidden sm:block" />
+            Media{" "}
+            <span className="text-[#e62b1e]">Exposure</span>
+          </h2>
+        </Reveal>
+
+        <Reveal delay={0.08}>
+          <p className="mt-5 mb-14 text-[15px] leading-relaxed text-white/55">
+            TEDxClifton has consistently delivered exceptional visibility and brand exposure for its
+            sponsors and partners. Across both editions we executed a comprehensive 360-degree
+            marketing and media campaign — ensuring strong reach across digital, on-ground,
+            institutional, and mainstream media platforms.
+          </p>
+        </Reveal>
+
+        {/* stats ribbon */}
+        <div className="mb-16 grid grid-cols-2 overflow-hidden rounded-2xl border sm:grid-cols-3"
+          style={{ borderColor: "hsla(0,0%,100%,0.07)", background: "hsla(0,0%,100%,0.015)" }}
+        >
+          {MKT_STATS.map((s, i) => (
+            <Reveal key={s.label} delay={0.05 + i * 0.05}>
+              <div
+                className="flex flex-col justify-center gap-1 px-6 py-8 transition-colors hover:bg-white/[0.02]"
+                style={{
+                  borderRight: (i % 3 !== 2) ? "1px solid hsla(0,0%,100%,0.07)" : undefined,
+                  borderBottom: i < 3 ? "1px solid hsla(0,0%,100%,0.07)" : undefined,
+                }}
+              >
+                <div
+                  className="font-display font-black tabular-nums leading-none text-[#e62b1e]"
+                  style={{ fontSize: "clamp(1.7rem,4vw,2.6rem)", letterSpacing: "-0.04em" }}
+                >
+                  {s.value}
+                </div>
+                <div className="text-[13px] font-semibold text-white/80">{s.label}</div>
+                <div className="text-[11px] text-white/35">{s.sub}</div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* channel cards */}
+        <div className="mb-16 grid gap-4 sm:grid-cols-2">
+          {MKT_CHANNELS.map((ch, i) => (
+            <Reveal key={ch.title} delay={0.05 + i * 0.05}>
+              <div
+                className="group relative h-full overflow-hidden rounded-2xl p-6 transition-all duration-300"
+                style={{ background: "hsla(0,0%,100%,0.03)", border: "1px solid hsla(0,0%,100%,0.07)" }}
+                onMouseEnter={e => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.borderColor = "rgba(230,43,30,0.3)";
+                  el.style.transform = "translateY(-2px)";
+                  el.style.boxShadow = "0 16px 40px rgba(0,0,0,0.3)";
+                }}
+                onMouseLeave={e => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.borderColor = "hsla(0,0%,100%,0.07)";
+                  el.style.transform = "translateY(0)";
+                  el.style.boxShadow = "none";
+                }}
+              >
+                <div
+                  className="mb-4 grid h-10 w-10 place-items-center rounded-xl text-[#e62b1e]"
+                  style={{ background: "rgba(230,43,30,0.1)", border: "1px solid rgba(230,43,30,0.2)" }}
+                >
+                  {ch.icon}
+                </div>
+                <h3 className="mb-2 text-[14px] font-bold text-white" style={{ letterSpacing: "-0.01em" }}>
+                  {ch.title}
+                </h3>
+                <p className="text-[13px] leading-relaxed text-white/50">{ch.body}</p>
+                <div
+                  aria-hidden
+                  className="absolute bottom-0 left-5 right-5 h-px origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
+                  style={{ background: "linear-gradient(90deg, #e62b1e, transparent)" }}
+                />
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Instagram analytics card */}
+        <Reveal delay={0.06}>
+          <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.28em] text-[#e62b1e]">
+            Social Media Analytics
+          </p>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <div
+            className="mb-16 overflow-hidden rounded-2xl"
+            style={{ border: "1px solid hsla(0,0%,100%,0.07)", background: "hsla(0,0%,100%,0.025)" }}
+          >
+            {/* header */}
+            <div
+              className="flex items-center justify-between border-b px-6 py-4"
+              style={{ borderColor: "hsla(0,0%,100%,0.06)" }}
+            >
+              <div className="flex items-center gap-2.5">
+                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-[#f09433] via-[#e6683c] via-[#dc2743] via-[#cc2366] to-[#bc1888]" />
+                <div>
+                  <div className="text-sm font-bold text-white">@tedxclifton</div>
+                  <div className="text-[11px] text-white/35">Instagram · Official Account</div>
+                </div>
+              </div>
+              <div className="text-[11px] text-white/30" style={{ letterSpacing: "0.08em" }}>18 Aug – 16 Sep</div>
+            </div>
+            {/* metrics */}
+            <div className="grid grid-cols-2 divide-x divide-white/[0.06] sm:grid-cols-4">
+              {[
+                { val: "1,426,250", label: "Views" },
+                { val: "201,705",   label: "Accounts Reached" },
+                { val: "3,314",     label: "Followers" },
+                { val: "174",       label: "Posts" },
+              ].map(m => (
+                <div key={m.label} className="flex flex-col items-center justify-center gap-1 py-8">
+                  <div className="font-display text-xl font-black text-white sm:text-2xl" style={{ letterSpacing: "-0.04em" }}>{m.val}</div>
+                  <div className="text-[11px] text-white/35">{m.label}</div>
+                </div>
+              ))}
+            </div>
+            {/* footer note */}
+            <div
+              className="border-t px-6 py-3 text-[11px] text-white/25"
+              style={{ borderColor: "hsla(0,0%,100%,0.05)" }}
+            >
+              79.6% of views came from non-followers — strong organic discovery reach
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Startup Pakistan collaboration */}
+        <Reveal delay={0.06}>
+          <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.28em] text-[#e62b1e]">
+            Collaboration with Startup Pakistan
+          </p>
+          <p className="mb-8 text-[13px] leading-relaxed text-white/45">
+            Partners and sponsors received prominent cross-promotion across 3–4 dedicated pages
+            of the Startup Pakistan network — Startup Pakistan, Startup Karachi, Business Bytes,
+            and their official social channels.
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.08}>
+          <div className="mb-16 grid grid-cols-3 gap-3">
+            {["Meet Our Partners", "Meet Our Partners · 2", "Meet Our Co Partners"].map((label, i) => (
+              <div
+                key={label}
+                className="group relative aspect-[4/5] overflow-hidden rounded-xl"
+                style={{ background: "hsla(0,0%,100%,0.04)", border: "1px solid hsla(0,0%,100%,0.08)" }}
+              >
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-4 text-center">
+                  <div
+                    className="grid h-8 w-8 place-items-center rounded-full"
+                    style={{ background: "rgba(230,43,30,0.15)", border: "1px solid rgba(230,43,30,0.3)" }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e62b1e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                  </div>
+                  <span className="text-[11px] font-semibold text-white/40 leading-tight">{label}</span>
+                  <span className="text-[10px] text-white/20" style={{ letterSpacing: "0.1em" }}>@startuppakistansp</span>
+                </div>
+                <div
+                  aria-hidden
+                  className="absolute bottom-0 left-0 right-0 h-px origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
+                  style={{ background: "linear-gradient(90deg, #e62b1e, transparent)" }}
+                />
+              </div>
+            ))}
+          </div>
+        </Reveal>
+
+        {/* Digital billboards in Karachi */}
+        <Reveal delay={0.06}>
+          <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.28em] text-[#e62b1e]">
+            Digital Influence in Karachi
+          </p>
+          <p className="mb-8 text-[13px] leading-relaxed text-white/45">
+            Large-scale digital LED billboard campaigns across Karachi&apos;s key arterial roads —
+            Shahrah-e-Faisal, Clifton, and Tariq Road — driving brand recall at city scale.
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.08}>
+          <div className="mb-8 grid grid-cols-2 gap-3">
+            {[1, 2, 3, 4].map(n => (
+              <div
+                key={n}
+                className="group relative aspect-video overflow-hidden rounded-xl"
+                style={{ background: "hsla(0,0%,100%,0.03)", border: "1px solid hsla(0,0%,100%,0.07)" }}
+              >
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="1"/><polyline points="17 2 12 7 7 2"/>
+                  </svg>
+                  <span className="text-[10px] text-white/15" style={{ letterSpacing: "0.15em" }}>LED Billboard 0{n}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+
+        {/* overall impact */}
+        <Reveal delay={0.08}>
+          <motion.div
+            whileHover={{ x: 4, borderLeftColor: "rgba(230,43,30,0.8)" }}
+            transition={{ duration: 0.25 }}
+            className="border-l-2 pl-6 transition-colors duration-300"
+            style={{ borderColor: "rgba(230,43,30,0.35)" }}
+          >
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.22em] text-[#e62b1e]/70">
+              Overall Impact
+            </p>
+            <p className="text-[14px] leading-relaxed text-white/55">
+              The combined effect of outdoor advertising, university collaborations, startup
+              ecosystem partnerships, mainstream media exposure, influencer marketing, and
+              high-performing digital campaigns resulted in exceptional mileage and brand value
+              for TEDxClifton and all its sponsors and partners.
+            </p>
+          </motion.div>
+        </Reveal>
+
+      </div>
+    </section>
+  );
+}
+
 function FormerPartnersSection() {
   return (
     <section className="bg-[#070103] py-28 overflow-hidden">
@@ -2048,6 +2365,8 @@ export function ProposalViewer() {
         <SpeakersSection version="1.0" speakers={V1_SPEAKERS} folder="Speaker 1.0" bg="bg-[#070103]" />
         <SpeakersSection version="2.0" speakers={V2_SPEAKERS} folder="Speaker 2.0" bg="bg-[#0a0102]" />
         <BecomeASponsorSection />
+        <SectionDivider />
+        <MarketingReachSection />
         <SectionDivider />
         <FormerPartnersSection />
         <SectionDivider />
