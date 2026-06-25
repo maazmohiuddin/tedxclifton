@@ -2194,64 +2194,156 @@ function TeamSection() {
 
 const TIERS = [
   {
-    name: "Title", accent: "Partner", price: "2,500,000 PKR", color: "#a78bfa", glow: "rgba(167,139,250,0.14)",
+    name: "Title", accent: "Sponsor", price: "2,500,000 PKR", color: "#a78bfa", glow: "rgba(167,139,250,0.14)",
     benefits: [
-      "Exclusive branded Networking Lounge in the venue",
-      "Custom setup: standees, backdrops, digital displays",
-      "Hospitality add-ons (coffee, refreshments)",
-      "Staff presence to network, pitch, and connect",
-      "Interactive branding & giveaway opportunities",
-      "Featured in official networking schedule",
-      "Logo/Name in all PR & promotional materials",
-      "Verbal recognition by hosts at the event",
-      "Logo on stage backdrops, banners & screens",
-      "Logo integration in post-event videos",
-      "10 Complimentary Tickets",
+      "Speakers Lounge Branding — display of sponsor logos & materials",
+      "Branding During Transitions — video/logo display during breaks",
+      "Logo on Event Tickets — featured on official event passes",
+      "Logo Display on Digital Screens Across Karachi",
+      "Booth in Main Hall — branded booth in the main conference hall",
+      "Mention in Pre-event Blog / Press Pieces",
+      "Logo on Conference Collateral (T-Shirts, Pens, Bags, Notebooks)",
+      "Ad Placement in Conference Booklets",
+      "Distribution of Branded Collateral",
+      "Logo on Conference Website (with hyperlink)",
+      "Social Media Mentions & Coverage",
+      "Full Venue Branding (Digital Screens / Printables)",
+      "Branding on Social Media Posts",
+      "Networking Hub — Exhibit Booth Space",
     ],
   },
   {
-    name: "Gold", accent: "Sponsor", price: "2,000,000 PKR", color: "#FFD700", glow: "rgba(255,215,0,0.13)",
+    name: "Platinum", accent: "Sponsor", price: "2,000,000 PKR", color: "#e5e7eb", glow: "rgba(229,231,235,0.10)",
     benefits: [
-      "Presenting Partner — official event named after your brand",
-      "Brand in all marketing, press releases & digital content",
-      "Session naming rights & co-sponsorship exclusive titles",
-      "On-ground branded experience zone",
-      "\"[Your Brand] Innovation Spotlight\" session",
-      "Awards & shields presented under your brand name",
-      "Logo on all event merchandise",
-      "Brand in official pre & post-event videos",
-      "6 VIP Complimentary Tickets",
+      "Logo on Event Tickets — featured on official event passes",
+      "Logo Display on Digital Screens Across Karachi",
+      "Booth in Main Hall — branded booth in the main conference hall",
+      "Mention in Pre-event Blog / Press Pieces",
+      "Logo on Conference Collateral (T-Shirts, Pens, Bags, Notebooks)",
+      "Ad Placement in Conference Booklets",
+      "Distribution of Branded Collateral",
+      "Logo on Conference Website (with hyperlink)",
+      "Social Media Mentions & Coverage",
+      "Full Venue Branding (Digital Screens / Printables)",
+      "Branding on Social Media Posts",
+      "Networking Hub — Exhibit Booth Space",
     ],
   },
   {
-    name: "Silver", accent: "Sponsor", price: "1,500,000 PKR", color: "#C0C0C0", glow: "rgba(192,192,192,0.11)",
+    name: "Gold", accent: "Sponsor", price: "1,500,000 PKR", color: "#FFD700", glow: "rgba(255,215,0,0.13)",
     benefits: [
-      "Speaker slot — engage directly with the audience",
-      "Logo/Name recognition on event website",
-      "Logo/Name in all PR & promotional materials",
-      "Full-page ad in event program",
-      "Verbal recognition at the event",
-      "Logo on event videos (pre, during & post)",
-      "6 Complimentary Event Tickets",
-      "Networking Hub exhibit booth space",
-      "Branding on event goodies (shirts, diaries, pens)",
+      "Mention in Pre-event Blog / Press Pieces",
+      "Logo on Conference Collateral (T-Shirts, Pens, Bags, Notebooks)",
+      "Ad Placement in Conference Booklets",
+      "Distribution of Branded Collateral",
+      "Logo on Conference Website (with hyperlink)",
+      "Social Media Mentions & Coverage",
+      "Full Venue Branding (Digital Screens / Printables)",
+      "Branding on Social Media Posts",
+      "Networking Hub — Exhibit Booth Space",
     ],
   },
   {
-    name: "Bronze", accent: "Sponsor", price: "1,000,000 PKR", color: "#CD7F32", glow: "rgba(205,127,50,0.11)",
+    name: "Silver", accent: "Sponsor", price: "1,000,000 PKR", color: "#C0C0C0", glow: "rgba(192,192,192,0.11)",
     benefits: [
-      "Logo/Name recognition on website",
-      "Name recognition in PR materials",
-      "Half-page ad in event program",
-      "Verbal recognition at the event",
-      "Logo recognition at the event",
-      "Name recognition on event videos",
-      "4 Complimentary Event Tickets",
-      "Networking Hub exhibit booth space",
-      "Branding on event goodies",
+      "Ad Placement in Conference Booklets",
+      "Distribution of Branded Collateral",
+      "Logo on Conference Website (with hyperlink)",
+      "Social Media Mentions & Coverage",
+      "Full Venue Branding (Digital Screens / Printables)",
+      "Branding on Social Media Posts",
+      "Networking Hub — Exhibit Booth Space",
+    ],
+  },
+  {
+    name: "Bronze", accent: "Sponsor", price: "700,000 PKR", color: "#CD7F32", glow: "rgba(205,127,50,0.11)",
+    benefits: [
+      "Distribution of Branded Collateral",
+      "Logo on Conference Website (with hyperlink)",
+      "Social Media Mentions & Coverage",
+      "Full Venue Branding (Digital Screens / Printables)",
+      "Branding on Social Media Posts",
+      "Networking Hub — Exhibit Booth Space",
     ],
   },
 ];
+
+// Tier comparison matrix
+const TIER_NAMES = ["Title", "Platinum", "Gold", "Silver", "Bronze"] as const;
+const TIER_COLORS: Record<string, string> = {
+  Title: "#a78bfa", Platinum: "#e5e7eb", Gold: "#FFD700", Silver: "#C0C0C0", Bronze: "#CD7F32",
+};
+
+const TIERS_MATRIX: { offering: string; desc: string; tiers: string[] }[] = [
+  { offering: "Speakers Lounge Branding",              desc: "Display of sponsor logos and materials in the Speaker Lounge",              tiers: ["Title"] },
+  { offering: "Branding During Transitions",           desc: "Video or logo display during breaks and session changes",                   tiers: ["Title"] },
+  { offering: "Logo on Event Tickets",                 desc: "Featured branding on official event passes",                               tiers: ["Title", "Platinum"] },
+  { offering: "Logo Display on Digital Screens",       desc: "Your brand logo showcased on digital screens across Karachi",              tiers: ["Title", "Platinum"] },
+  { offering: "Booth in Main Hall",                    desc: "Branded booth in the main conference hall where all major sessions are held", tiers: ["Title", "Platinum"] },
+  { offering: "Mention in Pre-event Blog / Press",     desc: "Recognition in pre-event promotional content and press pieces",            tiers: ["Title", "Platinum", "Gold"] },
+  { offering: "Logo on Conference Collateral",         desc: "Printed on Event Cards, T-Shirts, Pens, Bags, Notebooks",                 tiers: ["Title", "Platinum", "Gold"] },
+  { offering: "Ad Placement in Conference Booklets",   desc: "Ad space placement according to sponsorship tier",                        tiers: ["Title", "Platinum", "Gold", "Silver"] },
+  { offering: "Distribution of Branded Collateral",   desc: "Opportunity to distribute your promotional merchandise",                   tiers: ["Title", "Platinum", "Gold", "Silver", "Bronze"] },
+  { offering: "Logo on Conference Website",            desc: "Featured logo with hyperlink on the TEDxClifton website",                 tiers: ["Title", "Platinum", "Gold", "Silver", "Bronze"] },
+  { offering: "Social Media Mentions & Coverage",      desc: "Tier-based mentions across TEDxClifton digital platforms",               tiers: ["Title", "Platinum", "Gold", "Silver", "Bronze"] },
+  { offering: "Full Venue Branding",                   desc: "Brand presence across halls, entrances, and stage-side (as per tier)",    tiers: ["Title", "Platinum", "Gold", "Silver", "Bronze"] },
+  { offering: "Branding on Social Media Posts",        desc: "Announcements and mentions on TEDxClifton social platforms",             tiers: ["Title", "Platinum", "Gold", "Silver", "Bronze"] },
+  { offering: "Networking Hub (Exhibit Booth Space)",  desc: "Exclusive access to Networking Hub to engage directly with attendees",    tiers: ["Title", "Platinum", "Gold", "Silver", "Bronze"] },
+];
+
+function TiersComparisonTable() {
+  return (
+    <div className="mt-16 overflow-x-auto rounded-2xl" style={{ border: "1px solid hsla(0,0%,100%,0.07)" }}>
+      <table className="w-full min-w-[640px] border-collapse text-sm">
+        <thead>
+          <tr style={{ background: "hsla(0,0%,100%,0.04)" }}>
+            <th className="px-5 py-4 text-left text-[11px] font-bold uppercase text-white/40" style={{ letterSpacing: "0.15em", width: "28%" }}>
+              Offering
+            </th>
+            {TIER_NAMES.map(t => (
+              <th key={t} className="px-3 py-4 text-center text-[11px] font-black uppercase" style={{ color: TIER_COLORS[t], letterSpacing: "0.12em" }}>
+                {t}
+              </th>
+            ))}
+          </tr>
+          <tr>
+            <td className="px-5 py-2 text-[10px] text-white/20" style={{ borderTop: "1px solid hsla(0,0%,100%,0.05)" }} />
+            {([2500000, 2000000, 1500000, 1000000, 700000] as const).map((p, i) => (
+              <td key={i} className="px-3 py-2 text-center text-[10px] font-semibold text-white/30" style={{ borderTop: "1px solid hsla(0,0%,100%,0.05)" }}>
+                {p.toLocaleString()} PKR
+              </td>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {TIERS_MATRIX.map((row, ri) => (
+            <tr
+              key={row.offering}
+              style={{ borderTop: "1px solid hsla(0,0%,100%,0.05)", background: ri % 2 === 0 ? "transparent" : "hsla(0,0%,100%,0.015)" }}
+            >
+              <td className="px-5 py-4">
+                <div className="text-[12px] font-semibold text-white/80 leading-snug">{row.offering}</div>
+                <div className="mt-0.5 text-[10px] leading-snug text-white/30">{row.desc}</div>
+              </td>
+              {TIER_NAMES.map(t => (
+                <td key={t} className="px-3 py-4 text-center">
+                  {row.tiers.includes(t) ? (
+                    <svg className="mx-auto" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <circle cx="8" cy="8" r="7" fill={TIER_COLORS[t]} fillOpacity="0.15" stroke={TIER_COLORS[t]} strokeWidth="1" strokeOpacity="0.5"/>
+                      <path d="M4.5 8l2.5 2.5 4.5-5" stroke={TIER_COLORS[t]} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  ) : (
+                    <span className="text-white/10">—</span>
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
 
 function TierCard({ tier, index }: { tier: (typeof TIERS)[number]; index: number }) {
   return (
@@ -2323,6 +2415,16 @@ function TiersSection() {
         <div className="space-y-6">
           {TIERS.map((tier, i) => <TierCard key={tier.name} tier={tier} index={i} />)}
         </div>
+
+        {/* Comparison matrix */}
+        <Reveal delay={0.06} className="mt-16">
+          <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.28em] text-[#e62b1e]">What&apos;s Included</p>
+          <p className="text-[13px] text-white/40 mb-4">Full breakdown of benefits by sponsorship tier.</p>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <TiersComparisonTable />
+        </Reveal>
+
         <Reveal delay={0.1} className="mt-10">
           <GlowCard className="rounded-2xl border border-white/10 bg-white/[0.02] p-8">
             <h3 className="font-display text-2xl font-light mb-1">In-Kind <span className="font-black text-[#e62b1e]">Sponsor</span></h3>
