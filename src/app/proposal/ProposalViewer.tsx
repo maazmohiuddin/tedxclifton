@@ -1791,8 +1791,9 @@ function FormerPartnersSection() {
       <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
         <motion.div
           className="flex gap-6 w-max"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
+          initial={{ x: 0 }}
+          animate={{ x: "-50%" }}
+          transition={{ repeat: Infinity, duration: 40, ease: "linear", repeatType: "loop" }}
         >
           {Array.from({ length: PARTNER_COUNT * 2 }, (_, i) => {
             const n = String((i % PARTNER_COUNT) + 1).padStart(2, "0");
