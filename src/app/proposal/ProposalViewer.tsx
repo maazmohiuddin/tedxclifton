@@ -13,6 +13,200 @@ import {
 import { Download, Lock, Loader2, Mail } from "lucide-react";
 import { PROPOSAL_PDF_NAME, PROPOSAL_PAGES } from "./pages";
 
+// ─── KhiNext section ──────────────────────────────────────────────────────────
+
+const KX_STATS = [
+  { value: "1,500+", label: "Attendees" },
+  { value: "40+",    label: "Speakers & Panelists" },
+  { value: "12+",    label: "Industry Domains" },
+  { value: "30+",    label: "Corporate Partners" },
+];
+
+const KX_DOMAINS = [
+  "Artificial Intelligence", "FinTech & Blockchain", "HealthTech",
+  "Cybersecurity", "EdTech", "Climate & GreenTech",
+  "Defence & National Security", "Media & Creative AI",
+  "Startup & Venture", "Smart Cities", "AgriTech", "Space & Deep-Tech",
+];
+
+const KX_CREDENTIALS = [
+  {
+    icon: "🏆",
+    title: "Pakistan's Biggest Multi-Domain AI Summit",
+    body: "KhiNext'26 united the country's top innovators, founders, and policymakers under one roof — making it the most ambitious tech gathering Karachi has ever seen.",
+  },
+  {
+    icon: "🎯",
+    title: "Curated, High-Signal Programming",
+    body: "Keynotes, fireside chats, panel debates, and live demos across 12 domains — each session engineered for depth, not noise.",
+  },
+  {
+    icon: "🤝",
+    title: "Institutional Credibility",
+    body: "Backed by P@SHA, Startup Pakistan, and partners spanning Pearl Continental, Lattafa, Dreamworld, Atom Power (Wavetec), and a 30+ brand ecosystem.",
+  },
+  {
+    icon: "📡",
+    title: "National & Media Reach",
+    body: "Live coverage across television, digital, and social media — giving sponsors exposure far beyond the venue walls.",
+  },
+];
+
+function KhiNextSection() {
+  return (
+    <section className="relative overflow-hidden bg-[#040B1C] py-28 px-6">
+      {/* KhiNext blue ambient glow */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/2 top-0 h-[500px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#316BFF]/10 blur-[160px]" />
+        <div className="absolute right-0 bottom-0 h-[350px] w-[500px] rounded-full bg-[#ffda00]/5 blur-[120px]" />
+      </div>
+
+      <div className="relative mx-auto max-w-3xl">
+
+        {/* eyebrow */}
+        <Reveal>
+          <div className="flex items-center gap-3 mb-6">
+            {/* KhiNext K-mark */}
+            <span
+              className="inline-grid place-items-center shrink-0"
+              style={{
+                width: 40, height: 40, borderRadius: 11,
+                background: "linear-gradient(135deg, #003ACE 0%, #316BFF 100%)",
+                boxShadow: "0 4px 12px rgba(49,107,255,0.35), inset 0 1px 0 rgba(255,255,255,0.18)",
+              }}
+              aria-hidden
+            >
+              <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+                <path d="M3 2.5L3 15.5M3 9.5L9.5 3.5M3 9.5L10.5 15.5" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M12 6L15.5 9.5L12 13" stroke="#8FAFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+            <span className="text-[11px] uppercase tracking-[0.3em] text-[#316BFF] font-semibold">
+              Brought to you by the Organizers of
+            </span>
+          </div>
+        </Reveal>
+
+        {/* headline */}
+        <Reveal delay={0.05}>
+          <h2 className="font-display leading-[0.95] tracking-tight mb-2" style={{ fontSize: "clamp(2.8rem,8vw,5rem)" }}>
+            <span className="text-white">Khi</span>
+            <span className="text-[#316BFF]">Next</span>
+            <span className="text-[#ffda00]">'26</span>
+          </h2>
+          <p className="text-sm uppercase tracking-[0.28em] text-white/35 mb-8 font-medium">
+            Pakistan's Biggest Multi-Domain AI Summit · Pearl Continental, Karachi · June 7, 2026
+          </p>
+        </Reveal>
+
+        {/* lead copy */}
+        <Reveal delay={0.1}>
+          <p className="text-base text-white/65 leading-relaxed mb-4">
+            The same team that conceived and executed KhiNext'26 — Pakistan's largest multi-domain AI summit — is now bringing that same ambition, rigour, and network to{" "}
+            <span className="text-white font-semibold">TEDxClifton 3.0</span>.
+            This isn't a coincidence; it's a deliberate escalation.
+          </p>
+          <p className="text-base text-white/65 leading-relaxed mb-12">
+            Where KhiNext proved that Karachi can host world-class technology discourse, TEDxClifton 3.0 asks the harder question: what ideas, told beautifully, will actually change the way this city thinks? Both events share one conviction — the future isn't coming, it's already here, and it belongs to those who show up.
+          </p>
+        </Reveal>
+
+        {/* stat row */}
+        <Reveal delay={0.12}>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 mb-14">
+            {KX_STATS.map((s, i) => (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.14 + i * 0.08, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                className="rounded-2xl border border-[#316BFF]/20 bg-[#316BFF]/[0.06] p-5 text-center"
+              >
+                <div className="font-display text-3xl font-black text-[#316BFF] leading-none mb-1">
+                  {s.value}
+                </div>
+                <div className="text-[11px] uppercase tracking-[0.2em] text-white/40">
+                  {s.label}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </Reveal>
+
+        {/* domain pills */}
+        <Reveal delay={0.15}>
+          <div className="mb-14">
+            <p className="text-[11px] uppercase tracking-[0.25em] text-white/30 mb-4 font-medium">12 Domains Covered</p>
+            <div className="flex flex-wrap gap-2">
+              {KX_DOMAINS.map((d, i) => (
+                <motion.span
+                  key={d}
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.15 + i * 0.04, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className="rounded-full border border-[#316BFF]/25 bg-[#316BFF]/[0.07] px-3.5 py-1.5 text-xs text-white/60 font-medium"
+                >
+                  {d}
+                </motion.span>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+
+        {/* credential cards */}
+        <div className="grid gap-4 sm:grid-cols-2 mb-14">
+          {KX_CREDENTIALS.map((c, i) => (
+            <Reveal key={c.title} delay={i * 0.07}>
+              <motion.div
+                whileHover={{ y: -4, borderColor: "rgba(49,107,255,0.35)", backgroundColor: "rgba(49,107,255,0.07)" }}
+                className="group cursor-default rounded-2xl border border-white/8 bg-white/[0.02] p-6 transition-all duration-300 h-full"
+              >
+                <div className="text-2xl mb-3">{c.icon}</div>
+                <div className="text-sm font-bold text-white mb-2 group-hover:text-[#316BFF] transition-colors duration-300">
+                  {c.title}
+                </div>
+                <div className="text-xs text-white/45 leading-relaxed">{c.body}</div>
+              </motion.div>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* closing bridge */}
+        <Reveal delay={0.1}>
+          <div className="rounded-2xl border border-[#ffda00]/20 bg-[#ffda00]/[0.04] p-8">
+            <p className="text-[11px] uppercase tracking-[0.28em] text-[#ffda00]/60 font-semibold mb-3">
+              Why this matters for your brand
+            </p>
+            <p className="text-base text-white/70 leading-relaxed">
+              Partnering with TEDxClifton 3.0 means standing beside the same organizers who defined the standard for large-scale intellectual events in Pakistan. You don't just get a logo on a banner — you get association with a team that delivers at the highest level, a room full of decision-makers, and a legacy that outlasts the day of the event.
+            </p>
+          </div>
+        </Reveal>
+
+        {/* website link */}
+        <Reveal delay={0.15}>
+          <div className="mt-8 flex items-center gap-3 text-white/30">
+            <div className="h-px flex-1 bg-white/8" />
+            <a
+              href="https://www.khinext.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs tracking-[0.2em] uppercase text-[#316BFF]/70 hover:text-[#316BFF] transition-colors duration-200 pointer-events-auto"
+            >
+              www.khinext.com
+            </a>
+            <span className="text-xs text-white/20">·</span>
+            <span className="text-xs tracking-[0.15em] text-white/25">@khinext</span>
+            <div className="h-px flex-1 bg-white/8" />
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 // ─── helpers ──────────────────────────────────────────────────────────────────
 
 async function fetchAsDataURL(url: string): Promise<string | null> {
@@ -1169,6 +1363,7 @@ export function ProposalViewer() {
         <TiersSection />
         <AgreementSection />
         <ContactSection />
+        <KhiNextSection />
 
         <footer className="border-t border-white/10 bg-[#070103] py-10 px-6 text-center">
           <div className="font-display text-lg font-bold">
