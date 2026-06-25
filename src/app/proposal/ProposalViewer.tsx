@@ -1855,14 +1855,18 @@ function MarketingReachSection() {
               <div
                 key={n}
                 className="group relative aspect-video overflow-hidden rounded-xl"
-                style={{ background: "hsla(0,0%,100%,0.03)", border: "1px solid hsla(0,0%,100%,0.07)" }}
+                style={{ background: "#000", border: "1px solid hsla(0,0%,100%,0.07)" }}
               >
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="2" y="7" width="20" height="14" rx="1"/><polyline points="17 2 12 7 7 2"/>
-                  </svg>
-                  <span className="text-[10px] text-white/15" style={{ letterSpacing: "0.15em" }}>LED Billboard 0{n}</span>
-                </div>
+                {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+                <video
+                  src={`/brand/TedXVideo (${n}).mp4`}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
               </div>
             ))}
           </div>
