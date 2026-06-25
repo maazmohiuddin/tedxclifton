@@ -283,42 +283,28 @@ function ShimmerButton({ href, children }: { href: string; children: React.React
 }
 
 // ─── KhiNext'26 section ───────────────────────────────────────────────────────
+// Design tokens lifted directly from khinext.vercel.app
+// --khi-blue: #316BFF  --khi-ink: #040B1C  --khi-ink-soft: #02040A
+// --border-default: hsla(0,0%,100%,.08)  --border-blue: rgba(49,107,255,.3)
+// --ease-soft: cubic-bezier(0.22,1,0.36,1)
+// font-display = "Helvetica Now Display, Helvetica, system-ui, sans-serif"
 
 const KX_STATS = [
-  { value: 1500, suffix: "+", label: "Attendees" },
-  { value: 40,   suffix: "+", label: "Speakers & Panelists" },
-  { value: 12,   suffix: "",  label: "Industry Domains" },
-  { value: 30,   suffix: "+", label: "Corporate Partners" },
+  { value: 10000, suffix: "+", label: "Attendees" },
+  { value: 100,   suffix: "+", label: "Speakers" },
+  { value: 7,     suffix: "",  label: "Innovation Domains" },
+  { value: 30,    suffix: "+", label: "Corporate Partners" },
 ];
 
+// Domain cards — each with its own accent color, matching kx-card domain grid
 const KX_DOMAINS = [
-  "Artificial Intelligence", "FinTech & Blockchain", "HealthTech",
-  "Cybersecurity", "EdTech", "Climate & GreenTech",
-  "Defence & National Security", "Media & Creative AI",
-  "Startup & Venture", "Smart Cities", "AgriTech", "Space & Deep-Tech",
-];
-
-const KX_CREDENTIALS = [
-  {
-    icon: "🏆",
-    title: "Pakistan's Biggest Multi-Domain AI Summit",
-    body: "KhiNext'26 united the country's top innovators, founders, and policymakers under one roof — making it the most ambitious tech gathering Karachi has ever seen.",
-  },
-  {
-    icon: "🎯",
-    title: "Curated, High-Signal Programming",
-    body: "Keynotes, fireside chats, panel debates, and live demos across 12 domains — each session engineered for depth, not noise.",
-  },
-  {
-    icon: "🤝",
-    title: "Institutional Credibility",
-    body: "Backed by P@SHA, Startup Pakistan, and partners spanning Pearl Continental, Lattafa, Dreamworld, Atom Power (Wavetec), and a 30+ brand ecosystem.",
-  },
-  {
-    icon: "📡",
-    title: "National & Media Reach",
-    body: "Live television, digital, and social coverage that gave every sponsor exposure well beyond the venue walls.",
-  },
+  { name: "AI in Health & Pharma",     color: "#51FFD5", num: "01" },
+  { name: "Smart Cities",              color: "#00EAEE", num: "02" },
+  { name: "Creative AI",               color: "#BF00FF", num: "03" },
+  { name: "Fintech & Blockchain",      color: "#FFB800", num: "04" },
+  { name: "DevZone & Open Source",     color: "#D4FF00", num: "05" },
+  { name: "Lifestyle Innovation",      color: "#FF0F4B", num: "06" },
+  { name: "Startup & Investor Arena",  color: "#E2E2E2", num: "07" },
 ];
 
 // Billboard promo videos recorded live at KhiNext'26
@@ -329,120 +315,143 @@ const KX_BILLBOARD_VIDEOS = [
   { id: "1m_EQGrp-x7nnGJDBdwJmBuXYUUnGuEpS", label: "Billboard Promo · Take 4" },
 ];
 
-function KxLogoMark({ size = 40 }: { size?: number }) {
-  return (
-    <span
-      className="inline-grid shrink-0 place-items-center"
-      style={{
-        width: size, height: size, borderRadius: Math.round(size * 0.275),
-        background: "linear-gradient(135deg, #003ACE 0%, #316BFF 100%)",
-        boxShadow: `0 4px 16px rgba(49,107,255,0.4), inset 0 1px 0 rgba(255,255,255,0.18)`,
-      }}
-      aria-hidden
-    >
-      <svg width={size * 0.52} height={size * 0.52} viewBox="0 0 18 18" fill="none">
-        <path d="M3 2.5L3 15.5M3 9.5L9.5 3.5M3 9.5L10.5 15.5" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M12 6L15.5 9.5L12 13" stroke="#8FAFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </span>
-  );
-}
-
 function KhiNextSection() {
   const [activeVideo, setActiveVideo] = useState<number | null>(null);
 
   return (
-    <section className="relative overflow-hidden bg-[#040B1C] py-28 px-6">
-      {/* ambient glows */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-0 h-[600px] w-[1000px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#316BFF]/12 blur-[180px]" />
-        <div className="absolute right-0 bottom-0 h-[400px] w-[600px] rounded-full bg-[#ffda00]/5 blur-[140px]" />
-        <div className="absolute left-0 bottom-1/3 h-[300px] w-[400px] rounded-full bg-[#316BFF]/6 blur-[120px]" />
-      </div>
+    <section
+      className="relative overflow-hidden py-28 px-6"
+      style={{ background: "radial-gradient(ellipse 80% 60% at 50% 0%, #0a1740 0%, #02040A 55%)" }}
+    >
+      {/* drifting grid — matches khinext animate-grid-drift */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.035]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(49,107,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(49,107,255,1) 1px,transparent 1px)",
+          backgroundSize: "56px 56px",
+          animation: "kxGridDrift 24s linear infinite",
+        }}
+      />
+      <style>{`@keyframes kxGridDrift{0%{background-position:0 0,0 0}to{background-position:56px 56px,56px 56px}}`}</style>
+
+      {/* radial blue glow — matches khinext stats section */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{ background: "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(49,107,255,0.07) 0%, transparent 70%)" }}
+      />
 
       <div className="relative mx-auto max-w-3xl">
 
-        {/* ── eyebrow ── */}
+        {/* ── eyebrow — matches kx-eyebrow (24px blue bar + blue uppercase text) ── */}
         <Reveal>
-          <div className="mb-6 flex items-center gap-3">
-            <KxLogoMark size={40} />
-            <span className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[#316BFF]">
-              Brought to you by the Organizers of
-            </span>
-          </div>
+          <p
+            className="mb-8 flex items-center gap-2.5 text-[12px] font-bold uppercase text-[#316BFF]"
+            style={{ letterSpacing: "0.22em" }}
+          >
+            <span aria-hidden className="inline-block h-[2px] w-6 shrink-0 bg-[#316BFF]" />
+            Brought to you by the Organizers of
+          </p>
         </Reveal>
 
-        {/* ── headline ── */}
-        <Reveal delay={0.05}>
+        {/* ── headline — khinext hero style: extrabold, -0.045em tracking ── */}
+        <Reveal delay={0.04}>
           <h2
-            className="font-display leading-[0.92] tracking-tight"
-            style={{ fontSize: "clamp(3rem,9vw,5.5rem)" }}
+            className="font-display font-extrabold text-white leading-[0.96]"
+            style={{ fontSize: "clamp(3rem,9vw,6rem)", letterSpacing: "-0.045em" }}
           >
-            <span className="text-white">Khi</span>
-            <span className="text-[#316BFF]">Next</span>
-            <span className="text-[#ffda00]">'26</span>
+            Khi<em className="not-italic text-[#316BFF]" style={{
+              position: "relative", display: "inline-block", isolation: "isolate",
+            }}>next</em>
+            <span className="text-white/30 font-bold ml-2" style={{ fontSize: "0.55em" }}>&apos;26</span>
           </h2>
-          <p className="mt-3 mb-10 text-[11px] font-medium uppercase tracking-[0.3em] text-white/30">
-            Pakistan's Biggest Multi-Domain AI Summit · Pearl Continental, Karachi · June 7, 2026
+          <p
+            className="mt-4 mb-12 text-[11px] font-bold uppercase text-white/30"
+            style={{ letterSpacing: "0.18em" }}
+          >
+            Pakistan&apos;s First Multi-Domain AI Summit · Pearl Continental, Karachi · 7 June 2026
           </p>
         </Reveal>
 
         {/* ── lead copy ── */}
-        <Reveal delay={0.08} className="mb-12 space-y-4 text-[15px] leading-relaxed text-white/60">
+        <Reveal delay={0.08} className="mb-14 space-y-4 text-[15px] leading-relaxed" style={{ color: "hsla(0,0%,100%,0.55)" }}>
           <p>
-            The same team that conceived and executed KhiNext'26 is now channelling that same
-            ambition into{" "}
-            <span className="font-semibold text-white">TEDxClifton 3.0</span>. Where KhiNext
-            proved Karachi can host world-class tech discourse, TEDxClifton asks the harder
-            question: what ideas, told beautifully, will actually change the way this city thinks?
+            The same team that built KhiNext&apos;26 — Pakistan&apos;s biggest multi-domain AI summit,{" "}
+            <span className="text-white font-semibold">10,000+ attendees, 100+ speakers, 7 domains</span> —
+            is now channelling that same rigour into TEDxClifton 3.0.
           </p>
           <p>
-            Both events share one conviction — the future isn't coming; it's already here,
-            and it belongs to those who show up.
+            Where KhiNext proved Karachi can host world-class tech discourse, TEDxClifton asks the
+            harder question: what ideas, told beautifully, will actually change the way this city thinks?
+            Both events share one conviction — the future is already here, and it belongs to those who show up.
           </p>
         </Reveal>
 
-        {/* ── stat row ── */}
-        <div className="mb-14 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        {/* ── stats — matches khinext stat row: extrabold, clamp, -0.04em ── */}
+        <div
+          className="mb-16 grid grid-cols-2 overflow-hidden rounded-2xl border lg:grid-cols-4"
+          style={{ borderColor: "hsla(0,0%,100%,0.08)", background: "hsla(0,0%,100%,0.012)" }}
+        >
           {KX_STATS.map((s, i) => (
-            <Reveal key={s.label} delay={0.06 + i * 0.07} direction="scale">
-              <TiltCard>
-                <GlowCard
-                  color="rgba(49,107,255,0.18)"
-                  className="h-full rounded-2xl border border-[#316BFF]/22 bg-[#316BFF]/[0.07] p-5 text-center"
+            <Reveal key={s.label} delay={0.06 + i * 0.08}>
+              <div
+                className="flex flex-col items-center justify-center gap-2 py-10 px-5 text-center transition-colors duration-300 hover:bg-white/[0.02]"
+                style={{
+                  borderRight: i < KX_STATS.length - 1 ? "1px solid hsla(0,0%,100%,0.08)" : undefined,
+                  borderBottom: i < 2 ? "1px solid hsla(0,0%,100%,0.08)" : undefined,
+                }}
+              >
+                <div
+                  className="font-display font-extrabold text-white tabular-nums leading-none"
+                  style={{ fontSize: "clamp(32px,5vw,52px)", letterSpacing: "-0.04em" }}
                 >
-                  <div className="font-display text-3xl font-black leading-none text-[#316BFF]">
-                    <CountUp to={s.value} suffix={s.suffix} duration={1.6} />
-                  </div>
-                  <div className="mt-1.5 text-[10px] font-medium uppercase tracking-[0.22em] text-white/35">
-                    {s.label}
-                  </div>
-                </GlowCard>
-              </TiltCard>
+                  <CountUp to={s.value} suffix="" duration={1.8} />
+                  <span className="text-[#316BFF]">{s.suffix}</span>
+                </div>
+                <div className="text-xs text-white/45 tracking-wide">{s.label}</div>
+              </div>
             </Reveal>
           ))}
         </div>
 
         {/* ── billboard videos ── */}
-        <Reveal delay={0.1}>
-          <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#316BFF]">
-            Billboard Promos · Live at KhiNext'26
-          </div>
-          <p className="mb-6 text-sm text-white/40 leading-relaxed">
-            KhiNext'26 ran city-wide billboard campaigns across Karachi. These are the promo videos
-            that played on digital outdoor screens — a glimpse of the reach your brand partners into.
+        <Reveal delay={0.06}>
+          <p
+            className="mb-2 flex items-center gap-2.5 text-[12px] font-bold uppercase text-[#316BFF]"
+            style={{ letterSpacing: "0.22em" }}
+          >
+            <span aria-hidden className="inline-block h-[2px] w-6 shrink-0 bg-[#316BFF]" />
+            Billboard Promos
+          </p>
+          <p className="mb-8 text-sm leading-relaxed" style={{ color: "hsla(0,0%,100%,0.45)" }}>
+            KhiNext&apos;26 ran city-wide outdoor billboard campaigns across Karachi. These promo videos
+            played on digital screens across the city — a glimpse of the scale your brand steps into.
           </p>
         </Reveal>
 
-        <div className="mb-14 grid grid-cols-2 gap-4">
+        <div className="mb-16 grid grid-cols-2 gap-4">
           {KX_BILLBOARD_VIDEOS.map((v, i) => (
-            <Reveal key={v.id} delay={0.08 + i * 0.06} direction="scale">
-              <GlowCard
-                color="rgba(49,107,255,0.2)"
-                className="group relative overflow-hidden rounded-2xl border border-[#316BFF]/20 bg-[#0a1428] aspect-video"
+            <Reveal key={v.id} delay={0.07 + i * 0.06} direction="scale">
+              <div
+                className="group relative aspect-video overflow-hidden rounded-2xl transition-all duration-300"
+                style={{
+                  background: "#040e22",
+                  border: "1px solid hsla(0,0%,100%,0.08)",
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(49,107,255,0.3)";
+                  (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)";
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = "0 20px 48px rgba(0,0,0,0.35), 0 0 0 0.5px rgba(49,107,255,0.12)";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "hsla(0,0%,100%,0.08)";
+                  (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
+                }}
               >
                 {activeVideo === i ? (
-                  /* ── active: show drive iframe ── */
                   <iframe
                     src={`https://drive.google.com/file/d/${v.id}/preview`}
                     className="absolute inset-0 h-full w-full"
@@ -451,130 +460,265 @@ function KhiNextSection() {
                     title={v.label}
                   />
                 ) : (
-                  /* ── thumbnail state ── */
                   <button
                     onClick={() => setActiveVideo(i)}
-                    className="absolute inset-0 flex flex-col items-center justify-center gap-3 w-full h-full"
+                    className="absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-3"
                     aria-label={`Play ${v.label}`}
                   >
-                    {/* subtle grid lines on poster */}
-                    <div aria-hidden className="absolute inset-0 opacity-20"
-                      style={{ backgroundImage: "linear-gradient(rgba(49,107,255,0.3) 1px,transparent 1px),linear-gradient(90deg,rgba(49,107,255,0.3) 1px,transparent 1px)", backgroundSize: "32px 32px" }} />
+                    {/* drifting grid poster bg */}
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 opacity-[0.07]"
+                      style={{
+                        backgroundImage: "linear-gradient(rgba(49,107,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(49,107,255,1) 1px,transparent 1px)",
+                        backgroundSize: "28px 28px",
+                      }}
+                    />
+                    {/* corner blue radial glow on hover */}
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute -top-10 -right-10 h-36 w-36 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                      style={{ background: "radial-gradient(circle, rgba(49,107,255,0.22) 0%, transparent 70%)", filter: "blur(18px)" }}
+                    />
 
-                    {/* play button */}
+                    {/* play button — kx-btn-primary pill style with btnGlow */}
                     <motion.div
-                      whileHover={{ scale: 1.12 }}
+                      whileHover={{ scale: 1.08 }}
                       transition={{ type: "spring", stiffness: 380, damping: 22 }}
-                      className="relative z-10 grid h-14 w-14 place-items-center rounded-full bg-[#316BFF] shadow-[0_0_32px_rgba(49,107,255,0.55)]"
+                      className="relative z-10 grid h-12 w-12 place-items-center rounded-full"
+                      style={{
+                        background: "#316BFF",
+                        boxShadow: "0 0 0 0 rgba(49,107,255,0.4), 0 6px 22px rgba(49,107,255,0.32)",
+                        animation: "kxBtnGlow 3.5s ease-in-out infinite",
+                      }}
                     >
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="white">
+                      <svg width="16" height="16" viewBox="0 0 20 20" fill="white">
                         <path d="M5 3.5L17 10L5 16.5V3.5Z" />
                       </svg>
                     </motion.div>
 
-                    <span className="relative z-10 text-[11px] font-medium uppercase tracking-[0.2em] text-white/50">
+                    <span
+                      className="relative z-10 text-[10px] font-bold uppercase text-white/40"
+                      style={{ letterSpacing: "0.22em" }}
+                    >
                       {v.label}
                     </span>
+
+                    {/* bottom reveal line — matches kx-card hover bottom border */}
+                    <div
+                      aria-hidden
+                      className="absolute bottom-0 left-4 right-4 h-px origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
+                      style={{ background: "linear-gradient(90deg, #316BFF, transparent)" }}
+                    />
                   </button>
                 )}
 
-                {/* close button when active */}
                 {activeVideo === i && (
                   <button
                     onClick={() => setActiveVideo(null)}
-                    className="absolute top-2 right-2 z-20 grid h-7 w-7 place-items-center rounded-full bg-black/60 text-white/70 hover:text-white backdrop-blur-sm"
+                    className="absolute right-2 top-2 z-20 grid h-7 w-7 place-items-center rounded-full backdrop-blur-sm"
+                    style={{ background: "rgba(0,0,0,0.65)", color: "rgba(255,255,255,0.7)", border: "1px solid hsla(0,0%,100%,0.12)" }}
                     aria-label="Close video"
                   >
-                    <svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                    <svg width="11" height="11" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
                       <path d="M1 1L11 11M11 1L1 11" />
                     </svg>
                   </button>
                 )}
-              </GlowCard>
+              </div>
             </Reveal>
           ))}
         </div>
+        <style>{`@keyframes kxBtnGlow{0%,100%{box-shadow:0 0 0 0 rgba(49,107,255,.4),0 6px 22px rgba(49,107,255,.32)}50%{box-shadow:0 0 24px 6px rgba(49,107,255,.18),0 6px 22px rgba(49,107,255,.32)}}`}</style>
 
-        {/* ── domain pills ── */}
-        <Reveal delay={0.1}>
-          <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/30">
-            12 Domains Covered
-          </div>
-          <div className="mb-14 flex flex-wrap gap-2">
-            {KX_DOMAINS.map((d, i) => (
-              <motion.span
-                key={d}
-                initial={{ opacity: 0, scale: 0.82 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 + i * 0.035, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="rounded-full border border-[#316BFF]/22 bg-[#316BFF]/[0.07] px-3.5 py-1.5 text-[12px] font-medium text-white/55"
+        {/* ── event photo gallery — Google Drive folder embed ── */}
+        <Reveal delay={0.06}>
+          <p
+            className="mb-2 flex items-center gap-2.5 text-[12px] font-bold uppercase text-[#316BFF]"
+            style={{ letterSpacing: "0.22em" }}
+          >
+            <span aria-hidden className="inline-block h-[2px] w-6 shrink-0 bg-[#316BFF]" />
+            Event Gallery
+          </p>
+          <p className="mb-6 text-sm leading-relaxed" style={{ color: "hsla(0,0%,100%,0.45)" }}>
+            Behind-the-scenes photography from KhiNext&apos;26 — the same energy, ambition, and
+            production quality we bring to every event we organise.
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.08}>
+          <div
+            className="group relative mb-16 overflow-hidden rounded-2xl transition-all duration-300"
+            style={{
+              border: "1px solid hsla(0,0%,100%,0.08)",
+              background: "#040e22",
+            }}
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(49,107,255,0.3)";
+              (e.currentTarget as HTMLDivElement).style.boxShadow = "0 20px 48px rgba(0,0,0,0.35), 0 0 0 0.5px rgba(49,107,255,0.12)";
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLDivElement).style.borderColor = "hsla(0,0%,100%,0.08)";
+              (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
+            }}
+          >
+            {/* top bar — matches kx-card header style */}
+            <div
+              className="flex items-center justify-between border-b px-5 py-3"
+              style={{ borderColor: "hsla(0,0%,100%,0.06)", background: "hsla(0,0%,100%,0.03)" }}
+            >
+              <div className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-[#316BFF] opacity-70" />
+                <span className="text-[11px] font-bold uppercase text-white/30" style={{ letterSpacing: "0.18em" }}>
+                  KHINEXT &apos;26 — Official Photography
+                </span>
+              </div>
+              <a
+                href="https://drive.google.com/drive/folders/1ZiBDHNJTWG0HncXc3GdoicAu7RTIPxa1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[11px] font-semibold text-[#316BFF]/70 transition-colors hover:text-[#316BFF]"
+                style={{ letterSpacing: "0.1em" }}
               >
-                {d}
-              </motion.span>
-            ))}
+                Open in Drive ↗
+              </a>
+            </div>
+            <iframe
+              src="https://drive.google.com/embeddedfolderview?id=1ZiBDHNJTWG0HncXc3GdoicAu7RTIPxa1#grid"
+              title="KhiNext'26 Event Gallery"
+              className="w-full"
+              style={{ height: 480, border: "none", background: "#040e22" }}
+              loading="lazy"
+            />
           </div>
         </Reveal>
 
-        {/* ── credential cards ── */}
-        <div className="mb-14 grid gap-4 sm:grid-cols-2">
-          {KX_CREDENTIALS.map((c, i) => (
-            <Reveal key={c.title} delay={i * 0.07}>
-              <TiltCard intensity={5}>
-                <GlowCard
-                  color="rgba(49,107,255,0.16)"
-                  className="group h-full cursor-default rounded-2xl border border-white/8 bg-white/[0.025] p-6"
+        {/* ── domain cards — replicates kx-card domain grid with per-color accents ── */}
+        <Reveal delay={0.06}>
+          <p
+            className="mb-8 flex items-center gap-2.5 text-[12px] font-bold uppercase text-[#316BFF]"
+            style={{ letterSpacing: "0.22em" }}
+          >
+            <span aria-hidden className="inline-block h-[2px] w-6 shrink-0 bg-[#316BFF]" />
+            7 Domains of Tomorrow
+          </p>
+        </Reveal>
+
+        <div className="mb-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {KX_DOMAINS.map((d, i) => (
+            <Reveal key={d.name} delay={0.05 + i * 0.05}>
+              <TiltCard intensity={6}>
+                <article
+                  className="group relative h-full cursor-default overflow-hidden rounded-2xl p-7 transition-all duration-300"
+                  style={{
+                    background: "hsla(0,0%,100%,0.04)",
+                    border: "1px solid hsla(0,0%,100%,0.08)",
+                  }}
+                  onMouseEnter={e => {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.borderColor = "rgba(49,107,255,0.3)";
+                    el.style.transform = "translateY(-3px)";
+                    el.style.boxShadow = "0 20px 48px rgba(0,0,0,0.35), 0 0 0 0.5px rgba(49,107,255,0.12)";
+                  }}
+                  onMouseLeave={e => {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.borderColor = "hsla(0,0%,100%,0.08)";
+                    el.style.transform = "translateY(0)";
+                    el.style.boxShadow = "none";
+                  }}
                 >
-                  <motion.div
-                    animate={{ rotate: [0, 5, -3, 0] }}
-                    transition={{ repeat: Infinity, duration: 5 + i, delay: i * 0.5, ease: "easeInOut" }}
-                    className="mb-3 text-2xl"
+                  {/* corner radial glow in domain color */}
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute -top-12 -right-12 h-40 w-40 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{ background: `radial-gradient(circle, ${d.color}33 0%, transparent 70%)`, filter: "blur(20px)" }}
+                  />
+                  {/* corner number */}
+                  <span
+                    aria-hidden
+                    className="absolute right-6 top-5 select-none font-display text-5xl font-extrabold"
+                    style={{ color: "rgba(255,255,255,0.06)" }}
                   >
-                    {c.icon}
-                  </motion.div>
-                  <div className="mb-2 text-sm font-bold text-white transition-colors duration-300 group-hover:text-[#316BFF]">
-                    {c.title}
+                    {d.num}
+                  </span>
+                  {/* icon container */}
+                  <div
+                    className="relative mb-4 grid h-12 w-12 place-items-center rounded-xl transition-all duration-300 group-hover:scale-110 group-hover:-rotate-6"
+                    style={{
+                      background: `${d.color}1F`,
+                      border: `1px solid ${d.color}55`,
+                      boxShadow: `0 0 22px ${d.color}33, inset 0 1px 0 ${d.color}55`,
+                    }}
+                  >
+                    <span className="text-lg" style={{ color: d.color }}>◆</span>
                   </div>
-                  <div className="text-xs leading-relaxed text-white/40">{c.body}</div>
-                </GlowCard>
+                  <h3 className="relative font-display text-base font-semibold text-white" style={{ letterSpacing: "-0.02em" }}>
+                    {d.name}
+                  </h3>
+                  {/* bottom reveal line on hover */}
+                  <div
+                    aria-hidden
+                    className="absolute bottom-0 left-6 right-6 h-px origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
+                    style={{ background: `linear-gradient(90deg, ${d.color}, transparent)` }}
+                  />
+                </article>
               </TiltCard>
             </Reveal>
           ))}
         </div>
 
-        {/* ── closing bridge card ── */}
-        <Reveal delay={0.1}>
-          <GlowCard
-            color="rgba(255,218,0,0.1)"
-            className="rounded-2xl border border-[#ffda00]/18 bg-[#ffda00]/[0.04] p-8 mb-8"
+        {/* ── closing bridge — styled as kx-banner (shimmer sweep on hover) ── */}
+        <Reveal delay={0.08}>
+          <div
+            className="group relative mb-8 overflow-hidden rounded-2xl p-8 transition-all duration-300 hover:-translate-y-0.5"
+            style={{
+              background: "hsla(0,0%,100%,0.04)",
+              border: "1px solid rgba(49,107,255,0.3)",
+              boxShadow: "0 0 0 0 rgba(49,107,255,0.4), 0 6px 22px rgba(49,107,255,0.32)",
+            }}
           >
-            <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#ffda00]/60">
+            {/* shimmer sweep — matches kx-banner :before */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-[inherit] -translate-x-full transition-transform duration-700 group-hover:translate-x-full"
+              style={{ background: "linear-gradient(105deg, transparent 30%, hsla(0,0%,100%,0.04) 50%, transparent 70%)" }}
+            />
+            <p
+              className="mb-3 text-[10px] font-bold uppercase text-[#316BFF]/70"
+              style={{ letterSpacing: "0.28em" }}
+            >
               Why this matters for your brand
             </p>
-            <p className="text-[15px] leading-relaxed text-white/65">
-              Partnering with TEDxClifton 3.0 means standing beside the team that set the standard
-              for large-scale intellectual events in Pakistan. You don't just get a logo on a
-              banner — you get association with a team that delivers at the highest level, a room
-              full of decision-makers, and a legacy that outlasts the day of the event.
+            <p className="text-[15px] leading-relaxed" style={{ color: "hsla(0,0%,100%,0.65)" }}>
+              Partnering with TEDxClifton 3.0 means standing beside the team that defined the
+              standard for large-scale intellectual events in Pakistan. You don&apos;t just get a logo
+              on a banner — you get association with a team that delivers at the highest level, a
+              room full of decision-makers, and a legacy that outlasts the day of the event.
             </p>
-          </GlowCard>
+          </div>
         </Reveal>
 
-        {/* ── footer link row ── */}
-        <Reveal delay={0.15}>
-          <div className="flex items-center gap-4 text-white/20">
-            <div className="h-px flex-1 bg-white/8" />
+        {/* ── footer — nav-link underline style from khinext header ── */}
+        <Reveal delay={0.12}>
+          <div className="flex items-center gap-5" style={{ color: "hsla(0,0%,100%,0.2)" }}>
+            <div className="h-px flex-1" style={{ background: "hsla(0,0%,100%,0.08)" }} />
             <a
               href="https://www.khinext.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[11px] font-medium uppercase tracking-[0.22em] text-[#316BFF]/60 transition-colors duration-200 hover:text-[#316BFF]"
+              className="group relative text-sm transition-colors duration-200 hover:text-white"
+              style={{ color: "hsla(0,0%,100%,0.45)" }}
             >
-              www.khinext.com
+              khinext.com
+              <span
+                aria-hidden
+                className="absolute -bottom-1 left-0 h-px w-0 transition-[width] duration-300 group-hover:w-1/2"
+                style={{ background: "linear-gradient(90deg, #4579FF, transparent)" }}
+              />
             </a>
-            <span className="text-white/15">·</span>
-            <span className="text-[11px] uppercase tracking-[0.18em] text-white/25">@khinext</span>
-            <div className="h-px flex-1 bg-white/8" />
+            <span style={{ color: "hsla(0,0%,100%,0.15)" }}>·</span>
+            <span className="text-sm" style={{ color: "hsla(0,0%,100%,0.25)", letterSpacing: "0.08em" }}>@khinext</span>
+            <div className="h-px flex-1" style={{ background: "hsla(0,0%,100%,0.08)" }} />
           </div>
         </Reveal>
       </div>
