@@ -829,16 +829,19 @@ function HeroSection() {
 
   return (
     <section ref={ref} className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#070103]">
-      {/* ── stage hero image — parallax layer ── */}
+      {/* ── hero video — parallax layer ── */}
       <motion.div
         style={{ y }}
         className="pointer-events-none absolute inset-0 will-change-transform"
         aria-hidden
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/brand/hero-stage.png"
-          alt=""
+        {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+        <video
+          src="/brand/Hero video.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
           className="h-full w-full object-cover object-center"
           style={{ opacity: 0.55 }}
         />
