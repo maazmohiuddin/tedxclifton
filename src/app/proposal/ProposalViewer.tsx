@@ -1641,7 +1641,7 @@ function MarketingReachSection() {
 
         <Reveal delay={0.08}>
           <div className="mb-16 grid grid-cols-3 gap-3">
-            {["Meet Our Partners", "Meet Our Partners · 2", "Meet Our Co Partners"].map((label, i) => (
+            {["Meet Our Partners", "Meet Our Partners · 2", "Meet Our Co Partners"].map((label) => (
               <div
                 key={label}
                 className="group relative aspect-[4/5] overflow-hidden rounded-xl"
