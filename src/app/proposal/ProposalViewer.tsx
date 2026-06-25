@@ -837,7 +837,7 @@ function HeroSection() {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/brand/hero-stage.jpg"
+          src="/brand/hero-stage.png"
           alt=""
           className="h-full w-full object-cover object-center"
           style={{ opacity: 0.55 }}
@@ -1072,6 +1072,8 @@ function LastEventSection() {
         { to: 1, prefix: "#", suffix: "", label: "In Pakistan" },
       ],
       wordmark: "/brand/v1-wordmark.svg",
+      banner: "/brand/Banner1.jpeg",
+      icon: "/brand/Breaking Boundaries Icon.png",
       accent: "#e62b1e",
     },
     {
@@ -1088,6 +1090,8 @@ function LastEventSection() {
         { to: 2, prefix: "", suffix: " Stages", label: "Main + Firechat" },
       ],
       wordmark: "/brand/v2-wordmark.svg",
+      banner: "/brand/Banner2.jpeg",
+      icon: "/brand/The Other Side.png",
       accent: "#c0001a",
     },
   ];
@@ -1124,35 +1128,49 @@ function LastEventSection() {
                   border: "1px solid hsla(0,0%,100%,0.07)",
                 }}
               >
-                {/* key visual header — wordmark on dark gradient */}
-                <div className="relative flex h-52 w-full items-center justify-center overflow-hidden sm:h-64">
-                  {/* background gradient */}
+                {/* key visual header — banner photo + wordmark overlay */}
+                <div className="relative flex h-60 w-full items-center justify-center overflow-hidden sm:h-72">
+                  {/* banner photo */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={ed.banner}
+                    alt=""
+                    className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                    style={{ opacity: 0.7 }}
+                    aria-hidden
+                  />
+                  {/* dark overlay so wordmark stays readable */}
                   <div
                     className="absolute inset-0"
                     style={{
-                      background: `radial-gradient(ellipse 90% 140% at 20% 60%, ${ed.accent}28 0%, #060002 60%)`,
+                      background: "linear-gradient(to bottom, rgba(7,1,3,0.45) 0%, rgba(7,1,3,0.25) 45%, rgba(7,1,3,0.72) 100%)",
                     }}
                   />
-                  {/* subtle noise texture overlay */}
+                  {/* red tint pulse on hover */}
                   <div
-                    aria-hidden
-                    className="absolute inset-0 opacity-[0.03]"
-                    style={{
-                      backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-                      backgroundSize: "180px",
-                    }}
+                    className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{ background: `radial-gradient(ellipse 70% 80% at 50% 50%, ${ed.accent}18 0%, transparent 70%)` }}
                   />
-                  {/* SVG wordmark */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={ed.wordmark}
-                    alt={`TEDxClifton ${ed.edition} — ${ed.theme}`}
-                    className="relative z-10 w-[72%] max-w-[480px] opacity-90 transition-all duration-500 group-hover:opacity-100 group-hover:scale-[1.02]"
-                    style={{ filter: "drop-shadow(0 4px 32px rgba(235,0,40,0.18))" }}
-                  />
-                  {/* bottom fade */}
+                  {/* wordmark + icon stacked */}
+                  <div className="relative z-10 flex flex-col items-center gap-4">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={ed.icon}
+                      alt=""
+                      className="h-14 w-auto object-contain opacity-90 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110"
+                      style={{ filter: "drop-shadow(0 2px 16px rgba(235,0,40,0.4))" }}
+                    />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={ed.wordmark}
+                      alt={`TEDxClifton ${ed.edition} — ${ed.theme}`}
+                      className="w-[68%] max-w-[420px] opacity-95 transition-all duration-500 group-hover:opacity-100"
+                      style={{ filter: "drop-shadow(0 2px 24px rgba(235,0,40,0.22))" }}
+                    />
+                  </div>
+                  {/* bottom fade into card body */}
                   <div
-                    className="absolute bottom-0 left-0 right-0 h-20"
+                    className="absolute bottom-0 left-0 right-0 h-16"
                     style={{ background: "linear-gradient(to bottom, transparent, hsla(0,0%,100%,0.03))" }}
                   />
                   {/* edition + date badges — top-left */}
