@@ -1128,70 +1128,87 @@ function LastEventSection() {
                   border: "1px solid hsla(0,0%,100%,0.07)",
                 }}
               >
-                {/* key visual header — banner photo + wordmark overlay */}
-                <div className="relative flex h-60 w-full items-center justify-center overflow-hidden sm:h-72">
-                  {/* banner photo */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={ed.banner}
-                    alt=""
-                    className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                    style={{ opacity: 0.7 }}
-                    aria-hidden
-                  />
-                  {/* dark overlay so wordmark stays readable */}
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background: "linear-gradient(to bottom, rgba(7,1,3,0.45) 0%, rgba(7,1,3,0.25) 45%, rgba(7,1,3,0.72) 100%)",
-                    }}
-                  />
-                  {/* red tint pulse on hover */}
-                  <div
-                    className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                    style={{ background: `radial-gradient(ellipse 70% 80% at 50% 50%, ${ed.accent}18 0%, transparent 70%)` }}
-                  />
-                  {/* wordmark + icon stacked */}
-                  <div className="relative z-10 flex flex-col items-center gap-4">
+                {/* ── split header: photo left | content panel right ── */}
+                <div className="flex flex-col sm:flex-row sm:min-h-[280px]">
+
+                  {/* LEFT — banner photo (40% on desktop) */}
+                  <div className="relative h-48 w-full shrink-0 overflow-hidden sm:h-auto sm:w-[42%]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={ed.icon}
+                      src={ed.banner}
                       alt=""
-                      className="h-14 w-auto object-contain opacity-90 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110"
-                      style={{ filter: "drop-shadow(0 2px 16px rgba(235,0,40,0.4))" }}
+                      aria-hidden
+                      className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                     />
+                    {/* right-side fade into dark panel */}
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background: "linear-gradient(to right, transparent 50%, rgba(7,1,3,0.85) 100%)",
+                      }}
+                    />
+                    {/* bottom fade on mobile */}
+                    <div
+                      className="absolute inset-0 sm:hidden"
+                      style={{ background: "linear-gradient(to bottom, transparent 40%, rgba(7,1,3,0.9) 100%)" }}
+                    />
+                  </div>
+
+                  {/* RIGHT — dark content panel (60% on desktop) */}
+                  <div
+                    className="relative flex flex-1 flex-col justify-center gap-5 px-7 py-8"
+                    style={{ background: "rgba(7,1,3,0.92)" }}
+                  >
+                    {/* accent top-line */}
+                    <div className="absolute left-0 top-0 bottom-0 w-[3px]" style={{ background: ed.accent }} />
+
+                    {/* edition + date badges */}
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="rounded-full px-3 py-1 text-[10px] font-black uppercase"
+                        style={{ background: ed.accent, color: "#fff", letterSpacing: "0.2em", boxShadow: `0 4px 18px ${ed.accent}55` }}
+                      >
+                        TEDxClifton {ed.edition}
+                      </span>
+                      <span
+                        className="rounded-full border px-3 py-1 text-[10px] font-semibold text-white/50"
+                        style={{ borderColor: "hsla(0,0%,100%,0.10)", letterSpacing: "0.1em" }}
+                      >
+                        {ed.date}
+                      </span>
+                    </div>
+
+                    {/* icon + theme name row */}
+                    <div className="flex items-center gap-4">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={ed.icon}
+                        alt=""
+                        className="h-16 w-16 shrink-0 object-contain transition-transform duration-500 group-hover:scale-110"
+                        style={{ filter: `drop-shadow(0 0 14px ${ed.accent}66)` }}
+                      />
+                      <div>
+                        <p className="text-[10px] font-bold uppercase text-white/30" style={{ letterSpacing: "0.22em" }}>Theme</p>
+                        <h3
+                          className="font-display font-extrabold text-white leading-tight"
+                          style={{ fontSize: "clamp(1.35rem,3vw,1.9rem)", letterSpacing: "-0.03em" }}
+                        >
+                          &ldquo;{ed.theme}&rdquo;
+                        </h3>
+                      </div>
+                    </div>
+
+                    {/* wordmark */}
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={ed.wordmark}
-                      alt={`TEDxClifton ${ed.edition} — ${ed.theme}`}
-                      className="w-[68%] max-w-[420px] opacity-95 transition-all duration-500 group-hover:opacity-100"
-                      style={{ filter: "drop-shadow(0 2px 24px rgba(235,0,40,0.22))" }}
+                      alt={`TEDxClifton ${ed.edition} wordmark`}
+                      className="w-full max-w-[260px] opacity-70 transition-opacity duration-300 group-hover:opacity-90"
+                      style={{ filter: "drop-shadow(0 2px 12px rgba(235,0,40,0.2))" }}
                     />
-                  </div>
-                  {/* bottom fade into card body */}
-                  <div
-                    className="absolute bottom-0 left-0 right-0 h-16"
-                    style={{ background: "linear-gradient(to bottom, transparent, hsla(0,0%,100%,0.03))" }}
-                  />
-                  {/* edition + date badges — top-left */}
-                  <div className="absolute left-5 top-5 flex items-center gap-2">
-                    <span
-                      className="rounded-full px-3 py-1 text-[10px] font-black uppercase"
-                      style={{
-                        background: ed.accent,
-                        color: "#fff",
-                        letterSpacing: "0.2em",
-                        boxShadow: `0 4px 18px ${ed.accent}55`,
-                      }}
-                    >
-                      {ed.edition}
-                    </span>
-                    <span
-                      className="rounded-full border px-3 py-1 text-[10px] font-semibold text-white/55"
-                      style={{ borderColor: "hsla(0,0%,100%,0.10)", letterSpacing: "0.1em" }}
-                    >
-                      {ed.date}
-                    </span>
+
+                    {/* tagline */}
+                    <p className="text-[13px] leading-relaxed text-white/45 max-w-xs">{ed.tagline}</p>
                   </div>
                 </div>
 
