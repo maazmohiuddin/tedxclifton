@@ -1197,8 +1197,8 @@ function LastEventSection() {
                     &ldquo;{ed.quote}&rdquo;
                   </motion.blockquote>
 
-                  {/* Drive gallery — only for The Other Side (2.0) */}
-                  {ed.edition === "2.0" && (
+                  {/* Drive gallery — for both editions */}
+                  {(ed.edition === "1.0" || ed.edition === "2.0") && (
                     <div className="mt-8">
                       <p className="mb-3 text-[11px] font-bold uppercase text-white/30" style={{ letterSpacing: "0.22em" }}>
                         Event Gallery
@@ -1208,10 +1208,10 @@ function LastEventSection() {
                         style={{ border: "1px solid hsla(0,0%,100%,0.07)" }}
                       >
                         <iframe
-                          src="https://drive.google.com/embeddedfolderview?id=1HNFQl9v68P1An4GJYUzSHl9LLbi0FYwi#grid"
+                          src={`https://drive.google.com/embeddedfolderview?id=${ed.edition === "1.0" ? "1ugYcFKmWIiG-EIB0UKLq52ysJ6U6Okcq" : "1INMXldiwnZ5eQELzh-bSFoTRxFhzJnXF"}#grid`}
                           className="w-full"
                           style={{ height: 420, border: "none", background: "#0a0a0a" }}
-                          title="TEDxClifton 2.0 — The Other Side gallery"
+                          title={`TEDxClifton ${ed.edition} — ${ed.theme} gallery`}
                           loading="lazy"
                         />
                       </div>
