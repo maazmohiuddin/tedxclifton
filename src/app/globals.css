@@ -286,3 +286,57 @@
   outline: 2px solid white;
   outline-offset: 2px;
 }
+
+/* ── Print / Save as PDF ───────────────────────────────────── */
+@media print {
+  /* Force background colors and images to print */
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide UI chrome */
+  header,
+  .print-hide,
+  [aria-hidden="true"][style*="scaleX"],   /* scroll progress bar */
+  [data-cursor-glow] {
+    display: none !important;
+  }
+
+  /* Reset page margins */
+  @page {
+    margin: 0;
+    size: A4 portrait;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #070103 !important;
+  }
+
+  /* Let every major section start on a new page */
+  main > section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Remove sticky positioning so header doesn't repeat */
+  [class*="sticky"] {
+    position: static !important;
+  }
+
+  /* Hide interactive / animated elements that don't print well */
+  video {
+    display: none !important;
+  }
+
+  iframe {
+    display: none !important;
+  }
+
+  /* Ensure text is readable */
+  body {
+    color: white !important;
+  }
+}

@@ -558,7 +558,6 @@ function KhiNextSection() {
                       width: "56%",
                       aspectRatio: "1",
                       background: `${d.color}14`,
-                      border: `1.5px solid ${d.color}55`,
                     }}
                     animate={{ boxShadow: [`0 0 12px ${d.color}22`, `0 0 28px ${d.color}55`, `0 0 12px ${d.color}22`] }}
                     transition={{ repeat: Infinity, duration: 3 + i * 0.4, ease: "easeInOut" }}
@@ -2392,74 +2391,9 @@ export function ProposalViewer() {
     window.scrollTo(0, 0);
   }, []);
 
-  async function downloadPdf() {
+  function downloadPdf() {
     if (busy) return;
-    setBusy(true);
-    try {
-      const [{ jsPDF }, html2canvas] = await Promise.all([
-        import("jspdf"),
-        import("html2canvas").then(m => m.default),
-      ]);
-
-      // Capture the full page — target the <main> + footer inside the root div
-      const root = document.querySelector<HTMLElement>(".min-h-screen");
-      if (!root) { alert("Page not ready."); return; }
-
-      // Temporarily hide the sticky header and scroll-progress bar so they
-      // don't repeat on every page slice
-      const header = root.querySelector<HTMLElement>("header");
-      const progressBar = root.querySelector<HTMLElement>("[aria-hidden][style*='scaleX']");
-      if (header) header.style.display = "none";
-      if (progressBar) (progressBar as HTMLElement).style.display = "none";
-
-      const canvas = await html2canvas(root, {
-        scale: 1.5,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: "#070103",
-        logging: false,
-        // Render the full scrollable height
-        windowWidth: root.scrollWidth,
-        windowHeight: root.scrollHeight,
-      });
-
-      // Restore hidden elements
-      if (header) header.style.display = "";
-      if (progressBar) (progressBar as HTMLElement).style.display = "";
-
-      const pdf = new jsPDF({ orientation: "portrait", unit: "pt", format: "a4" });
-      const pdfW = pdf.internal.pageSize.getWidth();
-      const pdfH = pdf.internal.pageSize.getHeight();
-
-      // How many canvas pixels fit in one PDF page height?
-      const sliceH = Math.floor(canvas.width * (pdfH / pdfW));
-      const totalSlices = Math.ceil(canvas.height / sliceH);
-
-      for (let i = 0; i < totalSlices; i++) {
-        if (i > 0) pdf.addPage();
-
-        // Create a per-page canvas slice
-        const sliceCanvas = document.createElement("canvas");
-        sliceCanvas.width = canvas.width;
-        sliceCanvas.height = Math.min(sliceH, canvas.height - i * sliceH);
-        const ctx = sliceCanvas.getContext("2d")!;
-        ctx.fillStyle = "#070103";
-        ctx.fillRect(0, 0, sliceCanvas.width, sliceCanvas.height);
-        ctx.drawImage(canvas, 0, -(i * sliceH));
-
-        const sliceData = sliceCanvas.toDataURL("image/jpeg", 0.88);
-        // Scale slice to fill the full PDF page
-        const slicePdfH = (sliceCanvas.height / canvas.width) * pdfW;
-        pdf.addImage(sliceData, "JPEG", 0, 0, pdfW, slicePdfH, undefined, "FAST");
-      }
-
-      pdf.save(PROPOSAL_PDF_NAME);
-    } catch (e) {
-      console.error(e);
-      alert("Couldn't generate the PDF.");
-    } finally {
-      setBusy(false);
-    }
+    window.print();
   }
 
   async function lock() {
