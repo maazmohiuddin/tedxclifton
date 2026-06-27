@@ -537,8 +537,8 @@ function KhiNextSection() {
 
         <div className="mb-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {KX_DOMAINS.map((d, i) => (
-            <Reveal key={d.name} delay={0.05 + i * 0.05}>
-              <TiltCard intensity={5}>
+            <Reveal key={d.name} delay={0.05 + i * 0.05} className="h-full">
+              <TiltCard intensity={5} className="h-full">
                 <article
                   className="group relative h-full cursor-default overflow-hidden rounded-2xl p-6 transition-all duration-300"
                   style={{
@@ -576,7 +576,7 @@ function KhiNextSection() {
                   {/* icon + name row */}
                   <div className="relative mb-4 flex items-center gap-3">
                     <motion.div
-                      className="grid h-12 w-12 shrink-0 place-items-center rounded-xl"
+                      className="grid h-14 w-14 shrink-0 place-items-center rounded-xl"
                       animate={{ boxShadow: [`0 0 10px ${d.color}22`, `0 0 22px ${d.color}55`, `0 0 10px ${d.color}22`] }}
                       transition={{ repeat: Infinity, duration: 3 + i * 0.4, ease: "easeInOut" }}
                       style={{
@@ -588,7 +588,7 @@ function KhiNextSection() {
                       <img
                         src={`/brand/${d.iconFile}`}
                         alt={d.name}
-                        className="h-7 w-7 object-contain transition-transform duration-300 group-hover:scale-110"
+                        className="h-9 w-9 object-contain transition-transform duration-300 group-hover:scale-110"
                         style={{ filter: `drop-shadow(0 0 6px ${d.color}99)` }}
                       />
                     </motion.div>
@@ -1064,34 +1064,23 @@ function LastEventSection() {
                       </span>
                     </div>
 
-                    {/* icon + theme name row */}
+                    {/* icon + wordmark row */}
                     <div className="flex items-center gap-4">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={ed.icon}
                         alt=""
-                        className="h-16 w-16 shrink-0 object-contain transition-transform duration-500 group-hover:scale-110"
+                        className="h-14 w-14 shrink-0 object-contain transition-transform duration-500 group-hover:scale-110"
                         style={{ filter: `drop-shadow(0 0 14px ${ed.accent}66)` }}
                       />
-                      <div>
-                        <p className="text-[10px] font-bold uppercase text-white/30" style={{ letterSpacing: "0.22em" }}>Theme</p>
-                        <h3
-                          className="font-display font-extrabold text-white leading-tight"
-                          style={{ fontSize: "clamp(1.35rem,3vw,1.9rem)", letterSpacing: "-0.03em" }}
-                        >
-                          &ldquo;{ed.theme}&rdquo;
-                        </h3>
-                      </div>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={ed.wordmark}
+                        alt={`TEDxClifton ${ed.edition} — ${ed.theme}`}
+                        className="h-12 w-auto max-w-[200px] opacity-85 transition-opacity duration-300 group-hover:opacity-100"
+                        style={{ filter: "drop-shadow(0 2px 12px rgba(235,0,40,0.25))" }}
+                      />
                     </div>
-
-                    {/* wordmark */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={ed.wordmark}
-                      alt={`TEDxClifton ${ed.edition} wordmark`}
-                      className="w-full max-w-[260px] opacity-70 transition-opacity duration-300 group-hover:opacity-90"
-                      style={{ filter: "drop-shadow(0 2px 12px rgba(235,0,40,0.2))" }}
-                    />
 
                     {/* tagline */}
                     <p className="text-[13px] leading-relaxed text-white/45 max-w-xs">{ed.tagline}</p>
