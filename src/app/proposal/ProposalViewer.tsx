@@ -758,11 +758,11 @@ function HeroSection() {
   }));
 
   return (
-    <section ref={ref} className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#070103]">
+    <section ref={ref} className="relative flex min-h-screen flex-col items-center justify-center bg-[#070103]">
       {/* ── hero video — parallax layer ── */}
       <motion.div
         style={{ y }}
-        className="pointer-events-none absolute inset-0 will-change-transform"
+        className="pointer-events-none absolute inset-0 overflow-hidden will-change-transform"
         aria-hidden
       >
         {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
@@ -809,7 +809,7 @@ function HeroSection() {
         ))}
       </div>
 
-      <motion.div style={{ y, opacity, scale }} className="relative z-10 flex flex-col items-center px-6 text-center">
+      <motion.div style={{ y, opacity, scale }} className="relative z-10 flex flex-col items-center px-6 text-center overflow-visible w-full">
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -829,10 +829,12 @@ function HeroSection() {
           </motion.div>
         </motion.div>
 
-        <h1 className="font-display font-light leading-[0.92] tracking-tight" style={{ fontSize: "clamp(3.5rem,11vw,8rem)" }}>
-          <AnimatedWords text="Next is" className="text-white" delay={0.4} />
-          {" "}
-          <AnimatedWords text="Now" className="font-black text-[#e62b1e] italic" delay={0.7} />
+        <h1 className="font-display font-light leading-[0.88] tracking-tight overflow-visible" style={{ fontSize: "clamp(3.5rem,11vw,8rem)" }}>
+          <span className="overflow-visible whitespace-nowrap">
+            <AnimatedWords text="Next is" className="text-white" delay={0.4} />
+            {" "}
+            <AnimatedWords text="Now" className="font-black text-[#e62b1e] italic" delay={0.7} />
+          </span>
         </h1>
 
         <motion.div
