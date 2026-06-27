@@ -11,7 +11,7 @@ import {
   useInView,
   useMotionValue,
 } from "framer-motion";
-import { Download, Lock, Mail, ArrowRight } from "lucide-react";
+import { Lock, Mail, ArrowRight } from "lucide-react";
 
 // ─── Cursor glow (direct DOM mutation — no re-renders) ────────────────────────
 
@@ -2257,106 +2257,6 @@ function TiersSection() {
   );
 }
 
-// ─── Agreement ────────────────────────────────────────────────────────────────
-
-const TIER_OPTIONS = [
-  { label: "Title Sponsor",    price: "2,500,000 PKR" },
-  { label: "Platinum Sponsor", price: "2,000,000 PKR" },
-  { label: "Gold Sponsor",     price: "1,500,000 PKR" },
-  { label: "Silver Sponsor",   price: "1,000,000 PKR" },
-  { label: "Bronze Sponsor",   price: "700,000 PKR" },
-];
-
-function AgreementSection() {
-  return (
-    <section className="bg-[#0a0102] py-28 px-6">
-      <div className="mx-auto max-w-3xl">
-        <h2 className="font-display text-4xl font-light md:text-5xl">
-          Sponsorship <span className="font-black text-[#e62b1e]">Agreement</span>
-        </h2>
-        <Reveal delay={0.1} className="mt-4 space-y-3 text-sm text-white/55 leading-relaxed">
-          <p>Payment is required in full before activation. TEDx retains full discretion in selecting the main theme, speakers, topics, structure, and participants. All partnership funds go back into the production of the event — TEDx events are non-profit.</p>
-          <p>This document acts as a good faith agreement between the parties to cooperate in making TEDx and the partnership a success.</p>
-        </Reveal>
-        <Reveal delay={0.15} className="mt-10">
-          <GlowCard className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 space-y-8">
-            <div>
-              <p className="text-sm font-semibold text-white/70 mb-4">Sponsorship Level</p>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {TIER_OPTIONS.map((t) => (
-                  <label key={t.label} className="flex cursor-pointer items-center gap-3 rounded-xl border border-white/10 p-4 transition-all duration-200 hover:border-[#e62b1e]/40 hover:bg-[#e62b1e]/5 group">
-                    <input type="radio" name="tier" className="accent-[#e62b1e]" />
-                    <div>
-                      <div className="text-sm font-semibold text-white group-hover:text-[#e62b1e] transition-colors">{t.label}</div>
-                      <div className="text-xs text-white/35">{t.price}</div>
-                    </div>
-                  </label>
-                ))}
-              </div>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-white/70 mb-3">Preferred Payment</p>
-              <div className="space-y-2.5">
-                {["Via check (payable to: TEDx)", "Via Online Bank Transfer"].map((opt) => (
-                  <label key={opt} className="flex cursor-pointer items-center gap-3 text-sm text-white/55 hover:text-white/85 transition-colors">
-                    <input type="radio" name="payment" className="accent-[#e62b1e]" />
-                    {opt}
-                  </label>
-                ))}
-              </div>
-            </div>
-            <div className="space-y-4 border-t border-white/10 pt-6">
-              {["Sponsoring Company / Organization", "Contact Name", "Contact Title"].map((field) => (
-                <div key={field}>
-                  <label className="mb-1.5 block text-[10px] uppercase tracking-[0.25em] text-white/35">{field}</label>
-                  <input type="text" placeholder={field}
-                    className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder-white/20 transition-all focus:border-[#e62b1e]/60 focus:outline-none focus:ring-2 focus:ring-[#e62b1e]/20 focus:bg-white/[0.05]" />
-                </div>
-              ))}
-            </div>
-          </GlowCard>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-// ─── Contact ──────────────────────────────────────────────────────────────────
-
-function ContactSection() {
-  return (
-    <section className="bg-[#070103] py-28 px-6">
-      <div className="mx-auto max-w-3xl">
-        <h2 className="font-display text-4xl font-light mb-12 md:text-5xl">
-          Contact <span className="font-black text-[#e62b1e]">Details</span>
-        </h2>
-        <Reveal delay={0.1}>
-          <TiltCard intensity={4}>
-            <GlowCard className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-8 md:p-10">
-              <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 translate-x-16 -translate-y-16 rounded-full bg-[#e62b1e]/10 blur-[90px]" />
-              <div className="relative z-10">
-                <div className="font-display text-2xl font-black text-white">Syed Wajid Hussain Shah</div>
-                <div className="mt-1 text-sm font-medium text-[#e62b1e]">Lead Organizer, TEDxClifton</div>
-                <div className="mt-8 space-y-3">
-                  {["tedxcliftonkarachi@gmail.com", "syed.hussain.ethical@gmail.com"].map((email) => (
-                    <motion.a key={email} href={`mailto:${email}`}
-                      whileHover={{ x: 5 }} transition={{ duration: 0.25 }}
-                      className="group flex items-center gap-3 text-sm text-white/55 transition-colors hover:text-white w-fit"
-                    >
-                      <Mail size={14} className="shrink-0 text-[#e62b1e]" />
-                      <span className="underline decoration-white/20 underline-offset-4 group-hover:decoration-[#e62b1e] transition-all duration-300">{email}</span>
-                    </motion.a>
-                  ))}
-                </div>
-              </div>
-            </GlowCard>
-          </TiltCard>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
 // ─── Root export ──────────────────────────────────────────────────────────────
 
 export function ProposalViewer() {
@@ -2370,10 +2270,6 @@ export function ProposalViewer() {
     }
     window.scrollTo(0, 0);
   }, []);
-
-  function downloadPdf() {
-    window.print();
-  }
 
   async function lock() {
     await fetch("/api/proposal/unlock", { method: "DELETE" }).catch(() => {});
@@ -2404,14 +2300,6 @@ export function ProposalViewer() {
             <div className="mt-1 text-[10px] uppercase tracking-[0.28em] text-white/40">Sponsorship Proposal</div>
           </div>
           <div className="flex items-center gap-2">
-            <motion.button onClick={downloadPdf}
-              whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.95 }}
-              className="relative flex items-center gap-2 overflow-hidden rounded-full bg-[#e62b1e] px-4 py-2 text-sm font-bold text-white hover:bg-[#c41e13] transition-colors"
-            >
-              <Download size={16} />
-              <span className="hidden sm:inline">Download PDF</span>
-              <span className="sm:hidden">PDF</span>
-            </motion.button>
             <motion.button onClick={lock} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.92 }}
               title="Lock proposal"
               className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-colors hover:border-white/30 hover:text-white"
@@ -2444,8 +2332,6 @@ export function ProposalViewer() {
         <AudienceSection />
         <SectionDivider />
         <TiersSection />
-        <AgreementSection />
-        <ContactSection />
         <KhiNextSection />
 
         <footer className="border-t border-white/10 bg-[#070103] py-12 px-6 text-center">
