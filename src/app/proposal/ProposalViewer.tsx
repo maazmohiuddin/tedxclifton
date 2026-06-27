@@ -829,7 +829,7 @@ function HeroSection() {
           </motion.div>
         </motion.div>
 
-        <h1 className="font-display font-light leading-[0.92] tracking-tight" style={{ fontSize: "clamp(3.5rem,13vw,9rem)" }}>
+        <h1 className="font-display font-light leading-[0.92] tracking-tight" style={{ fontSize: "clamp(3.5rem,11vw,8rem)" }}>
           <AnimatedWords text="Next is" className="text-white" delay={0.4} />
           {" "}
           <AnimatedWords text="Now" className="font-black text-[#e62b1e] italic" delay={0.7} />
