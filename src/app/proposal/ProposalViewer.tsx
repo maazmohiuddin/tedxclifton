@@ -1337,10 +1337,38 @@ function SpeakersSection({ version, speakers, folder, bg }: { version: string; s
 
 function BecomeASponsorSection() {
   const highlights = [
-    { icon: "🗓", label: "1 Day", desc: "High-impact conference" },
-    { icon: "🎤", label: "12 Speakers", desc: "World-class lineup" },
-    { icon: "👥", label: "2000+", desc: "Expected attendees" },
-    { icon: "⏱", label: "300 Min", desc: "Community building" },
+    {
+      icon: (
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="14" x2="8" y2="14" strokeWidth="2"/><line x1="12" y1="14" x2="12" y2="14" strokeWidth="2"/><line x1="16" y1="14" x2="16" y2="14" strokeWidth="2"/>
+        </svg>
+      ),
+      label: "1 Day", desc: "High-impact conference",
+    },
+    {
+      icon: (
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2a3 3 0 0 1 3 3v4a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10a7 7 0 0 1-14 0"/><line x1="12" y1="17" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/>
+        </svg>
+      ),
+      label: "12 Speakers", desc: "World-class lineup",
+    },
+    {
+      icon: (
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="9" cy="7" r="3"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><circle cx="17" cy="7" r="3"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/>
+        </svg>
+      ),
+      label: "2000+", desc: "Expected attendees",
+    },
+    {
+      icon: (
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 15.5"/>
+        </svg>
+      ),
+      label: "300 Min", desc: "Community building",
+    },
   ];
 
   return (
@@ -1361,13 +1389,9 @@ function BecomeASponsorSection() {
             <Reveal key={h.label} delay={i * 0.09} direction="scale">
               <TiltCard>
                 <GlowCard className="rounded-xl border border-white/10 bg-white/[0.03] p-6 text-center h-full">
-                  <motion.div
-                    animate={{ rotate: [0, 6, -4, 0] }}
-                    transition={{ repeat: Infinity, duration: 4 + i, delay: i * 0.6, ease: "easeInOut" }}
-                    className="text-3xl mb-3"
-                  >
+                  <div className="mb-3 flex justify-center text-white/50">
                     {h.icon}
-                  </motion.div>
+                  </div>
                   <div className="font-display text-xl font-black text-white">{h.label}</div>
                   <div className="mt-1 text-[11px] text-white/40">{h.desc}</div>
                 </GlowCard>
