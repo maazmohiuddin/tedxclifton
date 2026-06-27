@@ -2091,38 +2091,6 @@ function AudienceSection() {
   );
 }
 
-// ─── Team ─────────────────────────────────────────────────────────────────────
-
-function TeamSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
-
-  return (
-    <section ref={ref} className="bg-[#0a0102] py-24 px-6 overflow-hidden">
-      <div className="mx-auto max-w-3xl">
-        <h2 className="font-display text-4xl font-light mb-10 md:text-5xl">
-          <AnimatedWords text="Team Behind" />{" "}
-          <AnimatedWords text="TEDxClifton" className="font-black text-[#e62b1e]" delay={0.22} />
-        </h2>
-        <Reveal delay={0.1}>
-          <motion.div
-            whileHover={{ scale: 1.008 }}
-            transition={{ duration: 0.5 }}
-            className="overflow-hidden rounded-2xl ring-1 ring-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.9)]"
-          >
-            <motion.div style={{ y }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/proposal/page-13.jpg" alt="Team behind TEDxClifton"
-                className="block h-auto w-full select-none scale-[1.1]" draggable={false} />
-            </motion.div>
-          </motion.div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
 // ─── Tiers ────────────────────────────────────────────────────────────────────
 
 const TIERS = [
@@ -2583,7 +2551,6 @@ export function ProposalViewer() {
         <WhyPartnerSection />
         <SectionDivider />
         <AudienceSection />
-        <TeamSection />
         <SectionDivider />
         <TiersSection />
         <AgreementSection />
