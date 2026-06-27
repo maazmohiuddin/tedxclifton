@@ -1327,7 +1327,7 @@ function SpeakersSection({ version, speakers, folder, bg }: { version: string; s
       <div className="mx-auto max-w-5xl">
         <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           transition={{ duration: 0.5 }} className="mb-2 text-[11px] font-bold uppercase tracking-[0.35em] text-[#e62b1e]">
-          Breaking Boundaries
+          {version === "1.0" ? "Breaking Boundaries" : "The Other Side"}
         </motion.div>
         <h2 className="font-display text-4xl font-light mb-14 md:text-5xl">
           <AnimatedWords text={`TEDxClifton ${version} Speakers`} />
