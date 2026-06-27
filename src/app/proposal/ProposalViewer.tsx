@@ -2257,6 +2257,54 @@ function TiersSection() {
   );
 }
 
+// ─── Contact ──────────────────────────────────────────────────────────────────
+
+function ContactSection() {
+  return (
+    <section className="relative overflow-hidden py-28 px-6">
+      {/* background image */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/brand/team.jpg"
+        alt=""
+        aria-hidden
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
+        style={{ opacity: 0.18 }}
+      />
+      {/* dark overlay */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#070103]/80 via-[#070103]/60 to-[#070103]/90" />
+
+      <div className="relative mx-auto max-w-3xl">
+        <Reveal delay={0.05}>
+          <h2 className="font-display text-4xl font-light mb-12 md:text-5xl">
+            Contact <span className="font-black text-[#e62b1e]">Details</span>
+          </h2>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <GlowCard className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm p-8 md:p-10">
+            <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 translate-x-16 -translate-y-16 rounded-full bg-[#e62b1e]/10 blur-[90px]" />
+            <div className="relative z-10">
+              <div className="font-display text-2xl font-black text-white">Syed Wajid Hussain Shah</div>
+              <div className="mt-1 text-sm font-medium text-[#e62b1e]">Lead Organizer, TEDxClifton</div>
+              <div className="mt-8 space-y-3">
+                {["tedxcliftonkarachi@gmail.com", "syed.hussain.ethical@gmail.com"].map((email) => (
+                  <motion.a key={email} href={`mailto:${email}`}
+                    whileHover={{ x: 5 }} transition={{ duration: 0.25 }}
+                    className="group flex items-center gap-3 text-sm text-white/60 transition-colors hover:text-white w-fit"
+                  >
+                    <Mail size={14} className="shrink-0 text-[#e62b1e]" />
+                    <span className="underline decoration-white/20 underline-offset-4 group-hover:decoration-[#e62b1e] transition-all duration-300">{email}</span>
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+          </GlowCard>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 // ─── Root export ──────────────────────────────────────────────────────────────
 
 export function ProposalViewer() {
@@ -2332,6 +2380,7 @@ export function ProposalViewer() {
         <AudienceSection />
         <SectionDivider />
         <TiersSection />
+        <ContactSection />
         <KhiNextSection />
 
         <footer className="border-t border-white/10 bg-[#070103] py-12 px-6 text-center">
