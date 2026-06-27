@@ -290,8 +290,8 @@ function ShimmerButton({ href, children }: { href: string; children: React.React
 // font-display = "Helvetica Now Display, Helvetica, system-ui, sans-serif"
 
 const KX_STATS = [
-  { value: 10000, suffix: "+", label: "Attendees" },
-  { value: 100,   suffix: "+", label: "Speakers" },
+  { value: 3000, suffix: "+", label: "Attendees" },
+  { value: 40,   suffix: "+", label: "Speakers" },
   { value: 7,     suffix: "",  label: "Innovation Domains" },
   { value: 30,    suffix: "+", label: "Corporate Partners" },
 ];
