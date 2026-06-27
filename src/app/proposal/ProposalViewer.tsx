@@ -297,69 +297,13 @@ const KX_STATS = [
 ];
 
 const KX_DOMAINS = [
-  {
-    name: "AI in Health & Pharma", color: "#51FFD5", num: "01",
-    desc: "AI-assisted diagnostics, drug discovery, telemedicine — built for low-bandwidth clinics in South Asia.",
-    icon: (c: string) => (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-      </svg>
-    ),
-  },
-  {
-    name: "Smart Cities", color: "#00EAEE", num: "02",
-    desc: "Urban mobility, energy grids and civic infrastructure powered by real-time AI inference.",
-    icon: (c: string) => (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="9" width="18" height="12" rx="1"/><path d="M8 9V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v4"/><line x1="12" y1="14" x2="12" y2="17"/>
-      </svg>
-    ),
-  },
-  {
-    name: "Creative AI", color: "#BF00FF", num: "03",
-    desc: "Generative art, music, writing tools and cultural heritage preservation through AI.",
-    icon: (c: string) => (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/>
-      </svg>
-    ),
-  },
-  {
-    name: "Fintech Future", color: "#FFB800", num: "04",
-    desc: "Open finance APIs, fraud detection and micro-lending models for the unbanked.",
-    icon: (c: string) => (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="8"/><path d="M12 6v2m0 8v2M9.5 9.5C9.5 8.1 10.6 7 12 7s2.5 1.1 2.5 2.5c0 2.5-5 2.5-5 5 0 1.4 1.1 2.5 2.5 2.5s2.5-1.1 2.5-2.5"/>
-      </svg>
-    ),
-  },
-  {
-    name: "DevZone", color: "#D4FF00", num: "05",
-    desc: "Developer tooling, code generation, MLOps and open-source from Pakistan's engineers.",
-    icon: (c: string) => (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M8 10l-2 2 2 2M16 10l2 2-2 2"/>
-      </svg>
-    ),
-  },
-  {
-    name: "Lifestyle Innovation", color: "#FF0F4B", num: "06",
-    desc: "AI in fashion, food, sports and wellness — consumer-facing products for the next billion.",
-    icon: (c: string) => (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-      </svg>
-    ),
-  },
-  {
-    name: "Investor Arena", color: "#E2E2E2", num: "07",
-    desc: "Curated investment-ready startups presenting to 40+ active investors. Invite-only.",
-    icon: (c: string) => (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
-      </svg>
-    ),
-  },
+  { name: "AI in Health & Pharma", color: "#51FFD5", num: "01", iconFile: "Health.svg",     desc: "AI-assisted diagnostics, drug discovery, telemedicine — built for low-bandwidth clinics in South Asia." },
+  { name: "Smart Cities",          color: "#00EAEE", num: "02", iconFile: "Cities.svg",     desc: "Urban mobility, energy grids and civic infrastructure powered by real-time AI inference." },
+  { name: "Creative AI",           color: "#BF00FF", num: "03", iconFile: "Creative.svg",   desc: "Generative art, music, writing tools and cultural heritage preservation through AI." },
+  { name: "Fintech Future",        color: "#FFB800", num: "04", iconFile: "Fintech.svg",    desc: "Open finance APIs, fraud detection and micro-lending models for the unbanked." },
+  { name: "DevZone",               color: "#D4FF00", num: "05", iconFile: "Devzone.svg",    desc: "Developer tooling, code generation, MLOps and open-source from Pakistan's engineers." },
+  { name: "Lifestyle Innovation",  color: "#FF0F4B", num: "06", iconFile: "Lifestyle.svg",  desc: "AI in fashion, food, sports and wellness — consumer-facing products for the next billion." },
+  { name: "Investor Arena",        color: "#E2E2E2", num: "07", iconFile: "Investors.svg",  desc: "Curated investment-ready startups presenting to 40+ active investors. Invite-only." },
 ];
 
 // Billboard promo videos recorded live at KhiNext'26
@@ -631,16 +575,23 @@ function KhiNextSection() {
 
                   {/* icon + name row */}
                   <div className="relative mb-4 flex items-center gap-3">
-                    <div
-                      className="grid h-11 w-11 shrink-0 place-items-center rounded-xl transition-all duration-300 group-hover:scale-105"
+                    <motion.div
+                      className="grid h-12 w-12 shrink-0 place-items-center rounded-xl"
+                      animate={{ boxShadow: [`0 0 10px ${d.color}22`, `0 0 22px ${d.color}55`, `0 0 10px ${d.color}22`] }}
+                      transition={{ repeat: Infinity, duration: 3 + i * 0.4, ease: "easeInOut" }}
                       style={{
-                        background: `${d.color}18`,
+                        background: `${d.color}14`,
                         border: `1px solid ${d.color}44`,
-                        boxShadow: `0 0 18px ${d.color}22`,
                       }}
                     >
-                      {d.icon(d.color)}
-                    </div>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={`/brand/${d.iconFile}`}
+                        alt={d.name}
+                        className="h-7 w-7 object-contain transition-transform duration-300 group-hover:scale-110"
+                        style={{ filter: `drop-shadow(0 0 6px ${d.color}99)` }}
+                      />
+                    </motion.div>
                     <h3 className="font-display text-[15px] font-semibold text-white" style={{ letterSpacing: "-0.02em" }}>
                       {d.name}
                     </h3>
