@@ -709,7 +709,7 @@ function HeroSection() {
   }));
 
   return (
-    <section ref={ref} className="relative flex min-h-screen flex-col items-center justify-center bg-[#070103]">
+    <section ref={ref} className="relative flex min-h-screen flex-col items-center justify-center bg-[#070103]" style={{ clipPath: "inset(0)" }}>
       {/* ── hero video — parallax layer ── */}
       <motion.div
         style={{ y }}
