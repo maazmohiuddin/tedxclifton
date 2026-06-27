@@ -50,7 +50,7 @@ function AnimatedWords({
   return (
     <span ref={ref} className={className}>
       {words.map((word, i) => (
-        <span key={i} className="inline-block">
+        <span key={i} style={{ display: "inline" }}>
           <span className="inline-block overflow-hidden leading-[1.15]">
             <motion.span
               className="inline-block"
