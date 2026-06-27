@@ -2464,6 +2464,14 @@ export function ProposalViewer() {
   const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 28, mass: 0.3 });
   const [busy, setBusy] = useState(false);
 
+  // Disable browser scroll restoration so animations always fire from the top on refresh
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.history.scrollRestoration) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
   async function downloadPdf() {
     if (busy) return;
     setBusy(true);
