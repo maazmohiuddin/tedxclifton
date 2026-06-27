@@ -11,8 +11,7 @@ import {
   useInView,
   useMotionValue,
 } from "framer-motion";
-import { Download, Lock, Loader2, Mail, ArrowRight } from "lucide-react";
-import { PROPOSAL_PDF_NAME } from "./pages";
+import { Download, Lock, Mail, ArrowRight } from "lucide-react";
 
 // ─── Cursor glow (direct DOM mutation — no re-renders) ────────────────────────
 
@@ -2368,8 +2367,6 @@ export function ProposalViewer() {
   const router = useRouter();
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 28, mass: 0.3 });
-  const [busy, setBusy] = useState(false);
-
   // Disable browser scroll restoration so animations always fire from the top on refresh
   useEffect(() => {
     if (typeof window !== "undefined" && window.history.scrollRestoration) {
@@ -2379,7 +2376,6 @@ export function ProposalViewer() {
   }, []);
 
   function downloadPdf() {
-    if (busy) return;
     window.print();
   }
 
@@ -2412,12 +2408,12 @@ export function ProposalViewer() {
             <div className="mt-1 text-[10px] uppercase tracking-[0.28em] text-white/40">Sponsorship Proposal</div>
           </div>
           <div className="flex items-center gap-2">
-            <motion.button onClick={downloadPdf} disabled={busy}
+            <motion.button onClick={downloadPdf}
               whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.95 }}
-              className="relative flex items-center gap-2 overflow-hidden rounded-full bg-[#e62b1e] px-4 py-2 text-sm font-bold text-white hover:bg-[#c41e13] disabled:opacity-60 transition-colors"
+              className="relative flex items-center gap-2 overflow-hidden rounded-full bg-[#e62b1e] px-4 py-2 text-sm font-bold text-white hover:bg-[#c41e13] transition-colors"
             >
-              {busy ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
-              <span className="hidden sm:inline">{busy ? "Preparing…" : "Download PDF"}</span>
+              <Download size={16} />
+              <span className="hidden sm:inline">Download PDF</span>
               <span className="sm:hidden">PDF</span>
             </motion.button>
             <motion.button onClick={lock} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.92 }}
