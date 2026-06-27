@@ -278,13 +278,13 @@ const KX_STATS = [
 ];
 
 const KX_DOMAINS = [
-  { name: "AI in Health & Pharma", color: "#51FFD5", num: "01", iconFile: "Health.svg",     desc: "AI-assisted diagnostics, drug discovery, telemedicine — built for low-bandwidth clinics in South Asia." },
-  { name: "Smart Cities",          color: "#00EAEE", num: "02", iconFile: "Cities.svg",     desc: "Urban mobility, energy grids and civic infrastructure powered by real-time AI inference." },
-  { name: "Creative AI",           color: "#BF00FF", num: "03", iconFile: "Creative.svg",   desc: "Generative art, music, writing tools and cultural heritage preservation through AI." },
-  { name: "Fintech Future",        color: "#FFB800", num: "04", iconFile: "Fintech.svg",    desc: "Open finance APIs, fraud detection and micro-lending models for the unbanked." },
-  { name: "DevZone",               color: "#D4FF00", num: "05", iconFile: "Devzone.svg",    desc: "Developer tooling, code generation, MLOps and open-source from Pakistan's engineers." },
-  { name: "Lifestyle Innovation",  color: "#FF0F4B", num: "06", iconFile: "Lifestyle.svg",  desc: "AI in fashion, food, sports and wellness — consumer-facing products for the next billion." },
-  { name: "Investor Arena",        color: "#E2E2E2", num: "07", iconFile: "Investors.svg",  desc: "Curated investment-ready startups presenting to 40+ active investors. Invite-only." },
+  { name: "AI in Health & Pharma", color: "#51FFD5", num: "01", iconFile: "Health.png",          desc: "AI-assisted diagnostics, drug discovery, telemedicine — built for low-bandwidth clinics in South Asia." },
+  { name: "Smart Cities",          color: "#00EAEE", num: "02", iconFile: "Smart Cities.png",    desc: "Urban mobility, energy grids and civic infrastructure powered by real-time AI inference." },
+  { name: "Creative AI",           color: "#BF00FF", num: "03", iconFile: "Creative.png",        desc: "Generative art, music, writing tools and cultural heritage preservation through AI." },
+  { name: "Fintech Future",        color: "#FFB800", num: "04", iconFile: "Fintech.png",         desc: "Open finance APIs, fraud detection and micro-lending models for the unbanked." },
+  { name: "DevZone",               color: "#D4FF00", num: "05", iconFile: "Devzone.png",         desc: "Developer tooling, code generation, MLOps and open-source from Pakistan's engineers." },
+  { name: "Lifestyle Innovation",  color: "#FF0F4B", num: "06", iconFile: "Lifestyle.png",       desc: "AI in fashion, food, sports and wellness — consumer-facing products for the next billion." },
+  { name: "Investor Arena",        color: "#E2E2E2", num: "07", iconFile: "Investors.png",       desc: "Curated investment-ready startups presenting to 40+ active investors. Invite-only." },
 ];
 
 // Billboard promo videos recorded live at KhiNext'26
