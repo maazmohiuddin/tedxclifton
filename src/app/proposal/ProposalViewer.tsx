@@ -11,8 +11,7 @@ import {
   useInView,
   useMotionValue,
 } from "framer-motion";
-import { Download, Lock, Loader2, Mail, ArrowRight } from "lucide-react";
-import { PROPOSAL_PDF_NAME } from "./pages";
+import { Download, Lock, Mail, ArrowRight } from "lucide-react";
 
 // ─── Cursor glow (direct DOM mutation — no re-renders) ────────────────────────
 
@@ -279,13 +278,13 @@ const KX_STATS = [
 ];
 
 const KX_DOMAINS = [
-  { name: "AI in Health & Pharma", color: "#51FFD5", num: "01", iconFile: "Health.svg",     desc: "AI-assisted diagnostics, drug discovery, telemedicine — built for low-bandwidth clinics in South Asia." },
-  { name: "Smart Cities",          color: "#00EAEE", num: "02", iconFile: "Cities.svg",     desc: "Urban mobility, energy grids and civic infrastructure powered by real-time AI inference." },
-  { name: "Creative AI",           color: "#BF00FF", num: "03", iconFile: "Creative.svg",   desc: "Generative art, music, writing tools and cultural heritage preservation through AI." },
-  { name: "Fintech Future",        color: "#FFB800", num: "04", iconFile: "Fintech.svg",    desc: "Open finance APIs, fraud detection and micro-lending models for the unbanked." },
-  { name: "DevZone",               color: "#D4FF00", num: "05", iconFile: "Devzone.svg",    desc: "Developer tooling, code generation, MLOps and open-source from Pakistan's engineers." },
-  { name: "Lifestyle Innovation",  color: "#FF0F4B", num: "06", iconFile: "Lifestyle.svg",  desc: "AI in fashion, food, sports and wellness — consumer-facing products for the next billion." },
-  { name: "Investor Arena",        color: "#E2E2E2", num: "07", iconFile: "Investors.svg",  desc: "Curated investment-ready startups presenting to 40+ active investors. Invite-only." },
+  { name: "AI in Health & Pharma", color: "#51FFD5", num: "01", iconFile: "Health.png",          desc: "AI-assisted diagnostics, drug discovery, telemedicine — built for low-bandwidth clinics in South Asia." },
+  { name: "Smart Cities",          color: "#00EAEE", num: "02", iconFile: "Smart Cities.png",    desc: "Urban mobility, energy grids and civic infrastructure powered by real-time AI inference." },
+  { name: "Creative AI",           color: "#BF00FF", num: "03", iconFile: "Creative.png",        desc: "Generative art, music, writing tools and cultural heritage preservation through AI." },
+  { name: "Fintech Future",        color: "#FFB800", num: "04", iconFile: "Fintech.png",         desc: "Open finance APIs, fraud detection and micro-lending models for the unbanked." },
+  { name: "DevZone",               color: "#D4FF00", num: "05", iconFile: "Devzone.png",         desc: "Developer tooling, code generation, MLOps and open-source from Pakistan's engineers." },
+  { name: "Lifestyle Innovation",  color: "#FF0F4B", num: "06", iconFile: "Lifestyle.png",       desc: "AI in fashion, food, sports and wellness — consumer-facing products for the next billion." },
+  { name: "Investor Arena",        color: "#E2E2E2", num: "07", iconFile: "Investors.png",       desc: "Curated investment-ready startups presenting to 40+ active investors. Invite-only." },
 ];
 
 // Billboard promo videos recorded live at KhiNext'26
@@ -551,29 +550,14 @@ function KhiNextSection() {
                     {d.num}
                   </span>
 
-                  {/* icon — large, fills card top area */}
-                  <motion.div
-                    className="relative mb-4 grid shrink-0 place-items-center rounded-2xl"
-                    style={{
-                      width: "56%",
-                      aspectRatio: "1",
-                      background: `${d.color}14`,
-                    }}
-                    animate={{ boxShadow: [`0 0 12px ${d.color}22`, `0 0 28px ${d.color}55`, `0 0 12px ${d.color}22`] }}
-                    transition={{ repeat: Infinity, duration: 3 + i * 0.4, ease: "easeInOut" }}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={`/brand/${d.iconFile}`}
-                      alt={d.name}
-                      className="object-contain transition-transform duration-300 group-hover:scale-110"
-                      style={{
-                        width: "72%",
-                        height: "72%",
-                        filter: `drop-shadow(0 0 8px ${d.color}bb)`,
-                      }}
-                    />
-                  </motion.div>
+                  {/* icon */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`/brand/${d.iconFile}`}
+                    alt={d.name}
+                    className="mb-4 object-contain transition-transform duration-300 group-hover:scale-110"
+                    style={{ width: "48px", height: "48px" }}
+                  />
 
                   {/* name */}
                   <h3 className="relative mb-2 font-display text-[15px] font-semibold text-white leading-tight" style={{ letterSpacing: "-0.02em" }}>
@@ -692,7 +676,7 @@ function HeroSection() {
   }));
 
   return (
-    <section ref={ref} className="relative flex min-h-screen flex-col items-center justify-center bg-[#070103]" style={{ overflow: "clip" }}>
+    <section ref={ref} className="relative flex min-h-screen flex-col items-center justify-center bg-[#070103] overflow-hidden">
       {/* ── hero video — parallax layer ── */}
       <motion.div
         style={{ y }}
@@ -763,12 +747,10 @@ function HeroSection() {
           </motion.div>
         </motion.div>
 
-        <h1 className="font-display font-light leading-[0.88] tracking-tight overflow-visible" style={{ fontSize: "clamp(3.5rem,11vw,8rem)" }}>
-          <span className="overflow-visible whitespace-nowrap">
-            <AnimatedWords text="Next is" className="text-white" delay={0.4} />
-            {" "}
-            <AnimatedWords text="Now" className="font-black text-[#e62b1e] italic" delay={0.7} />
-          </span>
+        <h1 className="font-display font-light leading-[0.88] tracking-tight w-full max-w-full" style={{ fontSize: "clamp(3rem,10vw,7.5rem)" }}>
+          <AnimatedWords text="Next is" className="text-white" delay={0.4} />
+          {" "}
+          <AnimatedWords text="Now" className="font-black text-[#e62b1e] italic" delay={0.7} />
         </h1>
 
         <motion.div
@@ -2381,8 +2363,6 @@ export function ProposalViewer() {
   const router = useRouter();
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 28, mass: 0.3 });
-  const [busy, setBusy] = useState(false);
-
   // Disable browser scroll restoration so animations always fire from the top on refresh
   useEffect(() => {
     if (typeof window !== "undefined" && window.history.scrollRestoration) {
@@ -2392,7 +2372,6 @@ export function ProposalViewer() {
   }, []);
 
   function downloadPdf() {
-    if (busy) return;
     window.print();
   }
 
@@ -2425,12 +2404,12 @@ export function ProposalViewer() {
             <div className="mt-1 text-[10px] uppercase tracking-[0.28em] text-white/40">Sponsorship Proposal</div>
           </div>
           <div className="flex items-center gap-2">
-            <motion.button onClick={downloadPdf} disabled={busy}
+            <motion.button onClick={downloadPdf}
               whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.95 }}
-              className="relative flex items-center gap-2 overflow-hidden rounded-full bg-[#e62b1e] px-4 py-2 text-sm font-bold text-white hover:bg-[#c41e13] disabled:opacity-60 transition-colors"
+              className="relative flex items-center gap-2 overflow-hidden rounded-full bg-[#e62b1e] px-4 py-2 text-sm font-bold text-white hover:bg-[#c41e13] transition-colors"
             >
-              {busy ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
-              <span className="hidden sm:inline">{busy ? "Preparing…" : "Download PDF"}</span>
+              <Download size={16} />
+              <span className="hidden sm:inline">Download PDF</span>
               <span className="sm:hidden">PDF</span>
             </motion.button>
             <motion.button onClick={lock} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.92 }}

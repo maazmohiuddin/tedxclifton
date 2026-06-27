@@ -1,14 +1,3 @@
 <svg width="208" height="208" viewBox="0 0 208 208" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_f_557_139)">
-<rect x="47.7031" y="47.6992" width="112" height="112" rx="22.4905" fill="#BF00FF"/>
-</g>
-<rect x="48.7031" y="47.6992" width="111.553" height="111.553" rx="22.4905" fill="#BF00FF"/>
-<path d="M104.141 86.7773L87.4414 103.477L70.7422 86.7773L87.4414 70.0781L104.141 86.7773ZM137.539 86.7773L120.84 70.0781L104.141 86.7773L120.84 103.477L137.539 86.7773ZM70.7422 120.176L87.4414 136.875L104.141 120.176L87.4414 103.477L70.7422 120.176ZM104.141 120.176L120.84 136.875L137.539 120.176L120.84 103.477L104.141 120.176Z" fill="#040B1C"/>
-<defs>
-<filter id="filter0_f_557_139" x="0.00312424" y="-0.000782013" width="207.4" height="207.4" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-<feGaussianBlur stdDeviation="23.85" result="effect1_foregroundBlur_557_139"/>
-</filter>
-</defs>
+<path d="M104.141 86.7773L87.4414 103.477L70.7422 86.7773L87.4414 70.0781L104.141 86.7773ZM137.539 86.7773L120.84 70.0781L104.141 86.7773L120.84 103.477L137.539 86.7773ZM70.7422 120.176L87.4414 136.875L104.141 120.176L87.4414 103.477L70.7422 120.176ZM104.141 120.176L120.84 136.875L137.539 120.176L120.84 103.477L104.141 120.176Z" fill="#BF00FF"/>
 </svg>
