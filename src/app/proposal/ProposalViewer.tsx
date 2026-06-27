@@ -556,11 +556,7 @@ function KhiNextSection() {
                     src={`/brand/${d.iconFile}`}
                     alt={d.name}
                     className="mb-4 object-contain transition-transform duration-300 group-hover:scale-110"
-                    style={{
-                      width: "80%",
-                      height: "80%",
-                      filter: `drop-shadow(0 0 10px ${d.color}cc)`,
-                    }}
+                    style={{ width: "48px", height: "48px" }}
                   />
 
                   {/* name */}
