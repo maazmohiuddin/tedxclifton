@@ -11,7 +11,7 @@ import {
   useInView,
   useMotionValue,
 } from "framer-motion";
-import { Lock, Mail, ArrowRight } from "lucide-react";
+import { Lock, Mail, ArrowRight, Phone } from "lucide-react";
 
 // ─── Cursor glow (direct DOM mutation — no re-renders) ────────────────────────
 
@@ -2296,6 +2296,13 @@ function ContactSection() {
                     <span className="underline decoration-white/20 underline-offset-4 group-hover:decoration-[#e62b1e] transition-all duration-300">{email}</span>
                   </motion.a>
                 ))}
+                <motion.a href="tel:+923192882338"
+                  whileHover={{ x: 5 }} transition={{ duration: 0.25 }}
+                  className="group flex items-center gap-3 text-sm text-white/60 transition-colors hover:text-white w-fit"
+                >
+                  <Phone size={14} className="shrink-0 text-[#e62b1e]" />
+                  <span className="underline decoration-white/20 underline-offset-4 group-hover:decoration-[#e62b1e] transition-all duration-300">+92 319 2882338</span>
+                </motion.a>
               </div>
             </div>
           </GlowCard>
