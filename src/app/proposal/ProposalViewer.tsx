@@ -1751,25 +1751,18 @@ function MarketingReachSection() {
 
         <Reveal delay={0.08}>
           <div className="mb-16 grid grid-cols-3 gap-3">
-            {["Meet Our Partners", "Meet Our Partners · 2", "Meet Our Co Partners"].map((label) => (
+            {[1, 2, 3].map((n) => (
               <div
-                key={label}
+                key={n}
                 className="group relative aspect-[4/5] overflow-hidden rounded-xl"
-                style={{ background: "hsla(0,0%,100%,0.04)", border: "1px solid hsla(0,0%,100%,0.08)" }}
+                style={{ border: "1px solid hsla(0,0%,100%,0.08)" }}
               >
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-4 text-center">
-                  <div
-                    className="grid h-8 w-8 place-items-center rounded-full"
-                    style={{ background: "rgba(230,43,30,0.15)", border: "1px solid rgba(230,43,30,0.3)" }}
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e62b1e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
-                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
-                  </div>
-                  <span className="text-[11px] font-semibold text-white/40 leading-tight">{label}</span>
-                  <span className="text-[10px] text-white/20" style={{ letterSpacing: "0.1em" }}>@startuppakistansp</span>
-                </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`/brand/Startup (${n}).png`}
+                  alt={`Startup Pakistan post ${n}`}
+                  className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                />
                 <div
                   aria-hidden
                   className="absolute bottom-0 left-0 right-0 h-px origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
