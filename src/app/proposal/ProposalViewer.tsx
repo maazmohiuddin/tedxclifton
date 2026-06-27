@@ -676,7 +676,7 @@ function HeroSection() {
   }));
 
   return (
-    <section ref={ref} className="relative flex min-h-screen flex-col items-center justify-center bg-[#070103] overflow-hidden">
+    <section ref={ref} className="relative flex min-h-screen flex-col items-center justify-center bg-[#070103]" style={{ overflowX: "clip", overflowY: "visible" }}>
       {/* ── hero video — parallax layer ── */}
       <motion.div
         style={{ y }}
@@ -747,7 +747,7 @@ function HeroSection() {
           </motion.div>
         </motion.div>
 
-        <h1 className="font-display font-light leading-[0.88] tracking-tight w-full max-w-full" style={{ fontSize: "clamp(3rem,10vw,7.5rem)" }}>
+        <h1 className="font-display font-light leading-[0.88] tracking-tight w-full max-w-full" style={{ fontSize: "clamp(3rem,10vw,7.5rem)", paddingRight: "0.12em" }}>
           <AnimatedWords text="Next is" className="text-white" delay={0.4} />
           {" "}
           <AnimatedWords text="Now" className="font-black text-[#e62b1e] italic" delay={0.7} />
