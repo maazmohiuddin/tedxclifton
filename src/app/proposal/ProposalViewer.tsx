@@ -1012,7 +1012,7 @@ function LastEventSection() {
     {
       edition: "2.0",
       theme: "The Other Side",
-      date: "2025",
+      date: "12 Sept 2025",
       tagline: "An invitation to look beyond what we see — into complexity, contradiction, and the unexplored.",
       body: "TEDxClifton 2.0 deepened the promise of its predecessor. Where 1.0 broke through walls, 2.0 asked what exists on the other side — the ideas, people, and perspectives that don't make the front page. The result was a room full of earned wisdom, quiet revolutions, and stories that changed minds.",
       quote: "TEDxClifton keeps proving that Karachi is not just ready for global ideas — it's already producing them.",
@@ -1147,21 +1147,6 @@ function LastEventSection() {
 
                 {/* card body */}
                 <div className="p-7 pt-5">
-                  {/* theme name */}
-                  <p
-                    className="mb-1 text-[11px] font-bold uppercase"
-                    style={{ color: ed.accent, letterSpacing: "0.25em" }}
-                  >
-                    Theme
-                  </p>
-                  <h3
-                    className="mb-4 font-display text-2xl font-extrabold text-white sm:text-3xl"
-                    style={{ letterSpacing: "-0.03em" }}
-                  >
-                    &ldquo;{ed.theme}&rdquo;
-                  </h3>
-                  <p className="mb-6 text-sm leading-relaxed text-white/55">{ed.tagline}</p>
-
                   {/* stats grid */}
                   <div
                     className="mb-7 grid grid-cols-4 overflow-hidden rounded-xl"
