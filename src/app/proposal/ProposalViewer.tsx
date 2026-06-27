@@ -1847,9 +1847,9 @@ function FormerPartnersSection() {
       </div>
 
       {/* single infinite marquee row */}
-      <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
+      <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
         <motion.div
-          className="flex gap-6 w-max"
+          className="flex gap-5 w-max py-3"
           initial={{ x: 0 }}
           animate={{ x: "-50%" }}
           transition={{ repeat: Infinity, duration: 40, ease: "linear", repeatType: "loop" }}
@@ -1859,14 +1859,15 @@ function FormerPartnersSection() {
             return (
               <motion.div
                 key={i}
-                whileHover={{ scale: 1.08, backgroundColor: "rgba(255,255,255,0.07)" }}
-                className="flex h-20 w-36 shrink-0 items-center justify-center rounded-2xl bg-white/[0.04] px-5 py-3 ring-1 ring-white/8 transition-colors duration-300 cursor-default"
+                whileHover={{ scale: 1.06, borderColor: "rgba(230,43,30,0.35)", boxShadow: "0 0 24px rgba(230,43,30,0.12)" }}
+                className="flex h-28 w-48 shrink-0 items-center justify-center rounded-2xl cursor-default transition-all duration-300"
+                style={{ background: "hsla(0,0%,100%,0.03)", border: "1px solid hsla(0,0%,100%,0.08)" }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={`/partners-logos/partner-${n}.png`}
                   alt={`Partner ${(i % PARTNER_COUNT) + 1}`}
-                  className="max-h-full max-w-full object-contain select-none"
+                  className="h-14 w-36 object-contain select-none opacity-75 transition-opacity duration-300 group-hover:opacity-100"
                   draggable={false}
                 />
               </motion.div>
