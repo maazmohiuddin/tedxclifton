@@ -515,10 +515,10 @@ function KhiNextSection() {
 
         <div className="mb-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {KX_DOMAINS.map((d, i) => (
-            <Reveal key={d.name} delay={0.05 + i * 0.05} className="h-full">
-              <TiltCard intensity={5} className="h-full">
+            <Reveal key={d.name} delay={0.05 + i * 0.05}>
+              <TiltCard intensity={5}>
                 <article
-                  className="group relative h-full cursor-default overflow-hidden rounded-2xl p-6 transition-all duration-300"
+                  className="group relative aspect-square cursor-default overflow-hidden rounded-2xl p-5 transition-all duration-300 flex flex-col"
                   style={{
                     background: "hsla(0,0%,100%,0.04)",
                     border: "1px solid hsla(0,0%,100%,0.08)",
@@ -539,44 +539,50 @@ function KhiNextSection() {
                   {/* corner radial glow */}
                   <div
                     aria-hidden
-                    className="pointer-events-none absolute -top-10 -right-10 h-36 w-36 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    className="pointer-events-none absolute -top-10 -right-10 h-40 w-40 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                     style={{ background: `radial-gradient(circle, ${d.color}22 0%, transparent 70%)`, filter: "blur(18px)" }}
                   />
-                  {/* faded corner number — matches screenshot */}
+                  {/* faded corner number */}
                   <span
                     aria-hidden
-                    className="absolute right-5 top-4 select-none font-display text-5xl font-extrabold leading-none"
+                    className="absolute right-4 top-3 select-none font-display text-5xl font-extrabold leading-none"
                     style={{ color: "rgba(255,255,255,0.07)", letterSpacing: "-0.04em" }}
                   >
                     {d.num}
                   </span>
 
-                  {/* icon + name row */}
-                  <div className="relative mb-4 flex items-center gap-3">
-                    <motion.div
-                      className="grid h-14 w-14 shrink-0 place-items-center rounded-xl"
-                      animate={{ boxShadow: [`0 0 10px ${d.color}22`, `0 0 22px ${d.color}55`, `0 0 10px ${d.color}22`] }}
-                      transition={{ repeat: Infinity, duration: 3 + i * 0.4, ease: "easeInOut" }}
+                  {/* icon — large, fills card top area */}
+                  <motion.div
+                    className="relative mb-4 grid shrink-0 place-items-center rounded-2xl"
+                    style={{
+                      width: "56%",
+                      aspectRatio: "1",
+                      background: `${d.color}14`,
+                      border: `1.5px solid ${d.color}55`,
+                    }}
+                    animate={{ boxShadow: [`0 0 12px ${d.color}22`, `0 0 28px ${d.color}55`, `0 0 12px ${d.color}22`] }}
+                    transition={{ repeat: Infinity, duration: 3 + i * 0.4, ease: "easeInOut" }}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={`/brand/${d.iconFile}`}
+                      alt={d.name}
+                      className="object-contain transition-transform duration-300 group-hover:scale-110"
                       style={{
-                        background: `${d.color}14`,
-                        border: `1px solid ${d.color}44`,
+                        width: "72%",
+                        height: "72%",
+                        filter: `drop-shadow(0 0 8px ${d.color}bb)`,
                       }}
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={`/brand/${d.iconFile}`}
-                        alt={d.name}
-                        className="h-9 w-9 object-contain transition-transform duration-300 group-hover:scale-110"
-                        style={{ filter: `drop-shadow(0 0 6px ${d.color}99)` }}
-                      />
-                    </motion.div>
-                    <h3 className="font-display text-[15px] font-semibold text-white" style={{ letterSpacing: "-0.02em" }}>
-                      {d.name}
-                    </h3>
-                  </div>
+                    />
+                  </motion.div>
+
+                  {/* name */}
+                  <h3 className="relative mb-2 font-display text-[15px] font-semibold text-white leading-tight" style={{ letterSpacing: "-0.02em" }}>
+                    {d.name}
+                  </h3>
 
                   {/* description */}
-                  <p className="relative text-[13px] leading-relaxed" style={{ color: "hsla(0,0%,100%,0.45)" }}>
+                  <p className="relative text-[12px] leading-relaxed flex-1" style={{ color: "hsla(0,0%,100%,0.40)" }}>
                     {d.desc}
                   </p>
 
@@ -687,7 +693,7 @@ function HeroSection() {
   }));
 
   return (
-    <section ref={ref} className="relative flex min-h-screen flex-col items-center justify-center bg-[#070103]" style={{ clipPath: "inset(0)" }}>
+    <section ref={ref} className="relative flex min-h-screen flex-col items-center justify-center bg-[#070103]" style={{ overflow: "clip" }}>
       {/* ── hero video — parallax layer ── */}
       <motion.div
         style={{ y }}
