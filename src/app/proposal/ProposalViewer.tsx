@@ -397,11 +397,7 @@ function KhiNextSection() {
           {KX_STATS.map((s, i) => (
             <Reveal key={s.label} delay={0.06 + i * 0.08}>
               <div
-                className="flex flex-col items-center justify-center gap-2 py-10 px-5 text-center transition-colors duration-300 hover:bg-white/[0.02]"
-                style={{
-                  borderRight: i < KX_STATS.length - 1 ? "1px solid hsla(0,0%,100%,0.08)" : undefined,
-                  borderBottom: i < 2 ? "1px solid hsla(0,0%,100%,0.08)" : undefined,
-                }}
+                className={`flex flex-col items-center justify-center gap-2 py-10 px-5 text-center transition-colors duration-300 hover:bg-white/[0.02] ${i < 2 ? "border-b border-white/[0.08] lg:border-b-0" : ""} ${i < KX_STATS.length - 1 ? "border-r border-white/[0.08]" : ""}`}
               >
                 <div
                   className="font-display font-extrabold text-white tabular-nums leading-none"
@@ -1077,7 +1073,7 @@ function LastEventSection() {
                       <img
                         src={ed.wordmark}
                         alt={`TEDxClifton ${ed.edition} — ${ed.theme}`}
-                        className="h-12 w-auto max-w-[200px] opacity-85 transition-opacity duration-300 group-hover:opacity-100"
+                        className="h-12 w-auto max-w-[200px] opacity-[0.85] transition-opacity duration-300 group-hover:opacity-100"
                         style={{ filter: "drop-shadow(0 2px 12px rgba(235,0,40,0.25))" }}
                       />
                     </div>
@@ -1091,14 +1087,13 @@ function LastEventSection() {
                 <div className="p-7 pt-5">
                   {/* stats grid */}
                   <div
-                    className="mb-7 grid grid-cols-4 overflow-hidden rounded-xl"
+                    className="mb-7 grid grid-cols-2 overflow-hidden rounded-xl sm:grid-cols-4"
                     style={{ border: "1px solid hsla(0,0%,100%,0.07)", background: "hsla(0,0%,100%,0.02)" }}
                   >
                     {ed.stats.map((s, si) => (
                       <div
                         key={s.label}
-                        className="flex flex-col items-center justify-center gap-1 py-5 text-center"
-                        style={{ borderRight: si < ed.stats.length - 1 ? "1px solid hsla(0,0%,100%,0.07)" : undefined }}
+                        className={`flex flex-col items-center justify-center gap-1 py-5 text-center ${si < 2 ? "border-b border-white/[0.07] sm:border-b-0" : ""} ${si % 2 === 0 ? "border-r border-white/[0.07]" : "sm:border-r sm:border-white/[0.07]"} ${si === ed.stats.length - 1 ? "border-r-0" : ""}`}
                       >
                         <div
                           className="font-display text-xl font-black tabular-nums sm:text-2xl"
@@ -1444,7 +1439,7 @@ function InstagramLiveCard() {
       </div>
 
       {/* post grid — 3×3, only shown when API returns media */}
-      {!loading && data && data.media.length > 0 && (
+      {!loading && data && (data.media?.length ?? 0) > 0 && (
         <div className="grid grid-cols-3 gap-[2px] bg-white/[0.04]">
           {data.media.slice(0, 9).map((post) => {
             const thumb = post.media_type === "VIDEO" ? post.thumbnail_url : post.media_url;
@@ -1615,11 +1610,7 @@ function MarketingReachSection() {
           {MKT_STATS.map((s, i) => (
             <Reveal key={s.label} delay={0.05 + i * 0.05}>
               <div
-                className="flex flex-col justify-center gap-1 px-6 py-8 transition-colors hover:bg-white/[0.02]"
-                style={{
-                  borderRight: (i % 3 !== 2) ? "1px solid hsla(0,0%,100%,0.07)" : undefined,
-                  borderBottom: i < 3 ? "1px solid hsla(0,0%,100%,0.07)" : undefined,
-                }}
+                className={`flex flex-col justify-center gap-1 px-6 py-8 transition-colors hover:bg-white/[0.02] ${i % 2 === 0 ? "border-r border-white/[0.07]" : "sm:border-r sm:border-white/[0.07]"} ${i % 3 === 2 ? "sm:border-r-0" : ""} ${i < 4 ? "border-b border-white/[0.07]" : ""} ${i < 3 ? "" : "sm:border-b-0"}`}
               >
                 <div
                   className="font-display font-black tabular-nums leading-none text-[#e62b1e]"
@@ -2300,10 +2291,11 @@ function TiersSection() {
 // ─── Agreement ────────────────────────────────────────────────────────────────
 
 const TIER_OPTIONS = [
-  { label: "Platinum Sponsor", price: "2,500,000 PKR" },
-  { label: "Gold Sponsor", price: "2,000,000 PKR" },
-  { label: "Silver Sponsor", price: "1,500,000 PKR" },
-  { label: "Bronze Sponsor", price: "1,000,000 PKR" },
+  { label: "Title Sponsor",    price: "2,500,000 PKR" },
+  { label: "Platinum Sponsor", price: "2,000,000 PKR" },
+  { label: "Gold Sponsor",     price: "1,500,000 PKR" },
+  { label: "Silver Sponsor",   price: "1,000,000 PKR" },
+  { label: "Bronze Sponsor",   price: "700,000 PKR" },
 ];
 
 function AgreementSection() {
@@ -2321,7 +2313,7 @@ function AgreementSection() {
           <GlowCard className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 space-y-8">
             <div>
               <p className="text-sm font-semibold text-white/70 mb-4">Sponsorship Level</p>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {TIER_OPTIONS.map((t) => (
                   <label key={t.label} className="flex cursor-pointer items-center gap-3 rounded-xl border border-white/10 p-4 transition-all duration-200 hover:border-[#e62b1e]/40 hover:bg-[#e62b1e]/5 group">
                     <input type="radio" name="tier" className="accent-[#e62b1e]" />
