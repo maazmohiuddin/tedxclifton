@@ -1421,7 +1421,12 @@ function BecomeASponsorSection() {
 
 // ─── Former Partners — single marquee ────────────────────────────────────────
 
-const PARTNER_COUNT = 20;
+const PARTNER_NUMS = [
+  1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
+  21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,
+  41,42,43,44,45,46,52,57,65,72,73,74,75,76,77,78,79,80,81,82,
+  83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,
+];
 
 // ─── Instagram Live Card ──────────────────────────────────────────────────────
 
@@ -1854,25 +1859,22 @@ function FormerPartnersSection() {
           animate={{ x: "-50%" }}
           transition={{ repeat: Infinity, duration: 40, ease: "linear", repeatType: "loop" }}
         >
-          {Array.from({ length: PARTNER_COUNT * 2 }, (_, i) => {
-            const n = String((i % PARTNER_COUNT) + 1).padStart(2, "0");
-            return (
-              <motion.div
-                key={i}
-                whileHover={{ scale: 1.06, borderColor: "rgba(230,43,30,0.35)", boxShadow: "0 0 24px rgba(230,43,30,0.12)" }}
-                className="flex h-28 w-48 shrink-0 items-center justify-center rounded-2xl cursor-default transition-all duration-300"
-                style={{ background: "hsla(0,0%,100%,0.03)", border: "1px solid hsla(0,0%,100%,0.08)" }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={`/partners-logos/partner-${n}.png`}
-                  alt={`Partner ${(i % PARTNER_COUNT) + 1}`}
-                  className="h-14 w-36 object-contain select-none opacity-75 transition-opacity duration-300 group-hover:opacity-100"
-                  draggable={false}
-                />
-              </motion.div>
-            );
-          })}
+          {[...PARTNER_NUMS, ...PARTNER_NUMS].map((n, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ scale: 1.06, borderColor: "rgba(230,43,30,0.35)", boxShadow: "0 0 24px rgba(230,43,30,0.12)" }}
+              className="flex h-28 w-48 shrink-0 items-center justify-center rounded-2xl cursor-default transition-all duration-300"
+              style={{ background: "hsla(0,0%,100%,0.03)", border: "1px solid hsla(0,0%,100%,0.08)" }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`/partners/Partners (${n}).png`}
+                alt={`Partner ${n}`}
+                className="h-14 w-36 object-contain select-none opacity-75 transition-opacity duration-300"
+                draggable={false}
+              />
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>
