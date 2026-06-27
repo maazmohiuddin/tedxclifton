@@ -551,29 +551,18 @@ function KhiNextSection() {
                     {d.num}
                   </span>
 
-                  {/* icon — large, fills card top area */}
-                  <motion.div
-                    className="relative mb-4 grid shrink-0 place-items-center rounded-2xl"
+                  {/* icon */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`/brand/${d.iconFile}`}
+                    alt={d.name}
+                    className="mb-4 object-contain transition-transform duration-300 group-hover:scale-110"
                     style={{
-                      width: "56%",
-                      aspectRatio: "1",
-                      background: `${d.color}14`,
+                      width: "80%",
+                      height: "80%",
+                      filter: `drop-shadow(0 0 10px ${d.color}cc)`,
                     }}
-                    animate={{ boxShadow: [`0 0 12px ${d.color}22`, `0 0 28px ${d.color}55`, `0 0 12px ${d.color}22`] }}
-                    transition={{ repeat: Infinity, duration: 3 + i * 0.4, ease: "easeInOut" }}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={`/brand/${d.iconFile}`}
-                      alt={d.name}
-                      className="object-contain transition-transform duration-300 group-hover:scale-110"
-                      style={{
-                        width: "72%",
-                        height: "72%",
-                        filter: `drop-shadow(0 0 8px ${d.color}bb)`,
-                      }}
-                    />
-                  </motion.div>
+                  />
 
                   {/* name */}
                   <h3 className="relative mb-2 font-display text-[15px] font-semibold text-white leading-tight" style={{ letterSpacing: "-0.02em" }}>
@@ -692,7 +681,7 @@ function HeroSection() {
   }));
 
   return (
-    <section ref={ref} className="relative flex min-h-screen flex-col items-center justify-center bg-[#070103]" style={{ overflow: "clip" }}>
+    <section ref={ref} className="relative flex min-h-screen flex-col items-center justify-center bg-[#070103] overflow-hidden">
       {/* ── hero video — parallax layer ── */}
       <motion.div
         style={{ y }}
@@ -763,12 +752,10 @@ function HeroSection() {
           </motion.div>
         </motion.div>
 
-        <h1 className="font-display font-light leading-[0.88] tracking-tight overflow-visible" style={{ fontSize: "clamp(3.5rem,11vw,8rem)" }}>
-          <span className="overflow-visible whitespace-nowrap">
-            <AnimatedWords text="Next is" className="text-white" delay={0.4} />
-            {" "}
-            <AnimatedWords text="Now" className="font-black text-[#e62b1e] italic" delay={0.7} />
-          </span>
+        <h1 className="font-display font-light leading-[0.88] tracking-tight w-full max-w-full" style={{ fontSize: "clamp(3rem,10vw,7.5rem)" }}>
+          <AnimatedWords text="Next is" className="text-white" delay={0.4} />
+          {" "}
+          <AnimatedWords text="Now" className="font-black text-[#e62b1e] italic" delay={0.7} />
         </h1>
 
         <motion.div
